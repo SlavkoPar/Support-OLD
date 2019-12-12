@@ -137,17 +137,17 @@ const getQuestionGroupFromLocalStorage = (): Promise<any> => {
 		 questions: [
 			{
 				questionId: 31,
-				text: 'Does client has promocode',
+				text: 'Does client has promocode?',
 				words : [],
 				answers: [222]
 			}, {
 				questionId: 32,
-				text: 'What propocode do we use?',
+				text: 'What promocode do we use?',
 				words : [],
 				answers: [114]
 			}, {
 				questionId: 33,
-				text: 'Why taxes are less than 5%',
+				text: 'Why taxes are less than 5%?',
 				words : [],
 				answers: [111, 114]
 			}, {

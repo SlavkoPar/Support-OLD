@@ -2,7 +2,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 
 
-Try it 
+Try it: <br /> 
 [https://slavkopar.github.io/Support/](https://slavkopar.github.io/Support/)
 
 

@@ -6,7 +6,7 @@ import QuestionList from '../containers/QuestionList';
 const App: React.SFC<{}> = () => {
   return (
     <>
-      <h1>Questions &amp; Answers</h1>
+      <h2 style={{textAlign: 'center'}}>Questions &amp; Answers</h2>
       <QuestionList />
     </>
   );

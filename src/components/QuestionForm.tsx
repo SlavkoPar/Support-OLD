@@ -50,8 +50,7 @@ export const QuestionForm: React.FC<IProps> = (props: IProps) => {
         <div>{formik.errors.text}</div>
       ) : null}
 		
-
-		<h4>Answers</h4>
+		<br />
 		<QuestionAnswers question={props.question} questionAnswers={props.questionAnswers} />
 
 		{/* 

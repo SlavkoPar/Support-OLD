@@ -3,10 +3,13 @@ import * as React from 'react';
 // import { IAppState } from '../store/Store';
 
 import { IQuestion, IQuestionGroup } from '../reducers/questionReducer';
+
 import { IAnswer } from '../reducers/answerReducer';
 
 import { AutoSuggest } from './AutoSuggest';
 import { QuestionForm } from './QuestionForm'
+
+import Answers from './Answers'
 
 // Create the containers interface
 interface IProps {
@@ -14,25 +17,39 @@ interface IProps {
 	question?: IQuestion;
 	questionAnswers: IAnswer[];
 	onSelectQuestion: (questionId: number) => IQuestion;
+	answers: IAnswer[]
 }
 
 // class QuestionList extends React.Component<IProps> {
 const QuestionList: React.FC<IProps> = (props: IProps) => {
-    const { questionGroups, question, questionAnswers, onSelectQuestion } = props;
+    const { questionGroups, question, questionAnswers, onSelectQuestion, answers } = props;
     return (
       <div className="name-container">
 
-			<AutoSuggest questionGroups={questionGroups} onSelectQuestion={onSelectQuestion}/>
+			<div className="two-columns">
+				<div className="a">
+					<AutoSuggest questionGroups={questionGroups} onSelectQuestion={onSelectQuestion}/>
+				</div>
+				<div className="b">
+					{questionGroups && question &&
+						<div style={{border: '1px solid silver', borderRadius: '5px', padding: '10px'}}>
+							<h4>Question</h4>
+							<QuestionForm question={question} questionAnswers={questionAnswers} />
+						</div>
+					}
+				</div>
+			</div>
 
 			<hr />
 
+			<h4 style={{textAlign: 'center'}}>Maintenance (visible only for Admins) </h4>
 			<div className="two-columns">
 				<div className="a">
-					<h3>Questions</h3>
+					<h3>All Questions by sections</h3>
 					{questionGroups &&
 						questionGroups.map(questionGroup => {
 							return (
-								<div key={questionGroup.title}>
+								<div key={questionGroup.title} style={{ paddingBottom: '5px'}}>
 									<div>{questionGroup.title}</div>
 									<div>
 										{questionGroup.questions.map(question => 
@@ -50,12 +67,8 @@ const QuestionList: React.FC<IProps> = (props: IProps) => {
 					})}
 				</div>
 				<div className="b">
-					{questionGroups && question &&
-						<div>
-							<h3>Question</h3>
-							<QuestionForm question={question} questionAnswers={questionAnswers} />
-						</div>
-					}
+					<h3>All Answers</h3>
+					<Answers answers={answers} />
 				</div>
 			</div>
       </div>

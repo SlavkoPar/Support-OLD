@@ -142,29 +142,19 @@ const getQuestionGroupFromLocalStorage = (): Promise<any> => {
 				answers: [222]
 			}, {
 				questionId: 32,
-				text: 'Python',
+				text: 'What propocode do we use?',
 				words : [],
-				answers: []
+				answers: [114]
 			}, {
 				questionId: 33,
-				text: 'Java',
+				text: 'Why taxes are less than 5%',
 				words : [],
 				answers: [111, 114]
 			}, {
 				questionId: 34,
-				text: 'Javascript',
+				text: 'When do we do something?',
 				words : [],
 				answers: [113]
-			}, {
-				questionId: 35,
-				text: 'PHP',
-				words : [],
-				answers: [111]
-			}, {
-				questionId: 36,
-				text: 'Ruby',
-				words : [],
-				answers: [222]
 			}
 		 ]
 	}

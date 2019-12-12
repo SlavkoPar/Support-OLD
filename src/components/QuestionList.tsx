@@ -33,7 +33,7 @@ const QuestionList: React.FC<IProps> = (props: IProps) => {
 				<div className="b">
 					{questionGroups && question &&
 						<div style={{border: '1px solid silver', borderRadius: '5px', padding: '10px'}}>
-							<h4>Question</h4>
+							<h4 style={{marginTop: 0}}>Question</h4>
 							<QuestionForm question={question} questionAnswers={questionAnswers} />
 						</div>
 					}

@@ -14,7 +14,7 @@ import QuestionList from '../components/QuestionList'
 
 
 const joinAnswers = (question: IQuestion | undefined, answers: IAnswer[]) : IAnswer[]=> {
-	if (question === undefined || question.answers.length == 0 || answers === undefined)
+	if (question === undefined || question.answers.length === 0 || answers === undefined)
 		return [];
 	const answerIds = question.answers; 
 	return answers.filter(answer => answerIds.includes(answer.answerId));

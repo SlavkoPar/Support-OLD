@@ -26,7 +26,7 @@ export const AnswerForm: React.FC<IProps> = (props: IProps) => {
         .required('Required'),
     }),
     onSubmit: (values) => {
-		alert(JSON.stringify(values, null, 2));
+		// alert(JSON.stringify(values, null, 2));
 		props.add(values)
     },
   });

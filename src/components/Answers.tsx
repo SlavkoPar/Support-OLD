@@ -14,11 +14,11 @@ interface IProps {
 }
 
 const Answers: React.FC<IProps> = (props: IProps) => {
-	let { slug } = useParams();
+	// let { slug } = useParams();
 	const { answers, answer, adding, setAdding, cancel, add } = props;
 	return (
 		<div className="name-container">
-			slug: {slug}
+			{/* slug: {slug} */}
 			{ answers.length === 0 && 
 				<div>
 					No answers at all

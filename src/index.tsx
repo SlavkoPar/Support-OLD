@@ -1,36 +1,73 @@
-import * as React from 'react';
+import React from 'react';
 import * as ReactDOM from 'react-dom';
 
-/* Make the store available to all container 
-components in the application without passing it explicitly */
+import { HashRouter as Router, Route, Switch, Link } from 'react-router-dom' // useRouteMatch
+
 import { Provider } from 'react-redux';
 
-// Store type from Redux
 import { Store } from 'redux';
 
-// Import the store function and state
 import configureStore, { IAppState } from './store/Store';
 import { getAllQuestions } from './actions/QuestionActions';
 import { getAllAnswers } from './actions/AnswerActions';
 
 import './index.css';
 import App from './components/App';
+import Answers from './containers/Answers'
+import Questions from './containers/Questions'
+
 
 interface IProps {
   store: Store<IAppState>;
 }
 
-/* 
-Create a root component that receives the store via props
-and wraps the App component with Provider, giving props to containers
-*/
+
 const Root: React.SFC<IProps> = props => {
-  return (
-    <Provider store={props.store}>
-      <App />
-    </Provider>
-  );
+	return (
+		<Provider store={props.store}>
+			<Router>
+				<nav>
+					<ul>
+						<li>
+							<Link to="/">Supporter</Link>
+						</li>
+						<li>
+							<Link to="/questions">Questions</Link>
+						</li>
+						<li>
+							<Link to="/answers/pera">Answers</Link>
+						</li>
+						<li className="push-right">
+							<Link to="/answers/pera">Sign In</Link>
+						</li>
+					</ul>					
+				</nav>
+				<div>
+					<Switch>
+						<Route exact path="/">
+							<App />
+						</Route>
+						<Route path="/questions">
+							<Questions />
+						</Route>
+						<Route path="/answers/:slug">
+							<Answers />
+						</Route>
+						{/* <Route
+							path="/blog2/:slug"
+							render={({ match }) => {
+								// Do whatever you want with the match...
+								return <div>{match}</div>;
+							}}
+						/> */}
+					</Switch>
+				</div>	
+			</Router>
+		</Provider>
+	);
 };
+
+
 
 // Generate the store
 const store = configureStore();

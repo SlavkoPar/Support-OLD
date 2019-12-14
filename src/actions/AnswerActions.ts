@@ -9,7 +9,9 @@ import { IAnswer, IAnswerState } from '../reducers/answerReducer';
 // Create Action Constants
 export enum AnswerActionTypes {
   GET_ALL_ANSWERS = 'GET_ALL_ANSWERS',
-  GET_ANSWER = 'GET_ANSWER'
+  GET_ANSWER = 'GET_ANSWER',
+  ADD_ANSWER = 'ADD_ANSWER',
+  SET_ADDING = 'SET_ADDING'
 }
 
 // Interface for Get All Action Type
@@ -23,9 +25,18 @@ export interface IAnswerGetAll {
 	 answer: IAnswer;
  }
 
+ export interface ISetAdding {
+	type: AnswerActionTypes.SET_ADDING;
+	adding: boolean;
+}
+
+ export interface IAddAnswer {
+	type: AnswerActionTypes.ADD_ANSWER;
+	answer: IAnswer;
+}
 
 // Combine the action types with a union (we assume there are more)
-export type AnswerActions = IAnswerGetAll | IGetAnswer;
+export type AnswerActions = IAnswerGetAll | IGetAnswer | IAddAnswer | ISetAdding;
 
 // Get All Action <Promise<Return Type>, State Interface, Type of Param, Type of Action>
 export const getAllAnswers: ActionCreator<
@@ -45,6 +56,40 @@ export const getAllAnswers: ActionCreator<
   };
 };
 
+
+export const setAdding: ActionCreator<
+  ThunkAction<any, IAnswerState, null, ISetAdding>
+> = (adding: boolean) => {
+  return (dispatch: Dispatch) => {
+    try {
+      dispatch({
+        type: AnswerActionTypes.SET_ADDING,
+        adding: adding
+      });
+    } catch (err) {
+      console.error(err);
+    }
+  };
+};
+
+export const addAnswer: ActionCreator<
+  ThunkAction<Promise<any>, IAnswerState, null, IAddAnswer>
+> = (answer: IAnswer) => {
+  return async (dispatch: Dispatch) => {
+    try {
+		// const response = await axios.get('https://swapi.co/api/people/');
+		const response = await addAnswerToLocalStorage(answer); 
+      dispatch({
+        type: AnswerActionTypes.ADD_ANSWER,
+        answer: response.data.results,
+      });
+    } catch (err) {
+      console.error(err);
+    }
+  };
+};
+
+
 const getAnswersFromLocalStorage = (): Promise<any> => {
 	return new Promise((resolve, reject) => {
 		setTimeout(() => {
@@ -53,6 +98,21 @@ const getAnswersFromLocalStorage = (): Promise<any> => {
   			 'content-type': 'application/json',
   			 'data' : {
   				'results': answers
+  			 }
+  		  })
+  		}, 50)
+  	 })
+  
+  }
+
+  const addAnswerToLocalStorage = (answer: IAnswer): Promise<any> => {
+	return new Promise((resolve, reject) => {
+		setTimeout(() => {
+  		  resolve({
+  			 'status': 200,
+  			 'content-type': 'application/json',
+  			 'data' : {
+  				'results': answer
   			 }
   		  })
   		}, 50)
@@ -79,3 +139,5 @@ const getAnswersFromLocalStorage = (): Promise<any> => {
 		options : []
 	}
 ];
+
+

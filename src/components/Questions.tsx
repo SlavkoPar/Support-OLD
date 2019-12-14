@@ -20,8 +20,7 @@ interface IProps {
 	answers: IAnswer[]
 }
 
-// class QuestionList extends React.Component<IProps> {
-const QuestionList: React.FC<IProps> = (props: IProps) => {
+const Questions: React.FC<IProps> = (props: IProps) => {
     const { questionGroups, question, questionAnswers, onSelectQuestion, answers } = props;
     return (
       <div className="name-container">
@@ -39,10 +38,41 @@ const QuestionList: React.FC<IProps> = (props: IProps) => {
 					}
 				</div>
 			</div>
-			
+
+			<hr />
+
+			<h4 style={{textAlign: 'center'}}>Maintenance (visible only for Admins) </h4>
+			<div className="two-columns">
+				<div className="a">
+					<h3>All Questions by sections</h3>
+					{questionGroups &&
+						questionGroups.map(questionGroup => {
+							return (
+								<div key={questionGroup.title} style={{ paddingBottom: '5px'}}>
+									<div>{questionGroup.title}</div>
+									<div>
+										{questionGroup.questions.map(question => 
+											<div key={question.questionId} className="name">
+												<button 
+													className="question-button"
+													onClick={() => onSelectQuestion(question.questionId)}>
+													{question.text}
+												</button>
+											</div>
+										)}
+									</div>
+								</div>
+							);
+					})}
+				</div>
+				<div className="b">
+					{/* <h3>All Answers</h3>
+					<Answers answers={answers} /> */}
+				</div>
+			</div>
       </div>
     );
   }
 
-export default QuestionList
+export default Questions
 

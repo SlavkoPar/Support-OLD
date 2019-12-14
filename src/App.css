@@ -38,6 +38,33 @@
 }
 
 
+/* <nav> */
+nav ul {
+	display: flex;
+	flex-wrap: wrap;
+	margin: 10 -10px;
+	list-style: none;
+ }
+
+ nav li {
+	 margin: 0 10px;
+ }
+ 
+ .push-right {
+	margin-left: auto;
+ }
+
+ nav a {
+	text-decoration: none;
+	color: #000;
+	border: 2px solid rgb(96, 139, 168);
+	border-radius: 5px;
+	background-color: rgba(96, 139, 168, .2);
+	padding: 10px;
+	display: block;
+}
+
+
 /*  Two/Three Columns */
 
 .two-columns {

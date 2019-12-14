@@ -16,13 +16,15 @@ export interface IAnswer {
 export interface IAnswerState {
 	readonly answers: IAnswer[];
 	readonly answer?: IAnswer;
-	loading: boolean
+	loading: boolean;
+	adding: boolean;
 }
 
  // Define the initial state
 const initialAnswerState: IAnswerState = {
 	answers: [],
-	loading: false
+	loading: false,
+	adding: false,
  };
  
 
@@ -36,6 +38,19 @@ export const answerReducer: Reducer<IAnswerState, AnswerActions> = (
       return {
         ...state,
         answers: action.answers,
+      };
+	}    
+   case AnswerActionTypes.SET_ADDING: {
+      return {
+		  ...state,
+		  adding: action.adding,
+        answer: { answerId: Math.max(...state.answers.map(a => a.answerId)) + 1, text:  ''}
+      };
+	}    
+	case AnswerActionTypes.ADD_ANSWER: {
+      return {
+        ...state,
+        answers: [...state.answers, action.answer]
       };
 	}    
 	default:

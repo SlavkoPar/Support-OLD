@@ -24,14 +24,16 @@ export interface IQuestionGroup {
 export interface IQuestionState {
   readonly questionGroups: IQuestionGroup[];
   readonly question: IQuestion | undefined;
-  loading: boolean
+  loading: boolean,
+  adding: boolean
 }
 
 // Define the initial state
 const initialQuestionState: IQuestionState = {
 	questionGroups: [],
 	question: undefined,
-	loading: false
+	loading: false,
+	adding: false
 };
 
 

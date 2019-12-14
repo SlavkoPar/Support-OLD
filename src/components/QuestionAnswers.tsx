@@ -10,7 +10,7 @@ interface IProps {
 }
 
 const QuestionAnswers: React.FC<IProps> = (props: IProps) => {
-    const { question, questionAnswers } = props;
+    const { questionAnswers } = props;  // question, 
     return (
       <div className="name-container">
 			{ questionAnswers.length === 0 && 

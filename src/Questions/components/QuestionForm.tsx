@@ -44,14 +44,15 @@ export const QuestionForm: React.FC<IProps> = (props: IProps) => {
         type="text"
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
-        value={formik.values.text}
+		  value={formik.values.text}
+		  disabled
       />
       {formik.touched.text && formik.errors.text ? (
         <div>{formik.errors.text}</div>
       ) : null}
 		
 		<br />
-		<QuestionAnswers question={props.question} questionAnswers={props.questionAnswers} />
+		<QuestionAnswers question={props.question} questionAnswers={props.questionAnswers} canEdit={true} />
 
 		{/* 
       <label htmlFor="answers">Answers</label>

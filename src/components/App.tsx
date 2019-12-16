@@ -14,7 +14,7 @@ const App: React.SFC<{}> = () => {
   return (
     <>
       <h2 style={{textAlign: 'center'}}>Questions &amp; Answers</h2>
-      <QuestionList />
+      <QuestionList canEdit={false} />
     </>
   );
 };

@@ -1,16 +1,20 @@
 import * as React from 'react';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faWindowClose } from '@fortawesome/free-solid-svg-icons'
+
 
 import { IQuestion } from '../reducer';
 import { IAnswer } from '../../Answers/reducer';
 
 interface IProps {
 	question: IQuestion,
-	questionAnswers: IAnswer[]
+	questionAnswers: IAnswer[],
+	canEdit: boolean
 }
 
 const QuestionAnswers: React.FC<IProps> = (props: IProps) => {
-    const { questionAnswers } = props;  // question, 
+    const { questionAnswers, canEdit } = props;  // question, 
     return (
       <div className="name-container">
 			{ questionAnswers.length === 0 && 
@@ -18,27 +22,36 @@ const QuestionAnswers: React.FC<IProps> = (props: IProps) => {
 					No answers yet
 				</div>
 			}
-			{ questionAnswers.length >0 && 
+			{ questionAnswers.length > 0 && 
+				<>
 				<table>
 					<thead>
 						<tr>
 							<th>Answer</th>
-							<th></th>
-							<th></th>
+							{ canEdit && <th></th> }
 						</tr>
 					</thead>
 					<tbody>
 						{ questionAnswers.map(answer => 
-							<tr>
-								<td key={answer.answerId} className="name">
+							<tr key={answer.answerId}>
+								<td className="name">
 									{answer.text}
 								</td>
-								<td>edit</td>
-								<td>remove</td>
+								{ canEdit &&
+									<td>
+										<button className="button-remove" title="Remove Answer" onClick={() => {}}>  {/* remove(answer.answerId) */}
+											<FontAwesomeIcon icon={faWindowClose}  color='lightblue' />
+										</button>
+									</td>
+								}
 							</tr>
 						)}
 					</tbody>
 				</table>
+				{ canEdit && 
+					<button className="assign-answer" onClick={() => {}}>Assign another Answer to Question</button>
+				}
+				</>
 			}
       </div>
     );

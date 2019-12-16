@@ -26,7 +26,8 @@ const mapStateToProps = (store: IAppState) => {
 	 questionGroups: store.questionState.questionGroups,
 	 question: store.questionState.question,
 	 questionAnswers: joinAnswers(store.questionState.question, store.answerState.answers),
-	 answers: store.answerState.answers
+	 answers: store.answerState.answers,
+	 canEdit: true
   };
 };
 

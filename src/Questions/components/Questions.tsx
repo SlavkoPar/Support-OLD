@@ -17,11 +17,12 @@ interface IProps {
 	question?: IQuestion;
 	questionAnswers: IAnswer[];
 	onSelectQuestion: (questionId: number) => IQuestion;
-	answers: IAnswer[]
+	answers: IAnswer[],
+	canEdit: boolean
 }
 
 const Questions: React.FC<IProps> = (props: IProps) => {
-    const { questionGroups, question, questionAnswers, onSelectQuestion } = props;
+    const { questionGroups, question, questionAnswers, onSelectQuestion, canEdit } = props;
     return (
       <div className="name-container">
 
@@ -33,7 +34,7 @@ const Questions: React.FC<IProps> = (props: IProps) => {
 					{questionGroups && question &&
 						<div style={{border: '1px solid silver', borderRadius: '5px', padding: '10px'}}>
 							<h4 style={{marginTop: 0}}>Question</h4>
-							<QuestionForm question={question} questionAnswers={questionAnswers} />
+							<QuestionForm question={question} questionAnswers={questionAnswers} canEdit={canEdit}/>
 						</div>
 					}
 				</div>

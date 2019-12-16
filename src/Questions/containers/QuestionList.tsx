@@ -20,13 +20,18 @@ const joinAnswers = (question: IQuestion | undefined, answers: IAnswer[]) : IAns
 	return answers.filter(answer => answerIds.includes(answer.answerId));
 }
 
+interface IProps {
+	canEdit: boolean
+}
+
 // Grab the questions from the store and make them available on props
-const mapStateToProps = (store: IAppState) => {
+const mapStateToProps = (store: IAppState, props: IProps) => {
   return {
 	 questionGroups: store.questionState.questionGroups,
 	 question: store.questionState.question,
 	 questionAnswers: joinAnswers(store.questionState.question, store.answerState.answers),
-	 answers: store.answerState.answers
+	 answers: store.answerState.answers,
+	 canEdit: props.canEdit
   };
 };
 

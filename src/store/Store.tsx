@@ -4,12 +4,12 @@ import thunk from 'redux-thunk';
 import {
   questionReducer,
   IQuestionState,
-} from '../reducers/questionReducer';
+} from '../Questions/reducer';
 
 import {
 	answerReducer,
 	IAnswerState,
- } from '../reducers/answerReducer';
+ } from '../Answers/reducer';
  
  
 

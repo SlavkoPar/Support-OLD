@@ -5,7 +5,7 @@ import AutosuggestHighlightMatch from "autosuggest-highlight/match";
 import AutosuggestHighlightParse from "autosuggest-highlight/parse";
 
 
-import { IQuestion, IQuestionGroup }  from '../reducers/questionReducer'
+import { IQuestion, IQuestionGroup }  from '../Questions/reducer'
 import './AutoSuggest.css'
 
 

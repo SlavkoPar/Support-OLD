@@ -1,7 +1,7 @@
 import * as React from 'react';
 import '../App.css';
 
-import QuestionList from '../containers/QuestionList';
+import QuestionList from '../Questions/containers/QuestionList';
 
 
 // type TParams = { id: string };

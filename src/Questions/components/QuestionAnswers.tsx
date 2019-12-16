@@ -1,8 +1,8 @@
 import * as React from 'react';
 
 
-import { IQuestion } from '../reducers/questionReducer';
-import { IAnswer } from '../reducers/answerReducer';
+import { IQuestion } from '../reducer';
+import { IAnswer } from '../../Answers/reducer';
 
 interface IProps {
 	question: IQuestion,
@@ -21,9 +21,11 @@ const QuestionAnswers: React.FC<IProps> = (props: IProps) => {
 			{ questionAnswers.length >0 && 
 				<table>
 					<thead>
-						<th>Answer</th>
-						<th></th>
-						<th></th>
+						<tr>
+							<th>Answer</th>
+							<th></th>
+							<th></th>
+						</tr>
 					</thead>
 					<tbody>
 						{ questionAnswers.map(answer => 

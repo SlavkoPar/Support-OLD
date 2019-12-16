@@ -1,16 +1,16 @@
 // import * as React from 'react';
 import { connect } from 'react-redux';
 
-import { IAppState } from '../store/Store';
-import { IQuestion } from '../reducers/questionReducer'
-import { IAnswer } from '../reducers/answerReducer'
+import { IAppState } from '../../store/Store';
+import { IQuestion } from '../reducer'
+import { IAnswer } from '../../Answers/reducer'
 
 // import { IQuestion } from '../reducers/questionReducer';
 import { Dispatch } from 'redux';  // ActionCreatorsMapObject, 
 
-import { QuestionActions,  getQuestion} from '../actions/QuestionActions'  // getAllQuestions, IGetQuestion
+import { QuestionActions,  getQuestion} from '../actions'  // getAllQuestions, IGetQuestion
 
-import Questions from '../components/Questions'
+import QuestionList from '../components/QuestionList'
 
 
 const joinAnswers = (question: IQuestion | undefined, answers: IAnswer[]) : IAnswer[]=> {
@@ -36,4 +36,4 @@ const mapDispatchToProps = (dispatch: Dispatch<QuestionActions>) => {
 	}
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Questions);
+export default connect(mapStateToProps, mapDispatchToProps)(QuestionList);

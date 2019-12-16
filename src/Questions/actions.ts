@@ -4,7 +4,7 @@ import { ThunkAction } from 'redux-thunk';
 // import axios from 'axios';
 
 // Import Question Typing
-import { IQuestion, IQuestionGroup, IQuestionState } from '../reducers/questionReducer';
+import { IQuestion, IQuestionGroup, IQuestionState } from './reducer';
 
 
 // Create Action Constants

@@ -1,52 +1,42 @@
 import React from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup'
-import { IAnswer } from '../reducers/answerReducer';
+import { IQuestion } from '../reducer';
+import { IAnswer } from '../../Answers/reducer';
 
+import QuestionAnswers from './QuestionAnswers'
 
 interface IProps {
-	answer: IAnswer;
-	adding: boolean;
-	options?: string[],
-	cancel: () => void;
-	add: (answer: IAnswer) => void;
+	question: IQuestion;
+	questionAnswers: IAnswer[];
  }
 
-export const AnswerForm: React.FC<IProps> = (props: IProps) => {
+export const QuestionForm: React.FC<IProps> = (props: IProps) => {
   const formik = useFormik({
 	 enableReinitialize: true,
     initialValues: {
-      answerId: props.answer.answerId,
-		text: props.answer.text,
-		options: props.answer.options
+      text: props.question.text,
+      answers: props.question.answers,
+      email: '',
     },
     validationSchema: Yup.object({
       text: Yup.string()
         .max(150, 'Must be 150 characters or less')
         .required('Required'),
+      answers: Yup.string()
+        .max(20, 'Must be 20 characters or less')
+        .required('Required'),
+      email: Yup.string()
+        .email('Invalid email address')
+        .required('Required'),
     }),
-    onSubmit: (values) => {
-		// alert(JSON.stringify(values, null, 2));
-		props.add(values)
+    onSubmit: values => {
+      alert(JSON.stringify(values, null, 2));
     },
   });
 
   return (
     <form onSubmit={formik.handleSubmit}>
-
-		<label htmlFor="answerId"></label>
-      <input
-        id="answerId"
-        name="answerId"
-        type="text"
-        onChange={formik.handleChange}
-        onBlur={formik.handleBlur}
-        value={formik.values.answerId}
-      />
-      {formik.touched.answerId && formik.errors.answerId ? (
-        <div>{formik.errors.answerId}</div>
-      ) : null}
-
       <label htmlFor="text"></label>
       <input
         id="text"
@@ -60,6 +50,9 @@ export const AnswerForm: React.FC<IProps> = (props: IProps) => {
         <div>{formik.errors.text}</div>
       ) : null}
 		
+		<br />
+		<QuestionAnswers question={props.question} questionAnswers={props.questionAnswers} />
+
 		{/* 
       <label htmlFor="answers">Answers</label>
       <input
@@ -74,6 +67,8 @@ export const AnswerForm: React.FC<IProps> = (props: IProps) => {
         <div>{formik.errors.answers}</div>
       ) : null}
 
+
+
       <label htmlFor="email">Email Address</label>
       <input
         id="email"
@@ -87,8 +82,7 @@ export const AnswerForm: React.FC<IProps> = (props: IProps) => {
         <div>{formik.errors.email}</div>
       ) : null} */}
 
-		<button onClick={() => props.cancel()}>Cancel</button>
-      <button type="submit">Save</button>
+      {/* <button type="submit">Submit</button> */}
     </form>
   );
 };

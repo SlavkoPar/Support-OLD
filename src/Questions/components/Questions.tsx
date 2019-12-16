@@ -2,12 +2,12 @@ import * as React from 'react';
 
 // import { IAppState } from '../store/Store';
 
-import { IQuestion, IQuestionGroup } from '../reducers/questionReducer';
+import { IQuestion, IQuestionGroup } from '../reducer';
 
-import { IAnswer } from '../reducers/answerReducer';
+import { IAnswer } from '../../Answers/reducer';
 
-import { AutoSuggest } from './AutoSuggest';
-import { QuestionForm } from './QuestionForm'
+import { AutoSuggest } from '../../components/AutoSuggest';
+import { QuestionForm } from '../../components/QuestionForm'
 
 // import Answers from './Answers'
 
@@ -21,7 +21,7 @@ interface IProps {
 }
 
 const Questions: React.FC<IProps> = (props: IProps) => {
-    const { questionGroups, question, questionAnswers, onSelectQuestion, answers } = props;
+    const { questionGroups, question, questionAnswers, onSelectQuestion } = props;
     return (
       <div className="name-container">
 

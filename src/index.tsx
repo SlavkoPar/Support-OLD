@@ -8,13 +8,13 @@ import { Provider } from 'react-redux';
 import { Store } from 'redux';
 
 import configureStore, { IAppState } from './store/Store';
-import { getAllQuestions } from './actions/QuestionActions';
-import { getAllAnswers } from './actions/AnswerActions';
+import { getAllQuestions } from './Questions/actions';
+import { getAllAnswers } from './Answers/actions';
 
 import './index.css';
 import App from './components/App';
-import Answers from './containers/Answers'
-import Questions from './containers/Questions'
+import Answers from './Answers/containers/List'
+import Questions from './Questions/containers/Questions'
 
 
 interface IProps {

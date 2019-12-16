@@ -3,7 +3,7 @@ import { Reducer } from 'redux';
 import {
   QuestionActions,
   QuestionActionTypes,
-} from '../actions/QuestionActions';
+} from './actions';
 
 // import { IAnswer } from './answerReducer'
 

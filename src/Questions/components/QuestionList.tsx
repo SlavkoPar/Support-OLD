@@ -7,7 +7,7 @@ import { IQuestion, IQuestionGroup } from '../reducer';
 import { IAnswer } from '../../Answers/reducer';
 
 import { AutoSuggest } from '../../components/AutoSuggest';
-import { QuestionForm } from '../../components/QuestionForm'
+import { QuestionForm } from './QuestionForm'
 
 // import Answers from './Answers'
 

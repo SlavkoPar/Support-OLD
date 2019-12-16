@@ -63,7 +63,7 @@ const Answers: React.FC<IProps> = (props: IProps) => {
 					<button onClick={() => add()}>Add new</button>
 				</div>
 				<div className="b">
-					{formMode ==='add' &&
+					{formMode === 'add' &&
 						<div style={{border: '1px solid silver', borderRadius: '5px', padding: '10px'}}>
 							<h4 style={{marginTop: 0}}>New Answer</h4>
 							<AnswerForm answer={answer} formMode={formMode} cancel={cancel} saveForm={(answer: IAnswer) => saveForm(answer, formMode)} />
@@ -71,7 +71,7 @@ const Answers: React.FC<IProps> = (props: IProps) => {
 					}
 					{formMode === 'edit' &&
 						<div style={{border: '1px solid silver', borderRadius: '5px', padding: '10px'}}>
-							<h4 style={{marginTop: 0}}>New Answer</h4>
+							<h4 style={{marginTop: 0}}>Edit Answer</h4>
 							<AnswerForm answer={answer} formMode={formMode} cancel={cancel} saveForm={(answer: IAnswer) => saveForm(answer, formMode)} />
 						</div>
 					}					

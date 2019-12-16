@@ -9,6 +9,7 @@ import QuestionAnswers from './QuestionAnswers'
 interface IProps {
 	question: IQuestion;
 	questionAnswers: IAnswer[];
+	canEdit: boolean
  }
 
 export const QuestionForm: React.FC<IProps> = (props: IProps) => {
@@ -52,7 +53,7 @@ export const QuestionForm: React.FC<IProps> = (props: IProps) => {
       ) : null}
 		
 		<br />
-		<QuestionAnswers question={props.question} questionAnswers={props.questionAnswers} canEdit={true} />
+		<QuestionAnswers question={props.question} questionAnswers={props.questionAnswers} canEdit={props.canEdit} />
 
 		{/* 
       <label htmlFor="answers">Answers</label>

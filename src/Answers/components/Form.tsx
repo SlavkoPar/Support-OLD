@@ -34,20 +34,23 @@ export const AnswerForm: React.FC<IProps> = (props: IProps) => {
 
   return (
     <form onSubmit={formik.handleSubmit}>
-
-		<label htmlFor="answerId"></label>
-      <input
-        id="answerId"
-        name="answerId"
-        type="text"
-        onChange={formik.handleChange}
-        onBlur={formik.handleBlur}
-		  value={formik.values.answerId}
-		  readOnly
-      />
-      {formik.touched.answerId && formik.errors.answerId ? (
-        <div>{formik.errors.answerId}</div>
-      ) : null}
+		 { props.formMode !== 'add' && 
+		 <>
+			<label htmlFor="answerId"></label>
+			<input
+			id="answerId"
+			name="answerId"
+			type="text"
+			onChange={formik.handleChange}
+			onBlur={formik.handleBlur}
+			value={formik.values.answerId}
+			readOnly
+			/>
+			{formik.touched.answerId && formik.errors.answerId ? (
+			<div>{formik.errors.answerId}</div>
+			) : null}
+			</>
+		}
 
       <label htmlFor="text"></label>
       <input

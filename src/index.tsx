@@ -14,7 +14,7 @@ import { getAllAnswers } from './Answers/actions';
 import './index.css';
 import App from './components/App';
 import Answers from './Answers/containers/List'
-import Questions from './Questions/containers/Questions'
+import Questions from './Questions/containers/QuestionsBySections'
 
 
 interface IProps {

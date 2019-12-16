@@ -10,8 +10,7 @@ import { IQuestion, IQuestionGroup, IQuestionState } from './reducer';
 // Create Action Constants
 export enum QuestionActionTypes {
 	GET_ALL_QUESTIONS = 'GET_ALL_QUESTIONS',
-  GET_QUESTION = 'GET_QUESTION',
-  GET_ANSWERS = 'GET_ANSWERS'
+	GET_QUESTION = 'GET_QUESTION',
 }
 
 // Interface for Get All Action Type
@@ -72,7 +71,7 @@ const getQuestionGroupFromLocalStorage = (): Promise<any> => {
   			 'status': 200,
   			 'content-type': 'application/json',
   			 'data' : {
-  				'results': questionGroups
+  				'results': storageQuestionsBySections
   			 }
   		  })
   		}, 250)
@@ -85,7 +84,7 @@ const getQuestionGroupFromLocalStorage = (): Promise<any> => {
 	return new Promise((resolve, reject) => {
 		setTimeout(() => {
 			let question = undefined;
-			for (let section of questionGroups) {
+			for (let section of storageQuestionsBySections) {
 				question = section
 								.questions
 								.find(question => question.questionId === questionId);
@@ -105,8 +104,7 @@ const getQuestionGroupFromLocalStorage = (): Promise<any> => {
   	 })
   
   }  
-
-  const questionGroups: IQuestionGroup[] = [
+  const storageQuestionsBySections: IQuestionGroup[] = [
 	{
 		 title: 'General settings',
 		 questions: [

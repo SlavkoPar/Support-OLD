@@ -12,7 +12,7 @@ interface IProps {
 	canEdit: boolean
  }
 
-export const QuestionForm: React.FC<IProps> = (props: IProps) => {
+export const Form: React.FC<IProps> = (props: IProps) => {
   const formik = useFormik({
 	 enableReinitialize: true,
     initialValues: {

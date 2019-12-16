@@ -7,7 +7,7 @@ import { IQuestion, IQuestionGroup } from '../reducer';
 import { IAnswer } from '../../Answers/reducer';
 
 import { AutoSuggest } from '../../components/AutoSuggest';
-import { QuestionForm } from './QuestionForm'
+import { Form } from './Form'
 
 // import Answers from './Answers'
 
@@ -21,8 +21,7 @@ interface IProps {
 	canEdit: boolean
 }
 
-// class QuestionList extends React.Component<IProps> {
-const QuestionList: React.FC<IProps> = (props: IProps) => {
+const QuestionsBySections: React.FC<IProps> = (props: IProps) => {
     const { questionGroups, question, questionAnswers, onSelectQuestion, canEdit } = props;
     return (
       <div className="name-container">
@@ -35,15 +34,44 @@ const QuestionList: React.FC<IProps> = (props: IProps) => {
 					{questionGroups && question &&
 						<div style={{border: '1px solid silver', borderRadius: '5px', padding: '10px'}}>
 							<h4 style={{marginTop: 0}}>Question</h4>
-							<QuestionForm question={question} questionAnswers={questionAnswers} canEdit={canEdit}/>
+							<Form question={question} questionAnswers={questionAnswers} canEdit={canEdit}/>
 						</div>
 					}
 				</div>
 			</div>
-			
+
+			<hr />
+
+			<h4 style={{textAlign: 'center'}}>Maintenance (visible only for Admins) </h4>
+			<div className="two-columns">
+				<div className="a">
+					<h3>All Questions by sections</h3>
+					{questionGroups &&
+						questionGroups.map(questionGroup => {
+							return (
+								<div key={questionGroup.title} style={{ paddingBottom: '5px'}}>
+									<div>{questionGroup.title}</div>
+									<div>
+										{questionGroup.questions.map(question => 
+											<div key={question.questionId} className="name">
+												<button 
+													className="question-button"
+													onClick={() => onSelectQuestion(question.questionId)}>
+													{question.text}
+												</button>
+											</div>
+										)}
+									</div>
+								</div>
+							);
+					})}
+				</div>
+				<div className="b">
+				</div>
+			</div>
       </div>
     );
   }
 
-export default QuestionList
+export default QuestionsBySections
 

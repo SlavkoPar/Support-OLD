@@ -29,6 +29,7 @@ export const initialQuestion: IQuestion = {
 	questionAnswers: IAnswer[];
 	answers: IAnswer[],
 	formMode: string,
+	formModeGroup: boolean,
 	canEdit: boolean,
 	onSelectQuestion: (questionId: number) => IQuestion;
 	add: (groupId: number) => void;

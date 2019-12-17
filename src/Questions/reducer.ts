@@ -21,6 +21,7 @@ export interface IQuestionState {
   readonly question: IQuestion | undefined;
   loading: boolean,
   formMode: string;
+  formModeGroup: string;
 }
 
 
@@ -29,7 +30,8 @@ const initialQuestionState: IQuestionState = {
 	questionGroups: [],
 	question: undefined,
 	loading: false,
-	formMode: 'display'
+	formMode: 'display',
+	formModeGroup: 'display'
 };
 
 
@@ -144,3 +146,4 @@ export const questionReducer: Reducer<IQuestionState, QuestionActions> = (
 			return state;
 	}
 };
+

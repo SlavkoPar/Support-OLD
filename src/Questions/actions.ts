@@ -286,7 +286,7 @@ const removeQuestionFromLocalStorage = (questionId: number): Promise<any> => {
 }
 
 
-  const storageQuestionsByGroups: IQuestionGroup[] = [
+export const storageQuestionsByGroups: IQuestionGroup[] = [
 	{
 		groupId: 11,
 		title: 'General settings',

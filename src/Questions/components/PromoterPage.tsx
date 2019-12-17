@@ -8,7 +8,7 @@ import { Form } from './Form'
 
 
 const PromoterPage: React.FC<IComponentProps> = (props: IComponentProps) => {
-	 const { questionGroups, question, questionAnswers, formMode,  onSelectQuestion, cancel, saveForm, canEdit } = props;
+	 const { questionGroups, question, questionAnswers, formMode, formModeGroup='display',  onSelectQuestion, cancel, saveForm, canEdit } = props;
 	 
     return (
       <div className="name-container">

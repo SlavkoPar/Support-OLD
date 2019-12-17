@@ -39,6 +39,7 @@ const mapStateToProps = (store: IAppState, ownProps: IProps ) => {
 		questionAnswers: joinAnswers(store.questionState.question, store.answerState.answers),
 		answers: store.answerState.answers,
 		formMode: store.questionState.formMode,
+		formModeGroup: store.questionState.formModeGroup,
 		canEdit: ownProps.canEdit,
 	};
 };

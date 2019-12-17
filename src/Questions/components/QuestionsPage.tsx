@@ -12,7 +12,7 @@ import { Form } from './Form'
 
 
 const QuestionsPage: React.FC<IComponentProps> = (props: IComponentProps) => {
-	 const { questionGroups, question, questionAnswers, formMode,  onSelectQuestion, add, edit, remove, cancel, saveForm, canEdit } = props;
+	 const { questionGroups, question, questionAnswers, formMode, formModeGroup, onSelectQuestion, add, edit, remove, cancel, saveForm, canEdit } = props;
 
     return (
       <div className="name-container">

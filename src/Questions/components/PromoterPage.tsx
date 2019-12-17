@@ -1,15 +1,14 @@
 import * as React from 'react';
 
-import { IQuestion, IQuestionGroup, IComponentProps } from '../types';
+import { IQuestion, IComponentProps } from '../types';
 
-import { IAnswer } from '../../Answers/reducer';
 
 import { AutoSuggest } from '../../components/AutoSuggest';
 import { Form } from './Form'
 
 
 const PromoterPage: React.FC<IComponentProps> = (props: IComponentProps) => {
-	 const { questionGroups, question, questionAnswers, formMode,  onSelectQuestion, add, edit, remove, cancel, saveForm, canEdit } = props;
+	 const { questionGroups, question, questionAnswers, formMode,  onSelectQuestion, cancel, saveForm, canEdit } = props;
 	 
     return (
       <div className="name-container">

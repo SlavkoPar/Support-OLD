@@ -5,7 +5,7 @@ import { ThunkAction } from 'redux-thunk';
 
 // Import Question Typing
 import { IQuestion, IQuestionGroup } from './types';
-import { IQuestionState, initialQuestion } from './reducer';
+import { IQuestionState } from './reducer';
 
 
 // Create Action Constants

@@ -33,7 +33,7 @@ const initialQuestionState: IQuestionState = {
 };
 
 
-
+/*
 const getQuestion = (
 			questionGroups: IQuestionGroup[], 
 			groupId: number, 
@@ -47,7 +47,7 @@ const getQuestion = (
 							.find(q => q.questionId === questionId);
 	return question;
 }
-
+*/
 
 
 export const questionReducer: Reducer<IQuestionState, QuestionActions> = (
@@ -75,22 +75,7 @@ export const questionReducer: Reducer<IQuestionState, QuestionActions> = (
 		}
 
 		case QuestionActionTypes.ADD_QUESTION: {
-			const group =  state.questionGroups.find(g => g.groupId === action.groupId);
-			/*
-			return {
-				...state,
-				formMode: 'add',
-				questionGroups: state.questionGroups.map(g => g.groupId !== action.groupId ? 
-					{ 
-						...g,
-						questions: [...g.questions] 
-					} : {
-				  		...g, 
-				  		questions: [...g.questions, { ...initialQuestion, questionId: 999 }]	
-					}
-				)
-			};
-			*/
+			// const group =  state.questionGroups.find(g => g.groupId === action.groupId);
 			return {
 				...state,
 				formMode: 'add',
@@ -107,9 +92,7 @@ export const questionReducer: Reducer<IQuestionState, QuestionActions> = (
 		}
 
 		case QuestionActionTypes.STORE_QUESTION: {
-			let questionGroups: IQuestionGroup[] = [];
-			
-			const group = state.questionGroups.find(g => g.groupId === action.question.groupId);
+			// const group = state.questionGroups.find(g => g.groupId === action.question.groupId);
 			if (state.formMode === 'add') {
 				return {
 					...state,

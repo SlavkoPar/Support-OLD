@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faWindowClose } from '@fortawesome/free-solid-svg-icons'
 
 
-import { IQuestion } from '../reducer';
+import { IQuestion } from '../types';
 import { IAnswer } from '../../Answers/reducer';
 
 interface IProps {

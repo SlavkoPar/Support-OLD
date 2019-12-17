@@ -18,48 +18,46 @@ export enum AnswerActionTypes {
 }
 
 // Interface for Get All Action Type
-export interface IAnswerGetAll {
+export interface IGetAll {
 	type: AnswerActionTypes.GET_ALL_ANSWERS;
 	answers: IAnswer[];
  }
  
- export interface IGetAnswer {
-	 type: AnswerActionTypes.GET_ANSWER;
-	 answer: IAnswer;
- }
+export interface IGet {
+	type: AnswerActionTypes.GET_ANSWER;
+	answer: IAnswer;
+}
 
- export interface IAddAnswer {
+export interface IAdd {
 	type: AnswerActionTypes.ADD_ANSWER;
 }
 
- export interface IEditAnswer {
+export interface IEdit {
 	type: AnswerActionTypes.EDIT_ANSWER;
 	answer: IAnswer;
 }
 
-export interface IRemoveAnswer {
-	type: AnswerActionTypes.STORE_ANSWER;
-	answer: IAnswer;
-}
-
-export interface IStoreAnswer {
+export interface IRemove {
 	type: AnswerActionTypes.REMOVE_ANSWER;
 	answerId: number;
 }
 
-export interface ICancelAnswer {
+export interface IStore {
+	type: AnswerActionTypes.STORE_ANSWER;
+	answer: IAnswer;
+}
+
+export interface ICancel {
 	type: AnswerActionTypes.CANCEL_ANSWER;
 }
 
 
 // Combine the action types with a union (we assume there are more)
-export type AnswerActions = IAnswerGetAll | IGetAnswer | 
-	IAddAnswer | IEditAnswer | IRemoveAnswer | 
-	IStoreAnswer | ICancelAnswer;
+export type AnswerActions = IGetAll | IGet | IAdd | IEdit | IRemove | IStore | ICancel;
 
 // Get All Action <Promise<Return Type>, State Interface, Type of Param, Type of Action>
 export const getAllAnswers: ActionCreator<
-  ThunkAction<Promise<any>, IAnswerState, null, IAnswerGetAll>
+  ThunkAction<Promise<any>, IAnswerState, null, IGetAll>
 > = () => {
   return async (dispatch: Dispatch) => {
     try {
@@ -89,7 +87,7 @@ export const addAnswer: ActionCreator<any> = () => {
 };
 
 export const getAnswer: ActionCreator<
-  ThunkAction<Promise<any>, IAnswerState, null, IAnswerGetAll>
+  ThunkAction<Promise<any>, IAnswerState, null, IGet>
 > = (answerId: number) => {
   return async (dispatch: Dispatch) => {
     try {
@@ -108,7 +106,7 @@ export const getAnswer: ActionCreator<
 };
 
 export const editAnswer: ActionCreator<
-  ThunkAction<Promise<any>, IAnswerState, null, IAnswerGetAll>
+  ThunkAction<Promise<any>, IAnswerState, null, IEdit>
 > = (answerId: number) => {
   return async (dispatch: Dispatch) => {
     try {
@@ -127,7 +125,7 @@ export const editAnswer: ActionCreator<
 };
 
 export const removeAnswer: ActionCreator<
-  ThunkAction<Promise<any>, IAnswerState, null, IAnswerGetAll>
+  ThunkAction<Promise<any>, IAnswerState, null, IGetAll>
 > = (answerId: number) => {
   return async (dispatch: Dispatch) => {
     try {
@@ -146,7 +144,7 @@ export const removeAnswer: ActionCreator<
 
 
 export const storeAnswer: ActionCreator<
-  ThunkAction<Promise<any>, IAnswerState, null, IAddAnswer>
+  ThunkAction<Promise<any>, IAnswerState, null, IAdd>
 > = (answer: IAnswer, formMode: string) => {
   return async (dispatch: Dispatch) => {
     try {

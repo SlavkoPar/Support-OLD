@@ -1,7 +1,7 @@
 import React from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup'
-import { IQuestion } from '../reducer';
+import { IQuestion } from '../types';
 import { IAnswer } from '../../Answers/reducer';
 
 import QuestionAnswers from './QuestionAnswers'
@@ -9,35 +9,55 @@ import QuestionAnswers from './QuestionAnswers'
 interface IProps {
 	question: IQuestion;
 	questionAnswers: IAnswer[];
-	canEdit: boolean
+	formMode: string;
+	canEdit: boolean,
+	cancel: () => void;
+	saveForm: (question: IQuestion, formMode: string) => void;	
  }
 
 export const Form: React.FC<IProps> = (props: IProps) => {
   const formik = useFormik({
 	 enableReinitialize: true,
     initialValues: {
+		groupId: props.question.groupId,
+		questionId: props.question.questionId,
       text: props.question.text,
-      answers: props.question.answers,
-      email: '',
+      answers: props.question.answers
     },
     validationSchema: Yup.object({
       text: Yup.string()
         .max(150, 'Must be 150 characters or less')
         .required('Required'),
-      answers: Yup.string()
+      /*answers: Yup.string()
         .max(20, 'Must be 20 characters or less')
         .required('Required'),
       email: Yup.string()
         .email('Invalid email address')
-        .required('Required'),
+        .required('Required'),*/
     }),
     onSubmit: values => {
-      alert(JSON.stringify(values, null, 2));
+		// alert(JSON.stringify(values, null, 2));
+		props.saveForm(values, props.formMode)
     },
   });
 
   return (
     <form onSubmit={formik.handleSubmit}>
+
+		<label htmlFor="text"></label>
+      <input
+        id="questionId"
+        name="questionId"
+        type="text"
+        onChange={formik.handleChange}
+        onBlur={formik.handleBlur}
+		  value={formik.values.questionId}
+		  disabled
+      />
+      {formik.touched.questionId && formik.errors.questionId ? (
+        <div>{formik.errors.questionId}</div>
+      ) : null}
+
       <label htmlFor="text"></label>
       <input
         id="text"
@@ -46,7 +66,6 @@ export const Form: React.FC<IProps> = (props: IProps) => {
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
 		  value={formik.values.text}
-		  disabled
       />
       {formik.touched.text && formik.errors.text ? (
         <div>{formik.errors.text}</div>
@@ -85,6 +104,8 @@ export const Form: React.FC<IProps> = (props: IProps) => {
       ) : null} */}
 
       {/* <button type="submit">Submit</button> */}
+		<button onClick={() => props.cancel()}>Cancel</button>
+      <button type="submit">Save</button>		
     </form>
   );
 };

@@ -1,8 +1,7 @@
 import * as React from 'react';
 import '../App.css';
 
-import QuestionsBySections from '../Questions/containers/PromoterPage';
-
+import containers from '../Questions/containers/Pages'
 
 // type TParams = { id: string };
 
@@ -14,7 +13,7 @@ const App: React.SFC<{}> = () => {
   return (
     <>
       <h2 style={{textAlign: 'center'}}>Questions &amp; Answers</h2>
-      <QuestionsBySections canEdit={false} />
+      <containers.promoter canEdit={false} />
     </>
   );
 };

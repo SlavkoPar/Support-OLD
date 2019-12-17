@@ -5,7 +5,7 @@ import AutosuggestHighlightMatch from "autosuggest-highlight/match";
 import AutosuggestHighlightParse from "autosuggest-highlight/parse";
 
 
-import { IQuestion, IQuestionGroup }  from '../Questions/reducer'
+import { IQuestion, IQuestionGroup }  from '../Questions/types'
 import './AutoSuggest.css'
 
 
@@ -166,12 +166,13 @@ export class AutoSuggest extends React.Component<{questionGroups: IQuestionGroup
 		// 		.filter(section => section.questions.length > 0);
 
 		return this.props.questionGroups
-			.map(section => {
+			.map(group => {
 				return {
-						title: section.title,
-						questions: section
-							.questions
-							.filter(question => this.anyWord(valueWordRegex, question.words!))
+						groupId: group.groupId,
+						title: group.title,
+						questions: group
+										.questions
+										.filter(question => this.anyWord(valueWordRegex, question.words!))
 				};
 			})
 			.filter(section => section.questions.length > 0);

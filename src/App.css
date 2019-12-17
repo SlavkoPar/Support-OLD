@@ -233,7 +233,7 @@ nav ul {
  button.button-edit {
 	background-color: transparent;
 	margin: 0;
-	padding: 0;
+	padding: 0 5px;
 	border-radius: 3px;
 	box-shadow: none;
  }
@@ -241,11 +241,20 @@ nav ul {
  button.button-remove {
 	background-color: transparent;
 	margin: 0;
-	padding: 0;
+	padding: 0 5px;
 	border-radius: 3px;
 	box-shadow: none;
  }
 
+ button.button-add {
+	max-width: 90%;
+	background-color: silver;
+	margin: 2px;
+	padding: 0 5px;
+	border-radius: 3px;
+	box-shadow: none;
+	text-align: right;
+ }
 
  button:disabled {
 	opacity: .5;

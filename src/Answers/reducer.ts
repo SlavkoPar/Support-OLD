@@ -48,7 +48,13 @@ export const answerReducer: Reducer<IAnswerState, AnswerActions> = (
         answers: action.answers,
       };
 	} 
-   case AnswerActionTypes.ADD_ANSWER: {
+ 	case AnswerActionTypes.GET_ANSWER: {
+      return {
+		  ...state,
+        answer: action.answer
+      };
+	}    
+	case AnswerActionTypes.ADD_ANSWER: {
       return {
 		  	...state,
 		  	formMode: 'add',
@@ -57,13 +63,7 @@ export const answerReducer: Reducer<IAnswerState, AnswerActions> = (
 			  answerId: state.answers.length === 0 ? 1 : Math.max(...state.answers.map(a => a.answerId)) + 1,
 			}
       };
-	}    
-	case AnswerActionTypes.GET_ANSWER: {
-      return {
-		  ...state,
-        answer: action.answer
-      };
-	}    
+	}    	
    case AnswerActionTypes.EDIT_ANSWER: {
       return {
 		  ...state,

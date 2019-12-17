@@ -14,7 +14,7 @@ import { getAllAnswers } from './Answers/actions';
 import './index.css';
 import App from './components/App';
 import Answers from './Answers/containers/List'
-import Questions from './Questions/containers/QuestionsBySections'
+import containers from './Questions/containers/Pages'
 
 
 interface IProps {
@@ -48,7 +48,7 @@ const Root: React.SFC<IProps> = props => {
 							<App />
 						</Route>
 						<Route path="/questions">
-							<Questions />
+							<containers.questions canEdit={true} />
 						</Route>
 						<Route path="/answers/:slug">
 							<Answers />

@@ -1,28 +1,16 @@
 import * as React from 'react';
 
-// import { IAppState } from '../store/Store';
-
-import { IQuestion, IQuestionGroup } from '../reducer';
+import { IQuestion, IQuestionGroup, IComponentProps } from '../types';
 
 import { IAnswer } from '../../Answers/reducer';
 
 import { AutoSuggest } from '../../components/AutoSuggest';
 import { Form } from './Form'
 
-// import Answers from './Answers'
 
-// Create the containers interface
-interface IProps {
-	questionGroups: IQuestionGroup[];
-	question?: IQuestion;
-	questionAnswers: IAnswer[];
-	onSelectQuestion: (questionId: number) => IQuestion;
-	answers: IAnswer[],
-	canEdit: boolean
-}
-
-const PromoterPage: React.FC<IProps> = (props: IProps) => {
-    const { questionGroups, question, questionAnswers, onSelectQuestion, canEdit } = props;
+const PromoterPage: React.FC<IComponentProps> = (props: IComponentProps) => {
+	 const { questionGroups, question, questionAnswers, formMode,  onSelectQuestion, add, edit, remove, cancel, saveForm, canEdit } = props;
+	 
     return (
       <div className="name-container">
 
@@ -34,7 +22,15 @@ const PromoterPage: React.FC<IProps> = (props: IProps) => {
 					{questionGroups && question &&
 						<div style={{border: '1px solid silver', borderRadius: '5px', padding: '10px'}}>
 							<h4 style={{marginTop: 0}}>Question</h4>
-							<Form question={question} questionAnswers={questionAnswers} canEdit={canEdit}/>
+							<Form 
+								question={question}
+								questionAnswers={questionAnswers}
+								formMode={formMode}
+								cancel={cancel}
+								saveForm={(question: IQuestion) => saveForm(question, formMode)}
+								canEdit={canEdit}
+							/>
+
 						</div>
 					}
 				</div>

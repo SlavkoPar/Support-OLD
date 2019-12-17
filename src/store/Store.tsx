@@ -6,12 +6,8 @@ import {
   IQuestionState,
 } from '../Questions/reducer';
 
-import {
-	answerReducer,
-	IAnswerState,
- } from '../Answers/reducer';
- 
- 
+import {	answerReducer } from '../Answers/reducer';
+import {	IAnswerState } from '../Answers/types';
 
 
 export interface IAppState {

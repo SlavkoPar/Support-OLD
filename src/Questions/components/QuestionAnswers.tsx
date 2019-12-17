@@ -5,7 +5,7 @@ import { faWindowClose } from '@fortawesome/free-solid-svg-icons'
 
 
 import { IQuestion } from '../types';
-import { IAnswer } from '../../Answers/reducer';
+import { IAnswer } from '../../Answers/types';
 
 interface IProps {
 	question: IQuestion,

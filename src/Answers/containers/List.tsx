@@ -6,7 +6,7 @@ import { IAppState } from '../../store/Store';
 
 import { AnswerActions,  addAnswer, editAnswer, removeAnswer, storeAnswer, cancelAnswer } from '../actions' // , IAddAnswer
 
-import { IAnswer } from '../reducer'
+import { IAnswer } from '../types'
 
 import Answers from '../components/List'
 

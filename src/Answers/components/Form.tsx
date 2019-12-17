@@ -1,7 +1,7 @@
 import React from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup'
-import { IAnswer } from '../reducer';
+import { IAnswer } from '../types';
 
 
 interface IProps {

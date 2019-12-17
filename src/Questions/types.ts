@@ -1,4 +1,4 @@
-import { IAnswer } from '../Answers/reducer'
+import { IAnswer } from '../Answers/types'
 
 // Define the Question type
 export interface IQuestion {

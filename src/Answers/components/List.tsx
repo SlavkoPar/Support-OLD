@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom' // useRouteMatch
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faWindowClose, faEdit } from '@fortawesome/free-solid-svg-icons'
 
-import { IAnswer } from '../reducer';
+import { IAnswer } from '../types';
 import { AnswerForm } from './Form'
 
 interface IProps {

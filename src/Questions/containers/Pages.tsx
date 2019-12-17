@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import { IAppState } from '../../store/Store';
 import { IQuestion } from '../types'
-import { IAnswer } from '../../Answers/reducer'
+import { IAnswer } from '../../Answers/types'
 
 import { Dispatch } from 'redux';  // ActionCreatorsMapObject, 
 

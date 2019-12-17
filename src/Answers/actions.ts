@@ -4,7 +4,7 @@ import { ThunkAction } from 'redux-thunk';
 // import axios from 'axios';
 
 // Import Answer Typing
-import { IAnswer, IAnswerState } from './reducer';
+import { IAnswer, IAnswerState } from './types';
 
 // Create Action Constants
 export enum AnswerActionTypes {

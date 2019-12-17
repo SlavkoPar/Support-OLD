@@ -5,36 +5,19 @@ import {
   AnswerActionTypes,
 } from './actions';
 
-
-// Define the Answer State
-export interface IAnswer {
-	answerId: number, 
-	text: string;
-	options?: string[]
-}
-
-export interface IAnswerState {
-	readonly answers: IAnswer[];
-	readonly answer?: IAnswer;
-	loading: boolean;
-	formMode: string;
-}
+import {IAnswer, IAnswerState } from './types'
 
 const initialAnswer: IAnswer = {
 	answerId: 0,
 	text: '',
 	options: []
- };
+};
 
-
-
- // Define the initial state
 const initialAnswerState: IAnswerState = {
 	answers: [],
 	loading: false,
 	formMode: 'display'
- };
- 
+};
 
 
 export const answerReducer: Reducer<IAnswerState, AnswerActions> = (

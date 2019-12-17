@@ -2,7 +2,7 @@ import React from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup'
 import { IQuestion } from '../types';
-import { IAnswer } from '../../Answers/reducer';
+import { IAnswer } from '../../Answers/types';
 
 import QuestionAnswers from './QuestionAnswers'
 

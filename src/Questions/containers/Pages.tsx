@@ -2,7 +2,7 @@
 import { connect } from 'react-redux';
 
 import { IAppState } from '../../store/Store';
-import { IQuestion } from '../types'
+import { IQuestion, IQuestionGroup } from '../types'
 import { IAnswer } from '../../Answers/types'
 
 import { Dispatch } from 'redux';  // ActionCreatorsMapObject, 
@@ -13,7 +13,11 @@ import { QuestionActions,
 	editQuestion,
 	removeQuestion,
 	storeQuestion,
-	cancelQuestion
+	cancelQuestion,
+	addGroup,
+	editGroup,
+	removeGroup,
+	storeGroup
 } from '../actions'
 
 import QuestionsPage from '../components/QuestionsPage'
@@ -39,7 +43,7 @@ const mapStateToProps = (store: IAppState, ownProps: IProps ) => {
 		questionAnswers: joinAnswers(store.questionState.question, store.answerState.answers),
 		answers: store.answerState.answers,
 		formMode: store.questionState.formMode,
-		formModeGroup: store.questionState.formModeGroup,
+		groupIdEditing: store.questionState.groupIdEditing,
 		canEdit: ownProps.canEdit,
 	};
 };
@@ -52,6 +56,12 @@ const mapDispatchToProps = (dispatch: Dispatch<QuestionActions>) => {
 		remove: (questionGroupId: number, questionId: number) => dispatch<any>(removeQuestion(questionGroupId, questionId)),
 		saveForm: (question: IQuestion, formMode: string) => dispatch<any>(storeQuestion(question, formMode)),
 		cancel: () => dispatch<any>(cancelQuestion()),
+
+		// groups
+		addGroup: () => dispatch<any>(addGroup()),
+		editGroup: (groupId: number) =>  dispatch<any>(editGroup(groupId)),
+		removeGroup: (groupId: number) => dispatch<any>(removeGroup(groupId)),
+		storeGroup: (group: IQuestionGroup) => dispatch<any>(storeGroup(group))
  	}
 }
 

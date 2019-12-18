@@ -12,7 +12,8 @@ import { Form } from './Form'
 
 
 const QuestionsPage: React.FC<IComponentProps> = (props: IComponentProps) => {
-	 const { questionGroups, question, questionAnswers, formMode, formModeGroup, onSelectQuestion, add, edit, remove, cancel, saveForm, canEdit } = props;
+	 const { questionGroups, question, questionAnswers, formMode, groupIdEditing, onSelectQuestion, add, edit, remove, cancel, saveForm, canEdit,
+				addGroup, editGroup, removeGroup, storeGroup } = props;
 
     return (
       <div className="name-container">
@@ -32,11 +33,31 @@ const QuestionsPage: React.FC<IComponentProps> = (props: IComponentProps) => {
 			<div className="two-columns">
 				<div className="a">
 					<h3>All Questions by sections</h3>
-					{questionGroups &&
+					{questionGroups && 
 						questionGroups.map(questionGroup => {
 							return (
 								<div key={questionGroup.groupId} style={{ paddingBottom: '5px'}}>
-									<div>{questionGroup.title}</div>
+									<div>
+										{groupIdEditing === questionGroup.groupId && 
+											<input name="groupTitle" type="text" 
+												onBlur={(e) => storeGroup({...questionGroup, title: e.target.value})}
+												defaultValue={questionGroup.title}
+											/>
+										}
+										{groupIdEditing !== questionGroup.groupId && (
+											<>
+											{questionGroup.title}
+											<button className="button-edit" title="Edit Section" onClick={() => editGroup(questionGroup.groupId)}>
+												<FontAwesomeIcon icon={faEdit} color='lightblue' />
+											</button>
+											{questionGroup.questions.length === 0 &&
+												<button className="button-remove" title="Remove Sectionr" onClick={() => removeGroup(questionGroup.groupId)}>
+													<FontAwesomeIcon icon={faWindowClose}  color='lightblue' />
+												</button>
+											}
+											</>
+										)}
+									</div>
 									<div>
 										{questionGroup.questions.map(question => 
 											<div key={question.questionId} className="name">
@@ -62,6 +83,11 @@ const QuestionsPage: React.FC<IComponentProps> = (props: IComponentProps) => {
 								</div>
 							);
 					})}
+					<div style={{ marginLeft: '1%' }}>
+						<button className="button-add-group" title="Add a new Section" onClick={() => addGroup()}>
+							Add a new Section
+						</button>
+					</div>
 				</div>
 				<div className="b">
 					{questionGroups && question &&

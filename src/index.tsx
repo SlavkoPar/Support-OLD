@@ -67,8 +67,6 @@ const Root: React.SFC<IProps> = props => {
 	);
 };
 
-
-
 // Generate the store
 const store = configureStore();
 store.dispatch(getAllQuestions());

@@ -251,6 +251,19 @@ nav ul {
 	background-color: silver;
 	margin: 2px;
 	padding: 0 5px;
+	border: 1px solid gray;
+	border-radius: 3px;
+	box-shadow: none;
+	text-align: right;
+ }
+
+
+ button.button-add-group {
+	max-width: 80%;
+	border: 2px solid gray;
+	background-color: silver;
+	margin: 2px;
+	padding: 0 5px;
 	border-radius: 3px;
 	box-shadow: none;
 	text-align: right;

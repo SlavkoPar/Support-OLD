@@ -17,6 +17,11 @@ export enum QuestionActionTypes {
 	REMOVE_QUESTION = 'REMOVE_QUESTION',
 	STORE_QUESTION = 'STORE_QUESTION',
 	CANCEL_QUESTION = 'CANCEL_QUESTION',
+	// groups
+	ADD_GROUP = 'ADD_GROUP',
+	EDIT_GROUP = 'EDIT_GROUP',
+	REMOVE_GROUP = 'REMOVE_GROUP',
+	STORE_GROUP = 'STORE_GROUP',	
 }
 
 // Interface for Get All Action Type
@@ -56,9 +61,35 @@ export interface ICancel {
 	type: QuestionActionTypes.CANCEL_QUESTION;
 }
 
+// group
+export interface IAddGroup {
+	type: QuestionActionTypes.ADD_GROUP;
+	groupId: number
+}
+
+export interface IEditGroup {
+	type: QuestionActionTypes.EDIT_GROUP;
+	group: IQuestionGroup
+}
+
+export interface IRemoveGroup {
+	type: QuestionActionTypes.REMOVE_GROUP;
+	groupId: number
+}
+
+export interface IStoreGroup {
+	type: QuestionActionTypes.STORE_GROUP;
+	group: IQuestionGroup;
+}
+
 
 // Combine the action types with a union (we assume there are more)
-export type QuestionActions = IGetAll | IGet | IAdd | IEdit | IRemove | IStore | ICancel;
+export type QuestionActions = IGetAll | IGet | IAdd | IEdit | IRemove | IStore | ICancel |
+					IAddGroup | IEditGroup | IRemoveGroup | IStoreGroup;
+
+function isWebStorageSupported() {
+	return 'localStorage' in window
+}
 
 // Get All Action <Promise<Return Type>, State Interface, Type of Param, Type of Action>
 export const getAllQuestions: ActionCreator<
@@ -67,6 +98,21 @@ export const getAllQuestions: ActionCreator<
   return async (dispatch: Dispatch) => {
     try {
 		// const response = await axios.get('https://swapi.co/api/people/');
+		if (isWebStorageSupported()) {
+			const sQuestions = localStorage.getItem(SUPPORT_QUESTIONS);
+			if (sQuestions !== null) {
+				console.log('localStorage:', sQuestions);
+				const questionGroups: IQuestionGroup[] = JSON.parse(sQuestions);
+				questionGroups.map(g => storageQuestionsByGroups.push(g))
+			}
+			else {
+				storageQuestionsByGroupsDemo.map(g => storageQuestionsByGroups.push(g))	
+			}
+		}
+		else {
+			storageQuestionsByGroupsDemo.map(g => storageQuestionsByGroups.push(g))
+		}
+
 		const response = await getQuestionGroupFromLocalStorage(); 
       dispatch({
         type: QuestionActionTypes.GET_ALL_QUESTIONS,
@@ -220,14 +266,14 @@ export const cancelQuestion: ActionCreator<any> = () => {
 const getQuestionGroupFromLocalStorage = (): Promise<any> => {
 	return new Promise((resolve, reject) => {
 		setTimeout(() => {
-  		  resolve({
-  			 'status': 200,
-  			 'content-type': 'application/json',
-  			 'data' : {
-  				'results': storageQuestionsByGroups
-  			 }
-  		  })
-  		}, 250)
+  		  	resolve({
+  			 	'status': 200,
+  			 	'content-type': 'application/json',
+  			 	'data' : {
+  					'results': storageQuestionsByGroups
+  				}
+  		  	})
+  		}, 100)
   	 })
   
   }
@@ -286,7 +332,150 @@ const removeQuestionFromLocalStorage = (questionId: number): Promise<any> => {
 }
 
 
+
+export const addGroup: ActionCreator<
+  ThunkAction<Promise<any>, IQuestionState, null, IAddGroup>
+> = () => {
+  return async (dispatch: Dispatch) => {
+    try {
+		// const response = await axios.get('https://swapi.co/api/people/');
+		const response = await getQuestionGroupsFromLocalStorage();
+		const groups: IQuestionGroup[] = response.data.results;
+		let max = Math.max(...groups.map(g => g.groupId))
+      dispatch({
+		  type: QuestionActionTypes.ADD_GROUP,
+		  groupId: max + 1, 
+      });
+    } catch (err) {
+      console.error(err);
+    }
+  };
+};
+
+export const editGroup: ActionCreator<
+  ThunkAction<Promise<any>, IQuestionState, null, IEditGroup>
+> = (groupId: number) => {
+  return async (dispatch: Dispatch) => {
+    try {
+		const response = await getQuestionGroupsFromLocalStorage();
+		const groups: IQuestionGroup[] = response.data.results;
+      dispatch({
+        type: QuestionActionTypes.EDIT_GROUP,
+        group: groups.find(g => g.groupId === groupId)
+      });
+    } catch (err) {
+      console.error(err);
+    }
+  };
+};
+
+export const removeGroup: ActionCreator<
+  ThunkAction<Promise<any>, IQuestionState, null, IRemoveGroup>
+> = (groupId: number) => {
+  return async (dispatch: Dispatch) => {
+    try {
+		// const response = await axios.get('https://swapi.co/api/people/');
+		await removeGroupFromLocalStorage(groupId); 
+		// warning: store answer, after update, to local storage
+      dispatch({
+        type: QuestionActionTypes.REMOVE_GROUP,
+        groupId: groupId
+      });
+    } catch (err) {
+      console.error(err);
+    }
+  };
+};
+
+export const storeGroup: ActionCreator<
+  ThunkAction<Promise<any>, IQuestionState, null, IStoreGroup>
+> = (group: IQuestionGroup) => {
+  return async (dispatch: Dispatch) => {
+    try {
+		// const response = await axios.get('https://swapi.co/api/people/');
+		await updateGroupFromLocalStorage(group); 
+		dispatch({
+			type: QuestionActionTypes.STORE_GROUP,
+			group
+		});
+    } catch (err) {
+      console.error(err);
+    }
+  };
+};
+
+const getQuestionGroupsFromLocalStorage = (): Promise<any> => {
+	return new Promise((resolve, reject) => {
+		setTimeout(() => {
+  		  resolve({
+  			 'status': 200,
+  			 'content-type': 'application/json',
+  			 'data' : {
+  				'results': storageQuestionsByGroups
+  			 }
+  		  })
+  		}, 250)
+	})
+}
+
+const removeGroupFromLocalStorage = (groupId: number): Promise<any> => {
+	return new Promise((resolve, reject) => {
+		setTimeout(() => {
+			resolve({
+				'status': 200,
+				'content-type': 'application/json',
+				'data' : {
+				'results': groupId
+				}
+			})
+		}, 50)
+	})
+}
+
+const addGroupToLocalStorage = (group: IQuestionGroup): Promise<any> => {
+	return new Promise((resolve, reject) => {
+		setTimeout(() => {
+			resolve({
+				'status': 200,
+				'content-type': 'application/json',
+				'data' : {
+				'results': group
+				}
+			})
+		}, 50)
+	})
+}
+
+const updateGroupFromLocalStorage = (group: IQuestionGroup): Promise<any> => {
+	return new Promise((resolve, reject) => {
+		setTimeout(() => {
+			resolve({
+				'status': 200,
+				'content-type': 'application/json',
+				'data' : {
+				'results': group
+				}
+			})
+		}, 50)
+	})
+}
+
+
+///////////////////////////////////////////////////
+// localStorage
+ 
+const SUPPORT_QUESTIONS = 'SUPPORT_QUESTIONS' 
+ 
+export const storeQuestionsToLocalStorage = () => {
+	localStorage.setItem(SUPPORT_QUESTIONS, JSON.stringify(storageQuestionsByGroups));
+};
+ 
+// localStorage.removeItem(SUPPORT_QUESTIONS);
+  
 export const storageQuestionsByGroups: IQuestionGroup[] = [
+]
+
+export const storageQuestionsByGroupsDemo: IQuestionGroup[] = [
 	{
 		groupId: 11,
 		title: 'General settings',

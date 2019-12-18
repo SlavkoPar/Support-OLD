@@ -15,6 +15,7 @@ export interface IQuestionGroup {
 	questions: IQuestion[];
 }
 
+
 export const initialQuestion: IQuestion = {
 	groupId: 0,
 	questionId: 0,
@@ -29,7 +30,7 @@ export const initialQuestion: IQuestion = {
 	questionAnswers: IAnswer[];
 	answers: IAnswer[],
 	formMode: string,
-	formModeGroup: boolean,
+	groupIdEditing: number,
 	canEdit: boolean,
 	onSelectQuestion: (questionId: number) => IQuestion;
 	add: (groupId: number) => void;
@@ -37,4 +38,9 @@ export const initialQuestion: IQuestion = {
 	remove: (groupId: number, questionId: number) => void;
 	saveForm: (question: IQuestion, formMode: string) => void;
 	cancel: () => void;
+	// groups
+	addGroup: () => void;
+	editGroup: (groupId: number) => void;
+	removeGroup: (groupId: number) => void;
+	storeGroup: (group: IQuestionGroup) => void;
 }

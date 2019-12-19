@@ -28,7 +28,7 @@ const QuestionRow: React.FC<IQuestionRowProps> = (props: IQuestionRowProps) => {
 				{question.text}
 			</button>
 			{hoverProps.isHovered && hoverProps.id === question.questionId &&
-				<button className="button-edit" title="Add a new Answer" onClick={() => edit(question.groupId, question.questionId)}>
+				<button className="button-edit" title="Edit Answer" onClick={() => edit(question.groupId, question.questionId)}>
 					<FontAwesomeIcon icon={faEdit} color='lightblue' />
 				</button>
 			}

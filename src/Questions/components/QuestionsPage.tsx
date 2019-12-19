@@ -1,8 +1,5 @@
 import * as React from 'react';
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faWindowClose, faEdit } from '@fortawesome/free-solid-svg-icons'
-
 import { IComponentProps } from '../types'
 
 import { IQuestion } from '../types';
@@ -11,6 +8,7 @@ import { AutoSuggest } from '../../components/AutoSuggest';
 import { Form } from './Form'
 import { DisplayForm } from './DisplayForm'
 import QuestionRow from './QuestionRow';
+import GroupRow from './GroupRow';
 
 
 const QuestionsPage: React.FC<IComponentProps> = (props: IComponentProps) => {
@@ -48,17 +46,11 @@ const QuestionsPage: React.FC<IComponentProps> = (props: IComponentProps) => {
 											/>
 										}
 										{groupIdEditing !== questionGroup.groupId && (
-											<>
-											{questionGroup.title}
-											<button className="button-edit" title="Edit Section" onClick={() => editGroup(questionGroup.groupId)}>
-												<FontAwesomeIcon icon={faEdit} color='lightblue' />
-											</button>
-											{questionGroup.questions.length === 0 &&
-												<button className="button-remove" title="Remove Section" onClick={() => removeGroup(questionGroup.groupId)}>
-													<FontAwesomeIcon icon={faWindowClose}  color='lightblue' />
-												</button>
-											}
-											</>
+											<GroupRow 
+												questionGroup={questionGroup}
+												editGroup={editGroup}
+												removeGroup={removeGroup}
+											/>
 										)}
 									</div>
 									<div>

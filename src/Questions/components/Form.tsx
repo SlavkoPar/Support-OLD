@@ -67,6 +67,7 @@ export const Form: React.FC<IProps> = (props: IProps) => {
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
 		  value={formik.values.text}
+		  multiple
       />
       {formik.touched.text && formik.errors.text ? (
         <div>{formik.errors.text}</div>
@@ -105,8 +106,10 @@ export const Form: React.FC<IProps> = (props: IProps) => {
       ) : null} */}
 
       {/* <button type="submit">Submit</button> */}
-		<button onClick={() => props.cancel()}>Cancel</button>
-      <button type="submit">Save</button>		
+		{ props.canEdit && 
+			<button onClick={() => props.cancel()}>Cancel</button>}
+		{ props.canEdit && 
+      	<button type="submit">Save</button>}
     </form>
   );
 };

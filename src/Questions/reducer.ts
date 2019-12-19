@@ -142,6 +142,7 @@ export const questionReducer: Reducer<IQuestionState, QuestionActions> = (
 			return {
 			  ...state,
 			  formMode: 'display',
+			  question: undefined,
 			  questionGroups: state.questionGroups.map(g => g.groupId !== action.groupId ? 
 					{ ...g, questions: [...g.questions] } 
 					: 

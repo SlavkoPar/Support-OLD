@@ -50,7 +50,7 @@ const QuestionAnswers: React.FC<IProps> = (props: IProps) => {
 					</tbody>
 				</table>
 				{ canEdit && formMode !== 'display' &&
-					<button className="assign-answer" onClick={() => {}}>Assign another Answer to Question</button>
+					<button className="assign-answer" onClick={() => {}}>Assign another Answer</button>
 				}
 				</>
 			}

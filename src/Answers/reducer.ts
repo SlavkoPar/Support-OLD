@@ -3,6 +3,7 @@ import { Reducer } from 'redux';
 import {
   AnswerActions,
   AnswerActionTypes,
+  SUPPORT_ANSWERS
 } from './actions';
 
 import {IAnswer, IAnswerState } from './types'
@@ -81,7 +82,13 @@ export const answerReducer: Reducer<IAnswerState, AnswerActions> = (
 		  formMode: 'display',
 		  answers: state.answers.filter(a => a.answerId !== action.answerId)
       };
-	}    
+	}
+
+	case AnswerActionTypes.STORE_ANSWERS_TO_LOCAL_STORAGE: {
+		localStorage.setItem(SUPPORT_ANSWERS, JSON.stringify(state.answers));
+		return state;
+	}   	
+
 	default:
    	return state;
   }

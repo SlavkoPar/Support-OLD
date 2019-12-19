@@ -15,6 +15,8 @@ export enum AnswerActionTypes {
   REMOVE_ANSWER = 'REMOVE_ANSWER',
   STORE_ANSWER = 'STORE_ANSWER',
   CANCEL_ANSWER = 'CANCEL_ANSWER',
+  // localSTorage
+  STORE_ANSWERS_TO_LOCAL_STORAGE = 'STORE_ANSWERS_TO_LOCAL_STORAGE'
 }
 
 // Interface for Get All Action Type
@@ -51,9 +53,15 @@ export interface ICancel {
 	type: AnswerActionTypes.CANCEL_ANSWER;
 }
 
+export interface IStoreAnswersToLocalStorage {
+	type: AnswerActionTypes.STORE_ANSWERS_TO_LOCAL_STORAGE;
+}
 
 // Combine the action types with a union (we assume there are more)
-export type AnswerActions = IGetAll | IGet | IAdd | IEdit | IRemove | IStore | ICancel;
+export type AnswerActions = IGetAll | IGet | IAdd | IEdit | IRemove | IStore | ICancel |
+					IStoreAnswersToLocalStorage;
+
+const isWebStorageSupported = () => 'localStorage' in window
 
 // Get All Action <Promise<Return Type>, State Interface, Type of Param, Type of Action>
 export const getAllAnswers: ActionCreator<
@@ -62,6 +70,22 @@ export const getAllAnswers: ActionCreator<
   return async (dispatch: Dispatch) => {
     try {
 		// const response = await axios.get('https://swapi.co/api/people/');
+
+		if (isWebStorageSupported()) {
+			const sAnswers = localStorage.getItem(SUPPORT_ANSWERS);
+			if (sAnswers !== null) {
+				console.log('localStorage:', sAnswers);
+				const answers: IAnswer[] = JSON.parse(sAnswers);
+				answers.map(g => storageAnswers.push(g))
+			}
+			else {
+				storageAnswersDemo.map(g => storageAnswers.push(g))	
+			}
+		}
+		else {
+			storageAnswersDemo.map(g => storageAnswers.push(g))
+		}
+
 		const response = await getAnswersFromLocalStorage(); 
       dispatch({
         type: AnswerActionTypes.GET_ALL_ANSWERS,
@@ -135,7 +159,9 @@ export const removeAnswer: ActionCreator<
       dispatch({
         type: AnswerActionTypes.REMOVE_ANSWER,
         answerId: answerId,
-      });
+		});
+		if (isWebStorageSupported())
+			dispatch({type: AnswerActionTypes.STORE_ANSWERS_TO_LOCAL_STORAGE });
     } catch (err) {
       console.error(err);
     }
@@ -164,6 +190,8 @@ export const storeAnswer: ActionCreator<
 				answer
 			});
 		 }
+		 if (isWebStorageSupported())
+		 	dispatch({type: AnswerActionTypes.STORE_ANSWERS_TO_LOCAL_STORAGE });		 
     } catch (err) {
       console.error(err);
     }
@@ -241,7 +269,15 @@ const removeAnswerFromLocalStorage = (answerId: number): Promise<any> => {
 	})
 }
 
+//////////////////////////////////////////////////
+// localStorage
+ 
+export const SUPPORT_ANSWERS = 'SUPPORT_ANSWERS' 
+
 const storageAnswers: IAnswer[] = [
+]
+
+const storageAnswersDemo: IAnswer[] = [
 	{
 		answerId: 111,
 		text: 'You should do the following',

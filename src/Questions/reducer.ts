@@ -4,6 +4,7 @@ import { Reducer } from 'redux';
 import {
   QuestionActions,
   QuestionActionTypes,
+  SUPPORT_QUESTIONS
 } from './actions';
 
 import { IQuestion, IQuestionGroup } from './types'
@@ -184,15 +185,20 @@ export const questionReducer: Reducer<IQuestionState, QuestionActions> = (
 	
 		case QuestionActionTypes.REMOVE_GROUP: {
 			return {
-			  ...state,
-			  questionGroups: state.questionGroups.map(g => g.groupId !== action.groupId ? 
-					{ ...g, questions: [...g.questions] } 
-					: 
-					{ ...g, questions: g.questions.filter(q => q.questionId !== action.groupId)	}
-				)
+			  	...state,
+			  	questionGroups: state.questionGroups.reduce((acc: IQuestionGroup[], g) => {
+					if (g.groupId !== action.groupId)
+						acc.push({ ...g, questions: [...g.questions]})
+					return acc
+			  	}, [])
 			};
 		}   		
 			 
+		case QuestionActionTypes.STORE_QUESTIONS_TO_LOCAL_STORAGE: {
+			localStorage.setItem(SUPPORT_QUESTIONS, JSON.stringify(state.questionGroups));
+			return state;
+		}   		
+		
 		default:
 			return state;
 	}

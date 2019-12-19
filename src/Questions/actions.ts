@@ -22,6 +22,8 @@ export enum QuestionActionTypes {
 	EDIT_GROUP = 'EDIT_GROUP',
 	REMOVE_GROUP = 'REMOVE_GROUP',
 	STORE_GROUP = 'STORE_GROUP',	
+	// localSTorage
+	STORE_QUESTIONS_TO_LOCAL_STORAGE = 'STORE_QUESTIONS_TO_LOCAL_STORAGE'
 }
 
 // Interface for Get All Action Type
@@ -82,14 +84,16 @@ export interface IStoreGroup {
 	group: IQuestionGroup;
 }
 
+export interface IStoreQuestionsToLocalStorage {
+	type: QuestionActionTypes.STORE_QUESTIONS_TO_LOCAL_STORAGE;
+}
 
 // Combine the action types with a union (we assume there are more)
 export type QuestionActions = IGetAll | IGet | IAdd | IEdit | IRemove | IStore | ICancel |
-					IAddGroup | IEditGroup | IRemoveGroup | IStoreGroup;
+					IAddGroup | IEditGroup | IRemoveGroup | IStoreGroup |
+					IStoreQuestionsToLocalStorage;
 
-function isWebStorageSupported() {
-	return 'localStorage' in window
-}
+const isWebStorageSupported = () => 'localStorage' in window
 
 // Get All Action <Promise<Return Type>, State Interface, Type of Param, Type of Action>
 export const getAllQuestions: ActionCreator<
@@ -113,7 +117,7 @@ export const getAllQuestions: ActionCreator<
 			storageQuestionsByGroupsDemo.map(g => storageQuestionsByGroups.push(g))
 		}
 
-		const response = await getQuestionGroupFromLocalStorage(); 
+		const response = await getQuestionGroupsFromLocalStorage(); 
       dispatch({
         type: QuestionActionTypes.GET_ALL_QUESTIONS,
         questionGroups: response.data.results,
@@ -150,7 +154,7 @@ export const addQuestion: ActionCreator<
   return async (dispatch: Dispatch) => {
     try {
 		// const response = await axios.get('https://swapi.co/api/people/');
-		const response = await getQuestionGroupFromLocalStorage();
+		const response = await getQuestionGroupsFromLocalStorage();
 		const groups: IQuestionGroup[] = response.data.results;
 		let questionIdMax = 0;
 		for (let g of groups) {
@@ -197,13 +201,15 @@ export const removeQuestion: ActionCreator<
   return async (dispatch: Dispatch) => {
     try {
 		// const response = await axios.get('https://swapi.co/api/people/');
-		await removeQuestionFromLocalStorage(questionId); 
+		await delay()
 		// warning: store answer, after upodate, to local storage
       dispatch({
         type: QuestionActionTypes.REMOVE_QUESTION,
         groupId: groupId,
         questionId: questionId,
-      });
+		});
+		if (isWebStorageSupported())
+			dispatch({type: QuestionActionTypes.STORE_QUESTIONS_TO_LOCAL_STORAGE });
     } catch (err) {
       console.error(err);
     }
@@ -217,7 +223,7 @@ export const storeQuestion: ActionCreator<
     try {
 		 if (formMode === 'add') {
 			// const response = await axios.get('https://swapi.co/api/people/');
-			await addQuestionToLocalStorage(question); 
+			await delay();
 			dispatch({
 				type: QuestionActionTypes.STORE_QUESTION,
 				question: question,
@@ -225,26 +231,28 @@ export const storeQuestion: ActionCreator<
 		 }
 		 else {
 			// const response = await axios.get('https://swapi.co/api/people/');
-			await updateQuestionFromLocalStorage(question); 
+			await delay();
 			dispatch({
 				type: QuestionActionTypes.STORE_QUESTION,
 				question
 			});
 		 }
+		 if (isWebStorageSupported())
+		 	dispatch({type: QuestionActionTypes.STORE_QUESTIONS_TO_LOCAL_STORAGE });
     } catch (err) {
       console.error(err);
     }
   };
 };
 
-const addQuestionToLocalStorage = (question: IQuestion): Promise<any> => {
+const delay = (): Promise<any> => {
 	return new Promise((resolve, reject) => {
 		setTimeout(() => {
 			resolve({
 				'status': 200,
 				'content-type': 'application/json',
 				'data' : {
-				'results': question
+				'results': 1
 				}
 			})
 		}, 50)
@@ -262,21 +270,6 @@ export const cancelQuestion: ActionCreator<any> = () => {
 	  }
 	};
  };
-
-const getQuestionGroupFromLocalStorage = (): Promise<any> => {
-	return new Promise((resolve, reject) => {
-		setTimeout(() => {
-  		  	resolve({
-  			 	'status': 200,
-  			 	'content-type': 'application/json',
-  			 	'data' : {
-  					'results': storageQuestionsByGroups
-  				}
-  		  	})
-  		}, 100)
-  	 })
-  
-  }
 
 
   const getQuestionFromLocalStorage = (questionId: number): Promise<any> => {
@@ -299,37 +292,9 @@ const getQuestionGroupFromLocalStorage = (): Promise<any> => {
   				'results': question
   			 }
   		  })
-  		}, 250)
+  		}, 100)
   	 })
   }  
-
-  const updateQuestionFromLocalStorage = (question: IQuestion): Promise<any> => {
-	return new Promise((resolve, reject) => {
-		setTimeout(() => {
-			resolve({
-				'status': 200,
-				'content-type': 'application/json',
-				'data' : {
-				'results': question
-				}
-			})
-		}, 50)
-	})
-}
-
-const removeQuestionFromLocalStorage = (questionId: number): Promise<any> => {
-	return new Promise((resolve, reject) => {
-		setTimeout(() => {
-			resolve({
-				'status': 200,
-				'content-type': 'application/json',
-				'data' : {
-				'results': questionId
-				}
-			})
-		}, 50)
-	})
-}
 
 
 
@@ -345,7 +310,9 @@ export const addGroup: ActionCreator<
       dispatch({
 		  type: QuestionActionTypes.ADD_GROUP,
 		  groupId: max + 1, 
-      });
+		});
+		if (isWebStorageSupported())
+			dispatch({type: QuestionActionTypes.STORE_QUESTIONS_TO_LOCAL_STORAGE });		
     } catch (err) {
       console.error(err);
     }
@@ -375,12 +342,14 @@ export const removeGroup: ActionCreator<
   return async (dispatch: Dispatch) => {
     try {
 		// const response = await axios.get('https://swapi.co/api/people/');
-		await removeGroupFromLocalStorage(groupId); 
+		await delay()
 		// warning: store answer, after update, to local storage
       dispatch({
         type: QuestionActionTypes.REMOVE_GROUP,
         groupId: groupId
-      });
+		});
+		if (isWebStorageSupported())
+			dispatch({type: QuestionActionTypes.STORE_QUESTIONS_TO_LOCAL_STORAGE });		
     } catch (err) {
       console.error(err);
     }
@@ -398,6 +367,8 @@ export const storeGroup: ActionCreator<
 			type: QuestionActionTypes.STORE_GROUP,
 			group
 		});
+		if (isWebStorageSupported())
+			dispatch({type: QuestionActionTypes.STORE_QUESTIONS_TO_LOCAL_STORAGE });		
     } catch (err) {
       console.error(err);
     }
@@ -418,33 +389,6 @@ const getQuestionGroupsFromLocalStorage = (): Promise<any> => {
 	})
 }
 
-const removeGroupFromLocalStorage = (groupId: number): Promise<any> => {
-	return new Promise((resolve, reject) => {
-		setTimeout(() => {
-			resolve({
-				'status': 200,
-				'content-type': 'application/json',
-				'data' : {
-				'results': groupId
-				}
-			})
-		}, 50)
-	})
-}
-
-const addGroupToLocalStorage = (group: IQuestionGroup): Promise<any> => {
-	return new Promise((resolve, reject) => {
-		setTimeout(() => {
-			resolve({
-				'status': 200,
-				'content-type': 'application/json',
-				'data' : {
-				'results': group
-				}
-			})
-		}, 50)
-	})
-}
 
 const updateGroupFromLocalStorage = (group: IQuestionGroup): Promise<any> => {
 	return new Promise((resolve, reject) => {
@@ -464,11 +408,8 @@ const updateGroupFromLocalStorage = (group: IQuestionGroup): Promise<any> => {
 ///////////////////////////////////////////////////
 // localStorage
  
-const SUPPORT_QUESTIONS = 'SUPPORT_QUESTIONS' 
- 
-export const storeQuestionsToLocalStorage = () => {
-	localStorage.setItem(SUPPORT_QUESTIONS, JSON.stringify(storageQuestionsByGroups));
-};
+export const SUPPORT_QUESTIONS = 'SUPPORT_QUESTIONS' 
+
  
 // localStorage.removeItem(SUPPORT_QUESTIONS);
   

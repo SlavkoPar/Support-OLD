@@ -9,10 +9,13 @@ import { IQuestion } from '../types';
 
 import { AutoSuggest } from '../../components/AutoSuggest';
 import { Form } from './Form'
+import { DisplayForm } from './DisplayForm'
+import QuestionRow from './QuestionRow';
 
 
 const QuestionsPage: React.FC<IComponentProps> = (props: IComponentProps) => {
-	 const { questionGroups, question, questionAnswers, formMode, groupIdEditing, onSelectQuestion, add, edit, remove, cancel, saveForm, canEdit,
+
+	const { questionGroups, question, questionAnswers, formMode, groupIdEditing, onSelectQuestion, add, edit, remove, cancel, saveForm, canEdit,
 				addGroup, editGroup, removeGroup, storeGroup } = props;
 
     return (
@@ -51,7 +54,7 @@ const QuestionsPage: React.FC<IComponentProps> = (props: IComponentProps) => {
 												<FontAwesomeIcon icon={faEdit} color='lightblue' />
 											</button>
 											{questionGroup.questions.length === 0 &&
-												<button className="button-remove" title="Remove Sectionr" onClick={() => removeGroup(questionGroup.groupId)}>
+												<button className="button-remove" title="Remove Section" onClick={() => removeGroup(questionGroup.groupId)}>
 													<FontAwesomeIcon icon={faWindowClose}  color='lightblue' />
 												</button>
 											}
@@ -60,19 +63,12 @@ const QuestionsPage: React.FC<IComponentProps> = (props: IComponentProps) => {
 									</div>
 									<div>
 										{questionGroup.questions.map(question => 
-											<div key={question.questionId} className="name">
-												<button 
-													className="question-button"
-													onClick={() => onSelectQuestion(question.questionId)}>
-													{question.text}
-												</button>
-												<button className="button-edit" title="Add a new Answer" onClick={() => edit(question.groupId, question.questionId)}>
-													<FontAwesomeIcon icon={faEdit} color='lightblue' />
-												</button>
-												<button className="button-remove" title="Remove Answer" onClick={() => remove(question.groupId, question.questionId)}>
-													<FontAwesomeIcon icon={faWindowClose}  color='lightblue' />
-												</button>
-											</div>
+											<QuestionRow
+												 question={question}
+												 onSelectQuestion={onSelectQuestion}
+												 edit={edit}
+												 remove={remove}
+											/>
 										)}
 										<div style={{marginLeft: '5%'}}>
 											<button className="button-add" title="Add a new Question" onClick={() => add(questionGroup.groupId)}>
@@ -93,14 +89,25 @@ const QuestionsPage: React.FC<IComponentProps> = (props: IComponentProps) => {
 					{questionGroups && question &&
 						<div style={{border: '1px solid silver', borderRadius: '5px', padding: '10px'}}>
 							<h4 style={{marginTop: 0}}>Question</h4>
-							<Form 
-								question={question}
-								questionAnswers={questionAnswers}
-								formMode={formMode}
-								cancel={cancel}
-								saveForm={(question: IQuestion) => saveForm(question, formMode)}
-								canEdit={canEdit}
-							/>
+							{ formMode === 'display' ?
+								<DisplayForm
+									question={question}
+									questionAnswers={questionAnswers}
+									formMode={formMode}
+									canEdit={canEdit}
+									edit={() => edit(question.groupId, question.questionId)}
+									remove={() => remove(question.groupId, question.questionId)}
+								/>
+								:
+								<Form 
+									question={question}
+									questionAnswers={questionAnswers}
+									formMode={formMode}
+									cancel={cancel}
+									saveForm={(question: IQuestion) => saveForm(question, formMode)}
+									canEdit={canEdit}
+								/>
+							}
 
 						</div>
 					}					

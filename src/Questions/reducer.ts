@@ -40,7 +40,7 @@ export const initialQuestionState: IQuestionState = {
 	question: undefined,
 	loading: false,
 	formMode: 'display',
-	groupIdEditing: 0
+	groupIdEditing: 0,
 };
 
 

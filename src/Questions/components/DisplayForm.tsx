@@ -11,11 +11,11 @@ interface IProps {
 	questionAnswers: IAnswer[];
 	formMode: string;
 	canEdit: boolean,
-	cancel: () => void;
-	saveForm: (question: IQuestion, formMode: string) => void;	
+	edit: () => void;
+	remove: () => void;
  }
 
-export const Form: React.FC<IProps> = (props: IProps) => {
+export const DisplayForm: React.FC<IProps> = (props: IProps) => {
   const formik = useFormik({
 	 enableReinitialize: true,
     initialValues: {
@@ -37,7 +37,6 @@ export const Form: React.FC<IProps> = (props: IProps) => {
     }),
     onSubmit: values => {
 		// alert(JSON.stringify(values, null, 2));
-		props.saveForm(values, props.formMode)
     },
   });
 
@@ -67,6 +66,7 @@ export const Form: React.FC<IProps> = (props: IProps) => {
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
 		  value={formik.values.text}
+		  disabled
       />
       {formik.touched.text && formik.errors.text ? (
         <div>{formik.errors.text}</div>
@@ -105,8 +105,12 @@ export const Form: React.FC<IProps> = (props: IProps) => {
       ) : null} */}
 
       {/* <button type="submit">Submit</button> */}
-		<button onClick={() => props.cancel()}>Cancel</button>
-      <button type="submit">Save</button>		
+		{ props.canEdit &&
+			<>
+			<button onClick={() => props.edit()}>Edit</button>
+			<button onClick={() => props.remove()}>Remove</button>
+			</>
+		}
     </form>
   );
 };

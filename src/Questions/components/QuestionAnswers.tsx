@@ -10,11 +10,12 @@ import { IAnswer } from '../../Answers/types';
 interface IProps {
 	question: IQuestion,
 	questionAnswers: IAnswer[],
-	canEdit: boolean
+	canEdit: boolean,
+	formMode: string
 }
 
 const QuestionAnswers: React.FC<IProps> = (props: IProps) => {
-    const { questionAnswers, canEdit } = props;  // question, 
+    const { questionAnswers, canEdit, formMode } = props;  // question, 
     return (
       <div className="name-container">
 			{ questionAnswers.length === 0 && 
@@ -27,8 +28,8 @@ const QuestionAnswers: React.FC<IProps> = (props: IProps) => {
 				<table>
 					<thead>
 						<tr>
-							<th>Answer</th>
-							{ canEdit && <th></th> }
+							<th>Answers</th>
+							{ canEdit && formMode !== 'display' && <th></th> }
 						</tr>
 					</thead>
 					<tbody>
@@ -37,7 +38,7 @@ const QuestionAnswers: React.FC<IProps> = (props: IProps) => {
 								<td className="name">
 									{answer.text}
 								</td>
-								{ canEdit &&
+								{ canEdit && formMode !== 'display' &&
 									<td>
 										<button className="button-remove" title="Remove Answer" onClick={() => {}}>  {/* remove(answer.answerId) */}
 											<FontAwesomeIcon icon={faWindowClose}  color='lightblue' />
@@ -48,7 +49,7 @@ const QuestionAnswers: React.FC<IProps> = (props: IProps) => {
 						)}
 					</tbody>
 				</table>
-				{ canEdit && 
+				{ canEdit && formMode !== 'display' &&
 					<button className="assign-answer" onClick={() => {}}>Assign another Answer to Question</button>
 				}
 				</>

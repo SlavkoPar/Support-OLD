@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useRef } from 'react'
 
 import { IComponentProps } from '../types'
 
@@ -16,7 +17,12 @@ const QuestionsPage: React.FC<IComponentProps> = (props: IComponentProps) => {
 	const { questionGroups, question, questionAnswers, formMode, groupIdEditing, onSelectQuestion, add, edit, remove, cancel, saveForm, canEdit,
 				addGroup, editGroup, removeGroup, storeGroup } = props;
 
-    return (
+	const inputEl = useRef<HTMLInputElement>(null);
+	setTimeout(() => { 
+		if (inputEl.current !== null)	 { inputEl.current!.select(); inputEl.current!.focus() }
+	}, 100)
+
+   return (
       <div className="name-container">
 
 			<div className="two-columns">
@@ -24,7 +30,6 @@ const QuestionsPage: React.FC<IComponentProps> = (props: IComponentProps) => {
 					<AutoSuggest questionGroups={questionGroups} onSelectQuestion={onSelectQuestion}/>
 				</div>
 				<div className="b">
-					
 				</div>
 			</div>
 
@@ -40,7 +45,7 @@ const QuestionsPage: React.FC<IComponentProps> = (props: IComponentProps) => {
 								<div key={questionGroup.groupId} style={{ paddingBottom: '5px'}}>
 									<div>
 										{groupIdEditing === questionGroup.groupId && 
-											<input name="groupTitle" type="text" 
+											<input ref={inputEl} name="groupTitle" type="text" 
 												onBlur={(e) => storeGroup({...questionGroup, title: e.target.value})}
 												defaultValue={questionGroup.title}
 											/>
@@ -106,7 +111,7 @@ const QuestionsPage: React.FC<IComponentProps> = (props: IComponentProps) => {
 				</div>
 			</div>
       </div>
-    );
+   );
   }
 
 export default QuestionsPage

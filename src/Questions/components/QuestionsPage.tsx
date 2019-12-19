@@ -19,7 +19,10 @@ const QuestionsPage: React.FC<IComponentProps> = (props: IComponentProps) => {
 
 	const inputEl = useRef<HTMLInputElement>(null);
 	setTimeout(() => { 
-		if (inputEl.current !== null)	 { inputEl.current!.select(); inputEl.current!.focus() }
+		if (inputEl.current !== null)	 {
+			inputEl.current!.select();
+			inputEl.current!.focus()
+		}
 	}, 100)
 
    return (

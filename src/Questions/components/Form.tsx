@@ -12,7 +12,8 @@ interface IProps {
 	formMode: string;
 	canEdit: boolean,
 	cancel: () => void;
-	saveForm: (question: IQuestion, formMode: string) => void;	
+	saveForm: (question: IQuestion, formMode: string) => void;
+	removeQuestionAnswer: (groupId: number, questionId: number, answerId: number) => void 	
  }
 
 export const Form: React.FC<IProps> = (props: IProps) => {
@@ -74,7 +75,13 @@ export const Form: React.FC<IProps> = (props: IProps) => {
       ) : null}
 		
 		<br />
-		<QuestionAnswers question={props.question} questionAnswers={props.questionAnswers} canEdit={props.canEdit} formMode={props.formMode} />
+		<QuestionAnswers 
+			question={props.question} 
+			questionAnswers={props.questionAnswers}
+			canEdit={props.canEdit}
+			formMode={props.formMode}
+			removeQuestionAnswer={props.removeQuestionAnswer}
+		/>
 
 		{/* 
       <label htmlFor="answers">Answers</label>

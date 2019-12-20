@@ -281,18 +281,22 @@ const storageAnswersDemo: IAnswer[] = [
 	{
 		answerId: 111,
 		text: 'You should do the following',
+		words: [],
 		options : []
 	}, {
 		answerId: 112,
 		text: 'Also do the rest of important',
+		words: [],
 		options : []
 	},	{
 		answerId: 113,
 		text: 'Try something else',
+		words: [],
 		options : []
 	}, {
 		answerId: 114,
 		text: 'Contact our support',
+		words: [],
 		options : []
 	}
 ];

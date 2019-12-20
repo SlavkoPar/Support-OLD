@@ -11,6 +11,7 @@ import {IAnswer, IAnswerState } from './types'
 const initialAnswer: IAnswer = {
 	answerId: 0,
 	text: '',
+	words: [],
 	options: []
 };
 
@@ -26,10 +27,12 @@ export const answerReducer: Reducer<IAnswerState, AnswerActions> = (
   action
 ) => {
   switch (action.type) {
+
+
    case AnswerActionTypes.GET_ALL_ANSWERS: {
-      return {
+		return {
         ...state,
-        answers: action.answers,
+        answers: action.answers.map(answer => { return {...answer, words: answer.text.split(' ')} }),
       };
 	} 
  	case AnswerActionTypes.GET_ANSWER: {
@@ -52,16 +55,16 @@ export const answerReducer: Reducer<IAnswerState, AnswerActions> = (
       return {
 		  ...state,
 		  formMode: 'edit',
-        answer: action.answer
+        answer: { ...action.answer, words: action.answer.text.split(' ')}
       };
 	}    
 	case AnswerActionTypes.STORE_ANSWER: {
 		let answers = [];
 		if (state.formMode === 'add') {
-			answers = [...state.answers, action.answer]
+			answers = [...state.answers, { ...action.answer, words:  action.answer.text.split(' ')}]
 		}
 		else {
-			answers = state.answers.map(a => a.answerId === action.answer.answerId ? action.answer : a)
+			answers = state.answers.map(a => a.answerId === action.answer.answerId ? { ...action.answer, words:  action.answer.text.split(' ')} : a)
 		}
       return {
 		  ...state,

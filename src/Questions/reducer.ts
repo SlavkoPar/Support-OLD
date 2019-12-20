@@ -4,7 +4,8 @@ import { Reducer } from 'redux';
 import {
   QuestionActions,
   QuestionActionTypes,
-  SUPPORT_QUESTIONS
+  SUPPORT_QUESTIONS,
+  reloadQuestionsFromLocalStorage
 } from './actions';
 
 import { IQuestion, IQuestionGroup } from './types'
@@ -151,6 +152,23 @@ export const questionReducer: Reducer<IQuestionState, QuestionActions> = (
 			};
 		}   
 
+		// Question answers
+		case QuestionActionTypes.REMOVE_QUESTION_ANSWER: {
+			 return {
+			   ...state,
+			   // formMode: 'display',
+			  	// question: undefined,
+			  	questionGroups: state.questionGroups.map(g => g.groupId !== action.groupId ? 
+					{ ...g, questions: [...g.questions] } 
+					: 
+					{ ...g, questions: g.questions.map(q => q.questionId !== action.questionId ?
+						{ ...q, answers: [...q.answers] } 
+						: 
+						{ ...q, answers: q.answers.filter(answerId => answerId !== action.answerId) }
+					)
+				})
+			}
+		}   
 
 		///////////////////////////////////////////////////////////////////////////////////
 		// groups
@@ -197,6 +215,7 @@ export const questionReducer: Reducer<IQuestionState, QuestionActions> = (
 			 
 		case QuestionActionTypes.STORE_QUESTIONS_TO_LOCAL_STORAGE: {
 			localStorage.setItem(SUPPORT_QUESTIONS, JSON.stringify(state.questionGroups));
+			reloadQuestionsFromLocalStorage(JSON.stringify(state.questionGroups));
 			return state;
 		}   		
 		

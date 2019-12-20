@@ -8,7 +8,8 @@ import { Form } from './Form'
 
 
 const PromoterPage: React.FC<IComponentProps> = (props: IComponentProps) => {
-	 const { questionGroups, question, questionAnswers, formMode, onSelectQuestion, cancel, saveForm, canEdit } = props;
+	 const { questionGroups, question, questionAnswers, formMode, onSelectQuestion, cancel, saveForm, canEdit,
+		removeQuestionAnswer } = props;
 	 
     return (
       <div className="name-container">
@@ -28,6 +29,7 @@ const PromoterPage: React.FC<IComponentProps> = (props: IComponentProps) => {
 								cancel={cancel}
 								saveForm={(question: IQuestion) => saveForm(question, formMode)}
 								canEdit={canEdit}
+								removeQuestionAnswer={removeQuestionAnswer}
 							/>
 
 						</div>

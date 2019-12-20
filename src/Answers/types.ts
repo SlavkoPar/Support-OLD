@@ -2,6 +2,7 @@
 export interface IAnswer {
 	answerId: number, 
 	text: string;
+	words?: string[],
 	options?: string[]
 }
 

@@ -15,7 +15,8 @@ import GroupRow from './GroupRow';
 const QuestionsPage: React.FC<IComponentProps> = (props: IComponentProps) => {
 
 	const { questionGroups, question, questionAnswers, formMode, groupIdEditing, onSelectQuestion, add, edit, remove, cancel, saveForm, canEdit,
-				addGroup, editGroup, removeGroup, storeGroup } = props;
+				addGroup, editGroup, removeGroup, storeGroup,
+				removeQuestionAnswer } = props;
 
 	const inputEl = useRef<HTMLInputElement>(null);
 	setTimeout(() => { 
@@ -97,6 +98,7 @@ const QuestionsPage: React.FC<IComponentProps> = (props: IComponentProps) => {
 									canEdit={canEdit}
 									edit={() => edit(question.groupId, question.questionId)}
 									remove={() => remove(question.groupId, question.questionId)}
+									removeQuestionAnswer={removeQuestionAnswer}
 								/>
 								:
 								<Form 
@@ -106,6 +108,7 @@ const QuestionsPage: React.FC<IComponentProps> = (props: IComponentProps) => {
 									cancel={cancel}
 									saveForm={(question: IQuestion) => saveForm(question, formMode)}
 									canEdit={canEdit}
+									removeQuestionAnswer={removeQuestionAnswer}
 								/>
 							}
 

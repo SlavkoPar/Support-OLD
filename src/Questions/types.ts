@@ -43,4 +43,7 @@ export const initialQuestion: IQuestion = {
 	editGroup: (groupId: number) => void;
 	removeGroup: (groupId: number) => void;
 	storeGroup: (group: IQuestionGroup) => void;
+	// question answer
+	//onSelectAnswer: (answerId: number) => IAnswer;
+	removeQuestionAnswer: (groupId: number, questionId: number, answerId: number) => void;
 }

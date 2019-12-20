@@ -59,7 +59,7 @@ export class AutoSuggestAnswer extends React.Component<IProps, any> {
 			  // renderInputComponent={this.renderInputComponent}
 			  renderSuggestionsContainer={this.renderSuggestionsContainer}
 			  inputProps={{
-					placeholder: `Type 'promocode'`,
+					placeholder: `Type 'contact'`,
 					value,
 					onChange: (e, changeEvent) => this.onChange(e, changeEvent),
 			  }}/>;

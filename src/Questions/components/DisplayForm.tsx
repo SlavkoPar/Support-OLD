@@ -80,11 +80,8 @@ export const DisplayForm: React.FC<IProps> = (props: IProps) => {
 		<QuestionAnswers
 			question={props.question}
 			questionAnswers={props.questionAnswers}
-			answers={props.answers}
 			canEdit={props.canEdit}
 			formMode={props.formMode}
-			removeQuestionAnswer={props.removeQuestionAnswer}
-			assignQuestionAnswer={props.assignQuestionAnswer}
 		/>
 
 		{/* 

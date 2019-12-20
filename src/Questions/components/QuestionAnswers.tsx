@@ -11,11 +11,11 @@ import { AutoSuggestAnswer } from '../../components/AutoSuggestAnswer';
 interface IProps {
 	question: IQuestion,
 	questionAnswers: IAnswer[],
-	answers: IAnswer[],
+	answers?: IAnswer[],
 	canEdit: boolean,
 	formMode: string,
-	removeQuestionAnswer: (groupId: number, questionId: number, answerId: number) => void,
-	assignQuestionAnswer: (groupId: number, questionId: number, answerId: number) => void
+	removeQuestionAnswer?: (groupId: number, questionId: number, answerId: number) => void,
+	assignQuestionAnswer?: (groupId: number, questionId: number, answerId: number) => void
 }
 
 const QuestionAnswers: React.FC<IProps> = (props: IProps) => {
@@ -48,7 +48,7 @@ const QuestionAnswers: React.FC<IProps> = (props: IProps) => {
 											onClick={(e) => { 
 												e.stopPropagation();
 												e.preventDefault();
-												removeQuestionAnswer(question.groupId, question.questionId, answer.answerId)
+												removeQuestionAnswer!(question.groupId, question.questionId, answer.answerId)
 												}}>
 											<FontAwesomeIcon icon={faWindowClose}  color='lightblue' />
 										</button>
@@ -56,16 +56,14 @@ const QuestionAnswers: React.FC<IProps> = (props: IProps) => {
 								}
 							</tr>
 						)}
-						{canEdit && <tr>
+						{canEdit && formMode !== 'display' && <tr>
 							<td>
-								<AutoSuggestAnswer question={question} answers={answers} assignQuestionAnswer={assignQuestionAnswer} />
+								<AutoSuggestAnswer question={question} answers={answers!} assignQuestionAnswer={assignQuestionAnswer!} />
 							</td>
+							<td></td>
 							</tr>}
 					</tbody>
 				</table>
-				{ canEdit && formMode !== 'display' &&
-					<button className="assign-answer" onClick={() => {}}>Assign another Answer</button>
-				}
 				</>
 			}
       </div>

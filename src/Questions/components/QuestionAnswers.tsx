@@ -6,18 +6,20 @@ import { faWindowClose } from '@fortawesome/free-solid-svg-icons'
 
 import { IQuestion } from '../types';
 import { IAnswer } from '../../Answers/types';
-// import { AutoSuggestAnswer } from '../../components/AutoSuggestAnswer';
+import { AutoSuggestAnswer } from '../../components/AutoSuggestAnswer';
 
 interface IProps {
 	question: IQuestion,
 	questionAnswers: IAnswer[],
+	answers: IAnswer[],
 	canEdit: boolean,
 	formMode: string,
-	removeQuestionAnswer: (groupId: number, questionId: number, answerId: number) => void
+	removeQuestionAnswer: (groupId: number, questionId: number, answerId: number) => void,
+	assignQuestionAnswer: (groupId: number, questionId: number, answerId: number) => void
 }
 
 const QuestionAnswers: React.FC<IProps> = (props: IProps) => {
-    const { question, questionAnswers, canEdit, formMode, removeQuestionAnswer } = props;  // question, 
+    const { question, questionAnswers, answers, canEdit, formMode, removeQuestionAnswer, assignQuestionAnswer } = props;  // question, 
     return (
       <div className="name-container">
 			{ questionAnswers.length === 0 && 
@@ -56,7 +58,7 @@ const QuestionAnswers: React.FC<IProps> = (props: IProps) => {
 						)}
 						{canEdit && <tr>
 							<td>
-								{/* <AutoSuggestAnswer /> */}
+								<AutoSuggestAnswer question={question} answers={answers} assignQuestionAnswer={assignQuestionAnswer} />
 							</td>
 							</tr>}
 					</tbody>

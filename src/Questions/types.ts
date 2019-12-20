@@ -46,4 +46,5 @@ export const initialQuestion: IQuestion = {
 	// question answer
 	//onSelectAnswer: (answerId: number) => IAnswer;
 	removeQuestionAnswer: (groupId: number, questionId: number, answerId: number) => void;
+	assignQuestionAnswer: (groupId: number, questionId: number, answerId: number) => void;
 }

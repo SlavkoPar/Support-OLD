@@ -24,6 +24,7 @@ export enum QuestionActionTypes {
 	STORE_GROUP = 'STORE_GROUP',
 	// question answers
 	REMOVE_QUESTION_ANSWER = 'REMOVE_QUESTION_ANSWER',
+	ASSIGN_QUESTION_ANSWER = 'ASSIGN_QUESTION_ANSWER',
 	// localSTorage
 	STORE_QUESTIONS_TO_LOCAL_STORAGE = 'STORE_QUESTIONS_TO_LOCAL_STORAGE'
 }
@@ -90,8 +91,16 @@ export interface IStoreQuestionsToLocalStorage {
 	type: QuestionActionTypes.STORE_QUESTIONS_TO_LOCAL_STORAGE;
 }
 
+// question answers
 export interface IRemoveQuestionAnswer {
 	type: QuestionActionTypes.REMOVE_QUESTION_ANSWER;
+	groupId: number,
+	questionId: number,
+	answerId: number
+}
+
+export interface IAssignQuestionAnswer {
+	type: QuestionActionTypes.ASSIGN_QUESTION_ANSWER;
 	groupId: number,
 	questionId: number,
 	answerId: number
@@ -101,7 +110,7 @@ export interface IRemoveQuestionAnswer {
 // Combine the action types with a union (we assume there are more)
 export type QuestionActions = IGetAll | IGet | IAdd | IEdit | IRemove | IStore | ICancel |
 					IAddGroup | IEditGroup | IRemoveGroup | IStoreGroup |
-					IRemoveQuestionAnswer |
+					IRemoveQuestionAnswer | IAssignQuestionAnswer |
 					IStoreQuestionsToLocalStorage;
 
 const isWebStorageSupported = () => 'localStorage' in window
@@ -124,7 +133,7 @@ export const getAllQuestions: ActionCreator<
 			}
 		}
 
-		if (!loaded)
+		// if (!loaded)
 			storageQuestionsByGroups = storageQuestionsByGroupsDemo
 
 		const response = await getQuestionGroupsFromLocalStorage(); 
@@ -253,6 +262,32 @@ export const removeQuestionAnswer: ActionCreator<
     }
   };
 };
+
+
+export const assignQuestionAnswer: ActionCreator<
+  ThunkAction<Promise<any>, IQuestionState, null, IRemoveQuestionAnswer>
+> = (groupId: number, questionId: number, answerId: number) => {
+  return async (dispatch: Dispatch) => {
+    try {
+		// const response = await axios.get('https://swapi.co/api/people/');
+		await delay()
+		// warning: store answer, after upodate, to local storage
+      dispatch({
+		  type: QuestionActionTypes.ASSIGN_QUESTION_ANSWER,
+		  groupId: groupId,
+        questionId: questionId,
+        answerId: answerId,
+		});
+		if (isWebStorageSupported())
+			dispatch({type: QuestionActionTypes.STORE_QUESTIONS_TO_LOCAL_STORAGE });
+		dispatch<any>(getQuestion(questionId))	// refresh state of question
+		} catch (err) {
+      console.error(err);
+    }
+  };
+};
+
+
 
 export const storeQuestion: ActionCreator<
   ThunkAction<Promise<any>, IQuestionState, null, IStore>

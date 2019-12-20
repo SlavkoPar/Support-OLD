@@ -9,11 +9,13 @@ import QuestionAnswers from './QuestionAnswers'
 interface IProps {
 	question: IQuestion;
 	questionAnswers: IAnswer[];
+	answers: IAnswer[];
 	formMode: string;
 	canEdit: boolean,
 	cancel: () => void;
 	saveForm: (question: IQuestion, formMode: string) => void;
-	removeQuestionAnswer: (groupId: number, questionId: number, answerId: number) => void 	
+	removeQuestionAnswer: (groupId: number, questionId: number, answerId: number) => void;
+	assignQuestionAnswer: (groupId: number, questionId: number, answerId: number) => void; 	
  }
 
 export const Form: React.FC<IProps> = (props: IProps) => {
@@ -78,9 +80,11 @@ export const Form: React.FC<IProps> = (props: IProps) => {
 		<QuestionAnswers 
 			question={props.question} 
 			questionAnswers={props.questionAnswers}
+			answers={props.answers}
 			canEdit={props.canEdit}
 			formMode={props.formMode}
 			removeQuestionAnswer={props.removeQuestionAnswer}
+			assignQuestionAnswer={props.assignQuestionAnswer}
 		/>
 
 		{/* 

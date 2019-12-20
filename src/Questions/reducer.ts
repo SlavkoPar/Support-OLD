@@ -156,8 +156,6 @@ export const questionReducer: Reducer<IQuestionState, QuestionActions> = (
 		case QuestionActionTypes.REMOVE_QUESTION_ANSWER: {
 			 return {
 			   ...state,
-			   // formMode: 'display',
-			  	// question: undefined,
 			  	questionGroups: state.questionGroups.map(g => g.groupId !== action.groupId ? 
 					{ ...g, questions: [...g.questions] } 
 					: 
@@ -169,6 +167,21 @@ export const questionReducer: Reducer<IQuestionState, QuestionActions> = (
 				})
 			}
 		}   
+
+		case QuestionActionTypes.ASSIGN_QUESTION_ANSWER: {
+			return {
+			  	...state,
+				 questionGroups: state.questionGroups.map(g => g.groupId !== action.groupId ? 
+				  { ...g, questions: [...g.questions] } 
+				  : 
+				  { ...g, questions: g.questions.map(q => q.questionId !== action.questionId ?
+					  { ...q, answers: [...q.answers] } 
+					  : 
+					  { ...q, answers: [...q.answers,action.answerId] }
+				  )
+			  })
+		  }
+	  }   
 
 		///////////////////////////////////////////////////////////////////////////////////
 		// groups

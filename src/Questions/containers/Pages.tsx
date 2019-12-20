@@ -18,7 +18,8 @@ import { QuestionActions,
 	editGroup,
 	removeGroup,
 	storeGroup,
-	removeQuestionAnswer
+	removeQuestionAnswer,
+	assignQuestionAnswer
 } from '../actions'
 
 import QuestionsPage from '../components/QuestionsPage'
@@ -66,7 +67,10 @@ const mapDispatchToProps = (dispatch: Dispatch<QuestionActions>) => {
 
 		// question answers
 		removeQuestionAnswer: (groupId: number, questionId: number, answerId: number) => 
-			dispatch<any>(removeQuestionAnswer(groupId, questionId, answerId))
+			dispatch<any>(removeQuestionAnswer(groupId, questionId, answerId)),
+
+		assignQuestionAnswer: (groupId: number, questionId: number, answerId: number) => 
+			dispatch<any>(assignQuestionAnswer(groupId, questionId, answerId))
 	}
 }
 

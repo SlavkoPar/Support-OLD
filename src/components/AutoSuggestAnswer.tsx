@@ -7,6 +7,7 @@ import AutosuggestHighlightParse from "autosuggest-highlight/parse";
 
 import { IAnswer }  from '../Answers/types'
 import './AutoSuggest.css'
+import { IQuestion } from '../Questions/types';
 
 
 // https://developer.mozilla.org/en/docs/Web/JavaScript/Guide/Regular_Expression
@@ -19,12 +20,16 @@ function escapeRegexCharacters(str: string): string {
 
 const QuestionAutosuggestMulti = Autosuggest as { new (): Autosuggest<IAnswer> };
 
+interface IProps {
+	answers: IAnswer[], 
+	question: IQuestion,
+	assignQuestionAnswer: (groupId: number, questionId: number, answerId: number) => void
+}
 
-export class AutoSuggestAnswer extends React.Component<{answers: IAnswer[], onSelectAnswer: (answerId: number) => void }, any> {
-	// region Fields
+export class AutoSuggestAnswer extends React.Component<IProps, any> {
 
 	state: any;
-	// endregion region Constructor
+
 	constructor(props: any) {
 		 super(props);
 
@@ -69,9 +74,12 @@ export class AutoSuggestAnswer extends React.Component<{answers: IAnswer[], onSe
   
 
 	protected onSuggestionSelected(event: React.FormEvent<any>, data: Autosuggest.SuggestionSelectedEventData<IAnswer>): void {
-		 const question: IAnswer = data.suggestion;
+		 const answer: IAnswer = data.suggestion;
 		 // alert(`Selected question is ${question.answerId} (${question.text}).`);
-		 this.props.onSelectAnswer(question.answerId);
+		 this.props.assignQuestionAnswer(
+			 this.props.question.groupId,
+			 this.props.question.questionId, 
+			 answer.answerId);
 	}
 
 	/*

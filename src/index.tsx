@@ -15,6 +15,7 @@ import './index.css';
 import App from './components/App';
 import Answers from './Answers/containers/List'
 import containers from './Questions/containers/Pages'
+import { Crud } from './CRUD/Crud';
 
 
 interface IProps {
@@ -60,6 +61,9 @@ const Root: React.SFC<IProps> = props => {
 								return <div>{match}</div>;
 							}}
 						/> */}
+						<Route path="/crud">
+							<Crud name="pera" />
+						</Route>
 					</Switch>
 				</div>	
 			</Router>

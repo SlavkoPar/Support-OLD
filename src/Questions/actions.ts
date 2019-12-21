@@ -133,7 +133,7 @@ export const getAllQuestions: ActionCreator<
 			}
 		}
 
-		// if (!loaded)
+		if (!loaded)
 			storageQuestionsByGroups = storageQuestionsByGroupsDemo
 
 		const response = await getQuestionGroupsFromLocalStorage(); 

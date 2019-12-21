@@ -9,12 +9,22 @@ import { AnswerActions,  addAnswer, editAnswer, removeAnswer, storeAnswer, cance
 import { IAnswer } from '../types'
 
 import Answers from '../components/List'
+import { IQuestionGroup } from '../../Questions/types';
+
+const getUsedAnswers = (questionGroups: IQuestionGroup[]) : number[]=> {
+	let answerIds: number[] = [];
+	for (let group of questionGroups)
+		for (let question of group.questions)
+			answerIds = answerIds.concat(question.answers)
+	return answerIds;
+}
 
 const mapStateToProps = (store: IAppState) => {
   return {
-	 answers: store.answerState.answers,
-	 answer: store.answerState.answer!,
-	 formMode: store.answerState.formMode
+	answers: store.answerState.answers,
+	answer: store.answerState.answer!,
+	formMode: store.answerState.formMode,
+	usedAnswers: getUsedAnswers(store.questionState.questionGroups)
   };
 };
 

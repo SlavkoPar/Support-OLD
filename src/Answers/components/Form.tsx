@@ -44,7 +44,8 @@ export const AnswerForm: React.FC<IProps> = (props: IProps) => {
 			onChange={formik.handleChange}
 			onBlur={formik.handleBlur}
 			value={formik.values.answerId}
-			readOnly
+			disabled
+			style={{width: '50px'}}
 			/>
 			{formik.touched.answerId && formik.errors.answerId ? (
 			<div>{formik.errors.answerId}</div>

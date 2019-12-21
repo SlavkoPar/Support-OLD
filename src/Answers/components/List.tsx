@@ -9,7 +9,8 @@ import { AnswerForm } from './Form'
 
 interface IProps {
 	answers: IAnswer[],
-	answer: IAnswer, 
+	answer: IAnswer,
+	usedAnswers: number[],
 
 	formMode: string,
 	add: () => void;
@@ -54,7 +55,9 @@ const Answers: React.FC<IProps> = (props: IProps) => {
 										{answer.text}
 									</td>
 									<td><button className="button-edit" title="Add a new Answer" onClick={() => edit(answer.answerId)}><FontAwesomeIcon icon={faEdit} color='lightblue' /></button></td>
-									<td><button className="button-remove" title="Remove Answer" onClick={() => remove(answer.answerId)}><FontAwesomeIcon icon={faWindowClose}  color='lightblue' /></button></td>
+									<td>
+										<button disabled={props.usedAnswers.includes(answer.answerId)} className="button-remove" title="Remove Answer" onClick={() => remove(answer.answerId)}><FontAwesomeIcon icon={faWindowClose}  color='lightblue' /></button>
+									</td>
 								</tr>
 							)}
 						</tbody>

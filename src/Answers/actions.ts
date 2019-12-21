@@ -74,7 +74,7 @@ export const getAllAnswers: ActionCreator<
 		if (isWebStorageSupported()) {
 			const sAnswers = localStorage.getItem(SUPPORT_ANSWERS);
 			if (sAnswers !== null) {
-				console.log('localStorage:', sAnswers);
+				// console.log('localStorage:', sAnswers);
 				const answers: IAnswer[] = JSON.parse(sAnswers);
 				answers.map(g => storageAnswers.push(g))
 			}
@@ -298,7 +298,17 @@ const storageAnswersDemo: IAnswer[] = [
 		text: 'Contact our support',
 		words: [],
 		options : []
-	}
+	},	{
+		answerId: 115,
+		text: 'Do whatever you want!',
+		words: [],
+		options : []
+	},	{
+		answerId: 116,
+		text: 'Jump through the window.',
+		words: [],
+		options : []
+	},
 ];
 
 

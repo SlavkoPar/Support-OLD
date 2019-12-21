@@ -10,6 +10,7 @@ import { Form } from './Form'
 import { DisplayForm } from './DisplayForm'
 import QuestionRow from './QuestionRow';
 import GroupRow from './GroupRow';
+import { getQuestion } from '../actions';
 
 
 const QuestionsPage: React.FC<IComponentProps> = (props: IComponentProps) => {
@@ -65,10 +66,11 @@ const QuestionsPage: React.FC<IComponentProps> = (props: IComponentProps) => {
 									<div>
 										{questionGroup.questions.map(question => 
 											<QuestionRow
-												 question={question}
-												 onSelectQuestion={onSelectQuestion}
-												 edit={edit}
-												 remove={remove}
+												key={question.questionId}
+												question={question}
+												onSelectQuestion={onSelectQuestion}
+												edit={edit}
+												remove={remove}
 											/>
 										)}
 										<div style={{marginLeft: '5%'}}>

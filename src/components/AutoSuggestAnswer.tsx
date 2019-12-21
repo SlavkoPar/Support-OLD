@@ -21,7 +21,7 @@ function escapeRegexCharacters(str: string): string {
 const QuestionAutosuggestMulti = Autosuggest as { new (): Autosuggest<IAnswer> };
 
 interface IProps {
-	answers: IAnswer[], 
+	answersUnassigned: IAnswer[], 
 	question: IQuestion,
 	assignQuestionAnswer: (groupId: number, questionId: number, answerId: number) => void
 }
@@ -45,14 +45,12 @@ export class AutoSuggestAnswer extends React.Component<IProps, any> {
 
 		 return <QuestionAutosuggestMulti
 		 	  onSuggestionsClearRequested={this.onSuggestionsClearRequested}  // (sl) added
-			  multiSection={true}
+			  multiSection={false}
 			  suggestions={suggestions}
 			  onSuggestionsFetchRequested={this.onSuggestionsFetchRequested.bind(this)}
 			  onSuggestionSelected={this.onSuggestionSelected.bind(this)}
 			  getSuggestionValue={this.getSuggestionValue}
 			  renderSuggestion={this.renderSuggestion}
-			  renderSectionTitle={this.renderSectionTitle}
-			  //getSectionSuggestions={this.getSectionSuggestions}
 			  // onSuggestionHighlighted={this.onSuggestionHighlighted} (sl)
 			  onSuggestionHighlighted={this.onSuggestionHighlighted.bind(this)}  
 			  highlightFirstSuggestion={true}
@@ -110,10 +108,6 @@ export class AutoSuggestAnswer extends React.Component<IProps, any> {
 		);
 	}
 
-	protected renderSectionTitle(answer: IAnswer): JSX.Element {
-		 return <strong>{answer.text}</strong>;
-	}
-
 	protected renderInputComponent(inputProps: Autosuggest.InputProps<IAnswer>): JSX.Element {
 		 const { onChange, onBlur, ...restInputProps } = inputProps;
 		 return (
@@ -161,19 +155,7 @@ export class AutoSuggestAnswer extends React.Component<IProps, any> {
 		// const regex = new RegExp('^' + escapedValue, 'i');
 		// const regex = new RegExp(escapedValue, 'i');
 
-		// return AutoSuggest.questions	 
-		//  return this.props.questionGroups
-		// 		.map(section => {
-		// 			return {
-		// 					title: section.title,
-		// 					questions: section
-		// 						.questions
-		// 						.filter(question => regex.test(question.text))
-		// 			};
-		// 		})
-		// 		.filter(section => section.questions.length > 0);
-
-		return this.props.answers.filter(answer => this.anyWord(valueWordRegex, answer.words!))
+		return this.props.answersUnassigned.filter(answer => this.anyWord(valueWordRegex, answer.words!))
 	}
 
 	protected getSuggestionValue(suggestion: IAnswer) {

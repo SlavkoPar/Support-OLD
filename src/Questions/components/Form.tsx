@@ -45,7 +45,8 @@ export const Form: React.FC<IProps> = (props: IProps) => {
   });
 
   return (
-    <form onSubmit={formik.handleSubmit}>
+	  <>
+   	<form onSubmit={formik.handleSubmit}>
 
 		<label htmlFor="text"></label>
       <input
@@ -76,16 +77,7 @@ export const Form: React.FC<IProps> = (props: IProps) => {
         <div>{formik.errors.text}</div>
       ) : null}
 		
-		<br />
-		<QuestionAnswers 
-			question={props.question} 
-			questionAnswers={props.questionAnswers}
-			answers={props.answers}
-			canEdit={props.canEdit}
-			formMode={props.formMode}
-			removeQuestionAnswer={props.removeQuestionAnswer}
-			assignQuestionAnswer={props.assignQuestionAnswer}
-		/>
+		
 
 		{/* 
       <label htmlFor="answers">Answers</label>
@@ -122,5 +114,17 @@ export const Form: React.FC<IProps> = (props: IProps) => {
 		{ props.canEdit && 
       	<button type="submit">Save</button>}
     </form>
+
+		<br />
+		<QuestionAnswers 
+			question={props.question} 
+			questionAnswers={props.questionAnswers}
+			answers={props.answers}
+			canEdit={props.canEdit}
+			formMode={props.formMode}
+			removeQuestionAnswer={props.removeQuestionAnswer}
+			assignQuestionAnswer={props.assignQuestionAnswer}
+		/>	 
+		</>
   );
 };

@@ -21,7 +21,7 @@ const QuestionRow: React.FC<IQuestionRowProps> = (props: IQuestionRowProps) => {
 	const { question, onSelectQuestion, edit, remove } = props;
 
    return (
-		<div id={question.questionId.toString()} ref={hoverRef} key={question.questionId} className="name">
+		<div id={question.questionId.toString()} ref={hoverRef} className="name">
 			<button
 				className="question-button"
 				onClick={() => onSelectQuestion(question.questionId)}>

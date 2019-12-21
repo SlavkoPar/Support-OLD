@@ -19,7 +19,8 @@ interface IProps {
 }
 
 const QuestionAnswers: React.FC<IProps> = (props: IProps) => {
-    const { question, questionAnswers, answers, canEdit, formMode, removeQuestionAnswer, assignQuestionAnswer } = props;  // question, 
+	 const { question, questionAnswers, answers, canEdit, formMode, removeQuestionAnswer, assignQuestionAnswer } = props;  // question, 
+	 const answersUnassigned = answers?.filter(a => !question.answers.includes(a.answerId))
     return (
       <div className="name-container">
 			{ questionAnswers.length === 0 && 
@@ -58,7 +59,7 @@ const QuestionAnswers: React.FC<IProps> = (props: IProps) => {
 						)}
 						{canEdit && formMode !== 'display' && <tr>
 							<td>
-								<AutoSuggestAnswer question={question} answers={answers!} assignQuestionAnswer={assignQuestionAnswer!} />
+								<AutoSuggestAnswer question={question} answersUnassigned={answersUnassigned!} assignQuestionAnswer={assignQuestionAnswer!} />
 							</td>
 							<td></td>
 							</tr>}

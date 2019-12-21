@@ -177,7 +177,7 @@ export const questionReducer: Reducer<IQuestionState, QuestionActions> = (
 				  { ...g, questions: g.questions.map(q => q.questionId !== action.questionId ?
 					  { ...q, answers: [...q.answers] } 
 					  : 
-					  { ...q, answers: [...q.answers,action.answerId] }
+					  { ...q, answers: [...q.answers, action.answerId] }
 				  )
 			  })
 		  }

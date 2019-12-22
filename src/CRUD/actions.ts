@@ -30,5 +30,25 @@ export interface IReset {
 export type EntityActions = IIncrement | IDecrement | IReset;
 
 
+export const increment = () : IIncrement => { 
+	return { 
+		type: EntityActionTypes.INCREMENT,
+		message: "Incremented"
+	}
+}
+
+export const decrement = () : IDecrement => { 
+	return { 
+		type: EntityActionTypes.DECREMENT,
+		message: "Decremented"
+	}
+}
+
+export const reset = () : IReset => { 
+	return { 
+		type: EntityActionTypes.RESET,
+		message: "Reset"
+	}
+}
 
 

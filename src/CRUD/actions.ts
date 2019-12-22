@@ -1,8 +1,3 @@
-import { ActionCreator } from "redux";
-import { IEntityState } from "./types";
-
-// Import redux types
-
 export enum EntityActionTypes {
   INCREMENT = 'INCREMENT',
   DECREMENT = 'DECREMENT',

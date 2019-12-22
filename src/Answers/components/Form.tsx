@@ -2,6 +2,7 @@ import React from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup'
 import { IAnswer } from '../types';
+import { COLORS } from '../../formik/theme';
 
 
 interface IProps {
@@ -12,7 +13,7 @@ interface IProps {
 	saveForm: (answer: IAnswer, formMode: string) => void;
  }
 
-export const AnswerForm: React.FC<IProps> = (props: IProps) => {
+const Form: React.FC<IProps> = (props: IProps) => {
   const formik = useFormik({
 	enableReinitialize: true,
    initialValues: {
@@ -98,3 +99,34 @@ export const AnswerForm: React.FC<IProps> = (props: IProps) => {
     </form>
   );
 };
+
+const color = 'blue';
+
+export const AnswerForm: React.FC<IProps> = (props: IProps) => {
+	return (
+		<div style={{ height: '100%' }} className="formik-example formik-example--blue">
+		<div
+			style={{
+			height: '100%',
+			background: COLORS[color][5],
+			padding: '4rem 2rem',
+			}}
+		>
+			<div
+			style={{
+				borderRadius: '4px',
+				boxShadow: '0 8px 16px rgba(0,0,0,.2)',
+				background: '#fff',
+				maxWidth: 400,
+				margin: '0 auto',
+				padding: '2rem',
+			}}
+			>
+			<div className="formik-example formik-example--blue">
+				<Form {...props} />
+			</div>
+			</div>
+		</div>
+		</div>	
+	)
+}

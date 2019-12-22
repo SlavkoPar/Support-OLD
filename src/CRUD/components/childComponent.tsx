@@ -1,6 +1,6 @@
 import React from "react";
-import { useStore } from "./store"
-import { increment, decrement, reset } from "./actions";
+import { useStore } from "../store"
+import { increment, decrement, reset } from "../actions";
 
 export const ChildComponent = () => {
   const { state, dispatch } = useStore();

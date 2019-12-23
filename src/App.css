@@ -49,6 +49,19 @@ nav ul {
  nav li {
 	 margin: 0 10px;
  }
+
+ul.ul-line {
+	display: flex;
+	flex-wrap: wrap;
+	margin: 10 -10px;
+	list-style: none;
+ }
+
+ul.ul-line li {
+	 margin: 0 10px;
+ }
+
+
  
  .push-right {
 	margin-left: auto;

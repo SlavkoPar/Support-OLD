@@ -1,12 +1,14 @@
 
 export interface IEntity {
-	count: number, 
-	message: string;
+	id: number; 
+	name: string;
+	url: string;
 }
 
 export interface IEntityState {
-	count: number, 
-	message: string;
+	entities: IEntity[];
+	entity?: IEntity;
+	loading: boolean;
 	// readonly entities: IEntity[];
 	// readonly entity?: IEntity;
 	// loading: boolean;

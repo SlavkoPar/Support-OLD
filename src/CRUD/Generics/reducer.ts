@@ -2,27 +2,29 @@ import { IEntityState } from './types';
 
 import { EntityActions, EntityActionTypes } from './actions';
 
-
 export const reducer: React.Reducer<IEntityState, EntityActions> = (state, action) =>  {
 	switch(action.type) {
 
-		case EntityActionTypes.INCREMENT:
+		case EntityActionTypes.ENTITY_GET_ALL:
 			return {
-				count: state.count + 1,
-				message: action.message
+				...state,
+				entities: action.entities,
 			}
-			
-		case EntityActionTypes.DECREMENT:
-			return {
-				count: state.count - 1,
-				message: action.message
-			}
-			
 
-		case EntityActionTypes.RESET:
+		case EntityActionTypes.ENTITY_SET_LOADING:
 			return {
-				count: 0,
-				message: action.message
+				...state,
+				loading: action.b
+			}
+
+		case EntityActionTypes.ENTITY_EDIT:
+			return {
+				...state
+			}
+			
+		case EntityActionTypes.ENTITY_REMOVE:
+			return {
+				...state
 			}
 
 		default:

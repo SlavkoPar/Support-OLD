@@ -12,14 +12,18 @@ import { getAllQuestions } from './Questions/actions';
 import { getAllAnswers } from './Answers/actions';
 
 import './index.css';
+import './App.css';
+
 import App from './components/App';
 import Answers from './Answers/containers/List'
 import containers from './Questions/containers/Pages'
-import { EntityPage } from './CRUD/EntityPage';
+
+import { EntityPage } from './CRUD/Generics/EntityPage';
 
 import './formik/formikStyles.css';
 import { css } from 'glamor';
 import { COLORS } from './formik/theme';
+import { StudentPage } from './CRUD/Student/StudentPage';
 const { base, black, ...cols } = COLORS;
 
 // Cool example colors.
@@ -83,8 +87,8 @@ const Root: React.SFC<IProps> = props => {
 				</nav>
 				<div>
 					<Switch>
-						<Route exact path="/">
-							<App />
+						<Route exact path="/zzz">
+							{<App /> }
 						</Route>
 						<Route path="/questions">
 							<containers.questions canEdit={true} />
@@ -99,8 +103,8 @@ const Root: React.SFC<IProps> = props => {
 								return <div>{match}</div>;
 							}}
 						/> */}
-						<Route path="/crud">
-							<EntityPage name="pera" />
+						<Route path="/">  {/* /crud */}
+							<StudentPage name="pera" />
 						</Route>
 					</Switch>
 				</div>	

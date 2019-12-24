@@ -2,12 +2,14 @@
 import React, { createContext, useContext, useReducer, Dispatch } from 'react';
 import { IEntityState } from './types';
 import { reducer } from './reducer';
-import { EntityActions, getAll } from './actions';
+import { EntityActions } from './actions';
 
 
 const initialState: IEntityState = { 
 	entities: [],
 	loading: false,
+	formMode: 'display',
+	canEdit: true
 };
 
 
@@ -17,6 +19,7 @@ interface IContext {
  }
 
 // The standard way to create context. It takes an initial value object
+
 let EntityContext: React.Context<IContext>;
 
 interface IProps {
@@ -24,10 +27,10 @@ interface IProps {
 }
 
 export const EntityProvider: React.FC<IProps> = ({ children }) => {
-
 	const [state, dispatch] = useReducer<React.Reducer<IEntityState, EntityActions>>(reducer, initialState);
 
-	EntityContext = createContext<IContext>( { state, dispatch })
+	if (EntityContext === undefined)
+		EntityContext = createContext<IContext>({ state, dispatch })
 
   	return (
    	<EntityContext.Provider value={{ state, dispatch }}>

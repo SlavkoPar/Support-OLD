@@ -1,7 +1,3 @@
-
-
-// import * as React from 'react';
-
 type RenderPropType<InputType, OtherInputType> = { c: number } & InputType & OtherInputType;
 
 type RowComponentPropTypes<InputType, OtherInputType> = {
@@ -25,3 +21,15 @@ export function RowComponent<
    );
 }
 
+/*
+<div>Row Component</div>
+			<RowComponent
+				input={{ a: 1 }}
+				otherInput={{ b: 2 }}
+				render={({ a, b, c }) => (
+					<div>
+						{a} {b} {c}
+					</div>
+				)}
+			/>
+*/

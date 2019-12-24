@@ -18,12 +18,12 @@ import App from './components/App';
 import Answers from './Answers/containers/List'
 import containers from './Questions/containers/Pages'
 
-import { EntityPage } from './CRUD/Generics/EntityPage';
+//import { EntityPage } from './CRUD/Generics/EntityPage';
+import { StudentPage } from './CRUD/Student/StudentPage';
 
 import './formik/formikStyles.css';
 import { css } from 'glamor';
 import { COLORS } from './formik/theme';
-import { StudentPage } from './CRUD/Student/StudentPage';
 const { base, black, ...cols } = COLORS;
 
 // Cool example colors.
@@ -104,7 +104,7 @@ const Root: React.SFC<IProps> = props => {
 							}}
 						/> */}
 						<Route path="/">  {/* /crud */}
-							<StudentPage name="pera" />
+							<StudentPage />
 						</Route>
 					</Switch>
 				</div>	

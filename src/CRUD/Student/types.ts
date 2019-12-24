@@ -8,12 +8,9 @@ export interface IStudent {
 }
 
 export interface IStudentState {
-	students: IStudent[];
-	student?: IStudent;
+	readonly students: IStudent[];
+	readonly student?: IStudent;
 	loading: boolean;
-
-	// readonly entities: IEntity[];
-	// readonly entity?: IEntity;
-	// loading: boolean;
-	// formMode: string;
+	formMode: string;
+	canEdit: boolean;
 }

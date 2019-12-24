@@ -1,13 +1,12 @@
 import React from "react";
 import { useStudent } from "../useStudent"
-import { edit, remove, getAll, setLoading } from "../actions";
-import { RowComponent } from "../../RowComponent";
+import { edit, remove, getAll, setLoading, add } from "../actions";
 
 interface IProps {
 	query: string
 }
 
-export const List = (props: IProps) => {
+export const StudentList = (props: IProps) => {
 	const { state, dispatch } = useStudent();
 
 	React.useEffect(() => {
@@ -30,18 +29,8 @@ export const List = (props: IProps) => {
 						</ul>
 					</li>
 				))}
-			</ul>			
-
-			<div>Row Component</div>
-			<RowComponent
-				input={{ a: 1 }}
-				otherInput={{ b: 2 }}
-				render={({ a, b, c }) => (
-					<div>
-						{a} {b} {c}
-					</div>
-				)}
-			/>
+			</ul>		
+			<button onClick={() => dispatch(add())}>Add new</button>			
 		</div>
   )
 }

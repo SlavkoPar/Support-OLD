@@ -8,16 +8,18 @@ import { StudentActions } from './actions';
 const initialState: IStudentState = { 
 	students: [],
 	loading: false,
+	formMode: 'display',
+	canEdit: true
 };
 
 
-interface IContext {
+interface IStudentContext {
 	state: IStudentState;
 	dispatch: Dispatch<StudentActions>;
  }
 
 // The standard way to create context. It takes an initial value object
-let StudentContext: React.Context<IContext>;
+let StudentContext: React.Context<IStudentContext>;
 
 interface IProps {
 	children: React.ReactNode
@@ -26,7 +28,9 @@ interface IProps {
 export const StudentProvider: React.FC<IProps> = ({ children }) => {
 
   const [state, dispatch] = useReducer<React.Reducer<IStudentState, StudentActions>>(reducer, initialState);
-  StudentContext = createContext<IContext>( { state, dispatch })
+  
+	if (StudentContext === undefined)
+  		StudentContext = createContext<IStudentContext>({ state, dispatch })
 
   	return (
    	<StudentContext.Provider value={{ state, dispatch }}>

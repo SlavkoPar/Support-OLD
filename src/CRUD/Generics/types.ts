@@ -1,16 +1,14 @@
 
 export interface IEntity {
-	id: number; 
+	entityId: number; 
 	name: string;
 	url: string;
 }
 
 export interface IEntityState {
-	entities: IEntity[];
-	entity?: IEntity;
+	readonly entities: IEntity[];
+	readonly entity?: IEntity;
 	loading: boolean;
-	// readonly entities: IEntity[];
-	// readonly entity?: IEntity;
-	// loading: boolean;
-	// formMode: string;
+	formMode: string;
+	canEdit: boolean;
 }

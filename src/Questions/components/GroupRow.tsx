@@ -16,7 +16,7 @@ interface IQuestionRowProps {
 
 const GroupRow: React.FC<IQuestionRowProps> = (props: IQuestionRowProps) => {
 
-	const [hoverRef, hoverProps] = useHover();
+	const [hoverRef, hoverProps] = useHover({ tip: document.createElement('div') });
 	const { questionGroup, editGroup, removeGroup } = props;
 
    return (

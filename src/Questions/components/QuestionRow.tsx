@@ -17,23 +17,25 @@ interface IQuestionRowProps {
 
 const QuestionRow: React.FC<IQuestionRowProps> = (props: IQuestionRowProps) => {
 
-	const [hoverRef, hoverProps] = useHover();
+	const [hoverRef, hoverProps] = useHover({ tip: document.createElement('div') });
+
 	const { question, onSelectQuestion, edit, remove } = props;
+	const { groupId, questionId } = question;
 
    return (
-		<div id={question.questionId.toString()} ref={hoverRef} className="name">
+		<div id={questionId.toString()} ref={hoverRef} className="name">
 			<button
 				className="question-button"
-				onClick={() => onSelectQuestion(question.questionId)}>
+				onClick={() => onSelectQuestion(questionId)}>
 				{question.text}
 			</button>
-			{hoverProps.isHovered && hoverProps.id === question.questionId &&
-				<button className="button-edit" title="Edit Answer" onClick={() => edit(question.groupId, question.questionId)}>
+			{hoverProps.isHovered && hoverProps.id === questionId &&
+				<button className="button-edit" title="Edit" onClick={() => edit(groupId, questionId)}>
 					<FontAwesomeIcon icon={faEdit} color='lightblue' />
 				</button>
 			}
-			{hoverProps.isHovered && hoverProps.id === question.questionId &&
-				<button className="button-remove" title="Remove Answer" onClick={() => remove(question.groupId, question.questionId)}>
+			{hoverProps.isHovered && hoverProps.id === questionId &&
+				<button className="button-remove" title="Remove" onClick={() => remove(groupId, questionId)}>
 					<FontAwesomeIcon icon={faWindowClose}  color='lightblue' />
 				</button>
 			}

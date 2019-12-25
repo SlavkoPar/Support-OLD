@@ -19,12 +19,10 @@ export function useHover() : [React.RefObject<HTMLDivElement>, IHoverProps] {
 		 if (node) {
 			node.addEventListener('mouseenter', () => handleMouseOver());
 			node.addEventListener('mouseleave', () => handleMouseOut());
-			console.log('usao')
  
 			return () => {
 				node.removeEventListener('mouseenter', () => handleMouseOver());
 				node.removeEventListener('mouseleave', () => handleMouseOut());
-				console.log('izasao')
 			};
 		 }
 	  }, [divRef.current] // Recall only if ref changes

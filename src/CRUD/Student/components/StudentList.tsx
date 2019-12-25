@@ -18,14 +18,15 @@ export const StudentList = (props: IProps) => {
 	return (
    	<div>
 			<h3>Students</h3>
-			<ul>
-				{state.students.map(({ studentId, firstName, lastName, url }) => (
-					<li key={studentId}>
+			<ul className="ul-row">
+				{state.students.map(({ entityId, name, url, email }) => (
+					<li key={entityId}>
 						<ul className="ul-line">
-							<li>{studentId}</li>
-							<li><a href={url}>{firstName} {lastName}</a></li>
-							<li><button onClick={() => dispatch(edit(studentId))}>edit</button></li>
-							<li><button onClick={() => dispatch(remove(studentId))}>remove</button></li>
+							<li>{entityId}</li>
+							<li><a href={url}>{name}</a></li>
+							<li>{email}</li>
+							<li><button onClick={() => dispatch(edit(entityId))}>edit</button></li>
+							<li><button onClick={() => dispatch(remove(entityId))}>remove</button></li>
 						</ul>
 					</li>
 				))}

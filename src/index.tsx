@@ -18,7 +18,7 @@ import App from './components/App';
 import Answers from './Answers/containers/List'
 import containers from './Questions/containers/Pages'
 
-//import { EntityPage } from './CRUD/Generics/EntityPage';
+// import { EntityPage } from './CRUD/Generics/EntityPage';
 import { StudentPage } from './CRUD/Student/StudentPage';
 
 import './formik/formikStyles.css';
@@ -87,7 +87,7 @@ const Root: React.SFC<IProps> = props => {
 				</nav>
 				<div>
 					<Switch>
-						<Route exact path="/zzz">
+						<Route exact path="/">
 							{<App /> }
 						</Route>
 						<Route path="/questions">
@@ -103,7 +103,7 @@ const Root: React.SFC<IProps> = props => {
 								return <div>{match}</div>;
 							}}
 						/> */}
-						<Route path="/">  {/* /crud */}
+						<Route path="/crud">
 							<StudentPage />
 						</Route>
 					</Switch>

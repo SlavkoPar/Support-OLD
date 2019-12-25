@@ -50,16 +50,31 @@ nav ul {
 	 margin: 0 10px;
  }
 
+/* */
+ul.ul-row {
+	display: flex;
+	flex-wrap: wrap;
+	margin: 10 -10px;
+	list-style: none;
+	border: 1px solid gray;
+}
+
+ul.ul-row li {
+	 margin: 0 10px;
+	 border: 1px inset silver;
+	}
+
+
 ul.ul-line {
 	display: flex;
 	flex-wrap: wrap;
 	margin: 10 -10px;
 	list-style: none;
- }
+}
 
 ul.ul-line li {
 	 margin: 0 10px;
- }
+}
 
 
  

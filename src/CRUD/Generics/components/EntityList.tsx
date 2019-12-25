@@ -17,7 +17,7 @@ export const EntityList = (props: IProps) => {
 
 	return (
    	<div>
-			<ul>
+			<ul className="ul-row">
 				{state.entities.map(({ entityId, name, url }) => (
 					<li key={entityId}>
 						<ul className="ul-line">

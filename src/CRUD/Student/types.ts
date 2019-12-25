@@ -1,10 +1,9 @@
+import { IEntity } from "../Generics/types";
 
-export interface IStudent {
-	studentId: number; 
+export interface IStudent extends IEntity {
 	firstName: string;
 	lastName: string;
 	email: string;
-	url: string;
 }
 
 export interface IStudentState {

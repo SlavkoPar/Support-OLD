@@ -3,7 +3,8 @@ import { IStudentState, IStudent } from './types';
 import { StudentActions, StudentActionTypes, localStorageSave } from './actions';
 
 const initialStudent: IStudent = { 
-	studentId: 0, 
+	entityId: 0, 
+	name: '',
 	firstName: '',
 	lastName: '',
 	email: '',
@@ -39,7 +40,7 @@ export const reducer: React.Reducer<IStudentState, StudentActions> = (state, act
 				formMode: 'add',
 				student: { 
 					...initialStudent, 
-					studentId: action.studentId
+					entityId: action.entityId
 				}
 			};
 		}    	
@@ -52,12 +53,12 @@ export const reducer: React.Reducer<IStudentState, StudentActions> = (state, act
 			}
 			
 		case StudentActionTypes.STUDENT_REMOVE: {
-			localStorageSave(JSON.stringify(state.students.filter(e => e.studentId !== action.studentId)))
+			localStorageSave(JSON.stringify(state.students.filter(e => e.entityId !== action.entityId)))
 			return {
 				...state,
 				formMode: 'display',
 				student: undefined,
-				students: state.students.filter(e => e.studentId !== action.studentId)
+				students: state.students.filter(e => e.entityId !== action.entityId)
 			}
 		}
 		
@@ -67,7 +68,7 @@ export const reducer: React.Reducer<IStudentState, StudentActions> = (state, act
 				students = [...state.students, { ...action.student }]
 			}
 			else {
-				students = state.students.map(a => a.studentId === action.student.studentId ? { ...action.student } : a)
+				students = state.students.map(a => a.entityId === action.student.entityId ? { ...action.student } : a)
 			}
 			localStorageSave(JSON.stringify(students))
 			return {

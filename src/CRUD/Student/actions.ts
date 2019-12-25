@@ -28,7 +28,7 @@ export interface IStudentGet {
 
 export interface IStudentAdd {
 	type: StudentActionTypes.STUDENT_ADD;
-	studentId: number;
+	entityId: number;
 }
 
 export interface IStudentEdit {
@@ -38,7 +38,7 @@ export interface IStudentEdit {
 
 export interface IStudentRemove {
 	type: StudentActionTypes.STUDENT_REMOVE;
-	studentId: number;
+	entityId: number;
 }
 
 export interface IStudentStore {
@@ -58,24 +58,25 @@ export type StudentActions = IStudentGetAll | IStudentGet | ISetLoading |
 
 
 export const getAll = () : IStudentGetAll => { 
+	const list = localStorageStudents.map(s => { return {...s, name: s.firstName.trim() + ' ' + s.lastName.trim() } })
 	return { 
 		type: StudentActionTypes.STUDENT_GET_ALL,
-		students: [...localStorageStudents]
+		students: [...list]
 	}
 }
 
-export const get = (studentId: number) : IStudentGet => { 
+export const get = (entityId: number) : IStudentGet => { 
 	return { 
 		type: StudentActionTypes.STUDENT_GET,
-		student: localStorageStudents.find(e => e.studentId === studentId)!
+		student: localStorageStudents.find(e => e.entityId === entityId)!
 	}
 }
 
 export const add = () : IStudentAdd => { 
 	return { 
 		type: StudentActionTypes.STUDENT_ADD,
-		studentId: localStorageStudents.length === 0 ? 
-			1 : Math.max(...localStorageStudents.map(e => e.studentId)) + 1
+		entityId: localStorageStudents.length === 0 ? 
+			1 : Math.max(...localStorageStudents.map(e => e.entityId)) + 1
 	}
 }
 
@@ -87,10 +88,10 @@ export const setLoading = (b: boolean) : ISetLoading => {
 	}
 }
 
-export const edit = (studentId: number) : IStudentEdit => { 
+export const edit = (entityId: number) : IStudentEdit => { 
 	return { 
 		type: StudentActionTypes.STUDENT_EDIT,
-		student: localStorageStudents.find(e => e.studentId === studentId)!
+		student: localStorageStudents.find(e => e.entityId === entityId)!
 	}
 }
 
@@ -101,10 +102,10 @@ export const store = (student: IStudent) : IStudentStore => {
 	}
 }
 
-export const remove = (studentId: number) : IStudentRemove => { 
+export const remove = (entityId: number) : IStudentRemove => { 
 	return { 
 		type: StudentActionTypes.STUDENT_REMOVE,
-		studentId
+		entityId
 	}
 }
 
@@ -114,11 +115,11 @@ export const cancel = () : IStudentCancel => {
 	}
 }
 
-let localStorageStudents = [
-	{ studentId: 101, firstName: 'Piter', lastName: 'Fonda', email: '', url: '/student/'},
-	{ studentId: 102, firstName: 'Ana', lastName: 'Karenjina', email: '', url: '/student/'},
-	{ studentId: 103, firstName: 'jack', lastName: 'Daniels', email: '', url: '/student/'},
-	{ studentId: 104, firstName: 'Robert', lastName:'De Niro', email: '', url: '/student/'},
+let localStorageStudents: IStudent[] = [
+	{ entityId: 101, name: '', firstName: 'Piter', lastName: 'Fonda',  email: 'piter@gmail.com', url: '/student/'},
+	{ entityId: 102, name: '', firstName: 'Ana', lastName: 'Karenjina', email: 'ana@gmail.com', url: '/student/'},
+	{ entityId: 103, name: '', firstName: 'Jack', lastName: 'Daniels', email: 'jack@gmail.com', url: '/student/'},
+	{ entityId: 104, name: '', firstName: 'Robert', lastName:'De Niro', email: 'robi@gmail.com', url: '/student/'},
 ]
 
 export const localStorageSave = (sStudents: string) => {

@@ -5,7 +5,7 @@ import { faWindowClose, faEdit } from '@fortawesome/free-solid-svg-icons'
 import { edit, remove, StudentActions } from "../actions";
 import { IStudent } from "../types";
 
-import { useHover } from '../../../common/useHover'
+import { useHoverUL } from "../../../common/useHoverUL";
 
 interface IRowProps {
 	student: IStudent,
@@ -14,28 +14,30 @@ interface IRowProps {
 
 export const StudentRow = (props: IRowProps) => {
 	const { entityId, name, url, email } = props.student;
-	const [hoverRef, hoverProps] = useHover( { tip: document.createElement('ul') });
+	const [hoverRef, hoverProps] = useHoverUL();
 
 	return (
 		<li key={entityId}>
-			<ul className="ul-line" id={entityId.toString()} ref={hoverRef}>
+			<ul className="ul-line" ref={hoverRef}>
 				<li>{entityId}</li>
 				<li><a href={url}>{name}</a></li>
 				<li>{email}</li>
 
-				{hoverProps.isHovered && hoverProps.id === entityId &&
+				<li>
+				{hoverProps.isHovered &&
 					<button className="button-edit" title="Edit" onClick={() => props.dispatch(edit(entityId))}>
 						<FontAwesomeIcon icon={faEdit} color='lightblue' />
 					</button>
 				}
-				{hoverProps.isHovered && hoverProps.id === entityId &&
-					<button className="button-remove" title="Remove" onClick={() => props.dispatch(remove(entityId))}>
+				{hoverProps.isHovered &&
+					<button className="button-remove" title="Remove" onClick={() => { 
+						props.dispatch(remove(entityId));
+					}}>
 						<FontAwesomeIcon icon={faWindowClose}  color='lightblue' />
 					</button>
 				}
+				</li>
 
-				{/* <li><button onClick={() => props.dispatch(edit(entityId))}>edit</button></li>
-				<li><button onClick={() => props.dispatch(remove(entityId))}>remove</button></li> */}
 			</ul>
 		</li>		
 	)

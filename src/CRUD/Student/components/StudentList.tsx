@@ -22,7 +22,7 @@ export const StudentList = (props: IProps) => {
 			<h3>Students</h3>
 			<ul className="ul-row">
 				{state.students.map(student =>
-					<StudentRow dispatch={dispatch} student={student} />	
+					<StudentRow dispatch={dispatch} student={student} key={student.entityId} />	
 				)}
 			</ul>		
 			<button onClick={() => dispatch(add())}>Add new</button>			

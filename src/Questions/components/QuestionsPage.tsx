@@ -10,7 +10,6 @@ import { Form } from './Form'
 import { DisplayForm } from './DisplayForm'
 import QuestionRow from './QuestionRow';
 import GroupRow from './GroupRow';
-import { getQuestion } from '../actions';
 
 
 const QuestionsPage: React.FC<IComponentProps> = (props: IComponentProps) => {

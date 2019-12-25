@@ -16,18 +16,18 @@ interface IQuestionRowProps {
 
 const GroupRow: React.FC<IQuestionRowProps> = (props: IQuestionRowProps) => {
 
-	const [hoverRef, hoverProps] = useHover({ tip: document.createElement('div') });
+	const [hoverRef, hoverProps] = useHover();
 	const { questionGroup, editGroup, removeGroup } = props;
 
    return (
-		<div id={questionGroup.groupId.toString()} ref={hoverRef} key={questionGroup.groupId} className="name">
+		<div ref={hoverRef} key={questionGroup.groupId} className="name">
 			{questionGroup.title}
-			{hoverProps.isHovered && hoverProps.id === questionGroup.groupId&&
+			{hoverProps.isHovered &&
 				<button className="button-edit" title="Edit Section" onClick={() => editGroup(questionGroup.groupId)}>
 					<FontAwesomeIcon icon={faEdit} color='lightblue' />
 				</button>
 			}			
-			{hoverProps.isHovered && hoverProps.id === questionGroup.groupId && questionGroup.questions.length === 0 &&
+			{hoverProps.isHovered && questionGroup.questions.length === 0 &&
 				<button className="button-remove" title="Remove Section" onClick={() => removeGroup(questionGroup.groupId)}>
 					<FontAwesomeIcon icon={faWindowClose}  color='lightblue' />
 				</button>

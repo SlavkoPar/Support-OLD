@@ -2,14 +2,14 @@ import React from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faWindowClose, faEdit } from '@fortawesome/free-solid-svg-icons'
 
-import { edit, remove, StudentActions } from "../actions";
+import { edit, remove, Actions } from "../actions";
 import { IStudent } from "../types";
 
 import { useHoverUL } from "../../../common/useHoverUL";
 
 interface IRowProps {
 	student: IStudent,
-	dispatch: React.Dispatch<StudentActions>
+	dispatch: React.Dispatch<Actions>
 }
 
 export const StudentRow = (props: IRowProps) => {

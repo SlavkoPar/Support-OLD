@@ -1,6 +1,6 @@
 import { IStudentState, IStudent } from './types';
 
-import { StudentActions, StudentActionTypes, localStorageSave } from './actions';
+import { Actions, ActionTypes, localStorageSave } from './actions';
 
 const initialStudent: IStudent = { 
 	entityId: 0, 
@@ -12,29 +12,29 @@ const initialStudent: IStudent = {
 };
 
 
-export const reducer: React.Reducer<IStudentState, StudentActions> = (state, action) =>  {
+export const reducer: React.Reducer<IStudentState, Actions> = (state, action) =>  {
 	switch(action.type) {
 
-		case StudentActionTypes.STUDENT_GET_ALL:
+		case ActionTypes.GET_ALL:
 			return {
 				...state,
 				students: action.students,
 			}
 
-		case StudentActionTypes.STUDENT_SET_LOADING:
+		case ActionTypes.SET_LOADING:
 			return {
 				...state,
 				loading: action.loading
 			}
 
-		case StudentActionTypes.STUDENT_GET: {
+		case ActionTypes.GET: {
 			return {
 				...state,
 				student: action.student
 			};
 		}    
 
-		case StudentActionTypes.STUDENT_ADD: {
+		case ActionTypes.ADD: {
 			return {
 				...state,
 				formMode: 'add',
@@ -45,14 +45,14 @@ export const reducer: React.Reducer<IStudentState, StudentActions> = (state, act
 			};
 		}    	
 
-		case StudentActionTypes.STUDENT_EDIT: 
+		case ActionTypes.EDIT: 
 			return {
 				...state,
 				formMode: 'edit',
 				student: { ...action.student }				
 			}
 			
-		case StudentActionTypes.STUDENT_REMOVE: {
+		case ActionTypes.REMOVE: {
 			localStorageSave(JSON.stringify(state.students.filter(e => e.entityId !== action.entityId)))
 			return {
 				...state,
@@ -62,7 +62,7 @@ export const reducer: React.Reducer<IStudentState, StudentActions> = (state, act
 			}
 		}
 		
-		case StudentActionTypes.STUDENT_STORE: {
+		case ActionTypes.STORE: {
 			let students: IStudent[] = [];
 			if (state.formMode === 'add') {
 				students = [...state.students, { ...action.student }]
@@ -79,7 +79,7 @@ export const reducer: React.Reducer<IStudentState, StudentActions> = (state, act
 			};
 		}
 
-		case StudentActionTypes.STUDENT_CANCEL: {
+		case ActionTypes.CANCEL: {
 			return {
 				...state,
 				formMode: 'display',

@@ -1,80 +1,80 @@
 import { IStudent } from "./types";
 
-export enum StudentActionTypes {
-	STUDENT_GET_ALL = 'STUDENT_GET_ALL',
-	STUDENT_SET_LOADING = 'STUDENT_SET_LOADING',
-	STUDENT_ADD = 'STUDENT_ADD',
-	STUDENT_GET = 'STUDENT_GET',
-  	STUDENT_EDIT = 'STUDENT_EDIT',
-	STUDENT_REMOVE = 'STUDENT_REMOVE',
-  	STUDENT_STORE = 'STUDENT_STORE',
-	STUDENT_CANCEL = 'STUDENT_CANCEL',
+export enum ActionTypes {
+	GET_ALL = 'GET_ALL',
+	SET_LOADING = 'SET_LOADING',
+	ADD = 'ADD',
+	GET = 'GET',
+  	EDIT = 'EDIT',
+	REMOVE = 'REMOVE',
+  	STORE = 'STORE',
+	CANCEL = 'CANCEL',
 }
 
-export interface IStudentGetAll {
-	type: StudentActionTypes.STUDENT_GET_ALL;
+export interface IGetAll {
+	type: ActionTypes.GET_ALL;
 	students: IStudent[]
 }
 
 export interface ISetLoading {
-	type: StudentActionTypes.STUDENT_SET_LOADING;
+	type: ActionTypes.SET_LOADING;
 	loading: boolean
 }
 
-export interface IStudentGet {
-	type: StudentActionTypes.STUDENT_GET;
+export interface IGet {
+	type: ActionTypes.GET;
 	student: IStudent
 }
 
-export interface IStudentAdd {
-	type: StudentActionTypes.STUDENT_ADD;
+export interface IAdd {
+	type: ActionTypes.ADD;
 	entityId: number;
 }
 
-export interface IStudentEdit {
-	type: StudentActionTypes.STUDENT_EDIT;
+export interface IEdit {
+	type: ActionTypes.EDIT;
 	student: IStudent;
 }
 
-export interface IStudentRemove {
-	type: StudentActionTypes.STUDENT_REMOVE;
+export interface IRemove {
+	type: ActionTypes.REMOVE;
 	entityId: number;
 }
 
-export interface IStudentStore {
-	type: StudentActionTypes.STUDENT_STORE;
+export interface IStore {
+	type: ActionTypes.STORE;
 	student: IStudent
 }
 
-export interface IStudentCancel {
-	type: StudentActionTypes.STUDENT_CANCEL;
+export interface ICancel {
+	type: ActionTypes.CANCEL;
 }
 
 
 // Combine the action types with a union (we assume there are more)
-export type StudentActions = IStudentGetAll | IStudentGet | ISetLoading | 
-					IStudentAdd | IStudentEdit | IStudentRemove | 
-					IStudentStore | IStudentCancel;
+export type Actions = IGetAll | IGet | ISetLoading | 
+					IAdd | IEdit | IRemove | 
+					IStore | ICancel;
 
 
-export const getAll = () : IStudentGetAll => { 
+export const getAll = () : IGetAll => { 
 	const list = localStorageStudents.map(s => { return {...s, name: s.firstName.trim() + ' ' + s.lastName.trim() } })
 	return { 
-		type: StudentActionTypes.STUDENT_GET_ALL,
+		type: ActionTypes.GET_ALL,
 		students: [...list]
 	}
 }
 
-export const get = (entityId: number) : IStudentGet => { 
+export const get = (entityId: number) : IGet => { 
 	return { 
-		type: StudentActionTypes.STUDENT_GET,
+		type: ActionTypes.GET,
 		student: localStorageStudents.find(e => e.entityId === entityId)!
 	}
 }
 
-export const add = () : IStudentAdd => { 
+export const add = () : IAdd => { 
 	return { 
-		type: StudentActionTypes.STUDENT_ADD,
+		type: ActionTypes.ADD,
 		entityId: localStorageStudents.length === 0 ? 
 			1 : Math.max(...localStorageStudents.map(e => e.entityId)) + 1
 	}
@@ -83,35 +83,35 @@ export const add = () : IStudentAdd => {
 
 export const setLoading = (b: boolean) : ISetLoading => { 
 	return { 
-		type: StudentActionTypes.STUDENT_SET_LOADING,
+		type: ActionTypes.SET_LOADING,
 		loading: b
 	}
 }
 
-export const edit = (entityId: number) : IStudentEdit => { 
+export const edit = (entityId: number) : IEdit => { 
 	return { 
-		type: StudentActionTypes.STUDENT_EDIT,
+		type: ActionTypes.EDIT,
 		student: localStorageStudents.find(e => e.entityId === entityId)!
 	}
 }
 
-export const store = (student: IStudent) : IStudentStore => { 
+export const store = (student: IStudent) : IStore => { 
 	return { 
-		type: StudentActionTypes.STUDENT_STORE,
+		type: ActionTypes.STORE,
 		student
 	}
 }
 
-export const remove = (entityId: number) : IStudentRemove => { 
+export const remove = (entityId: number) : IRemove => { 
 	return { 
-		type: StudentActionTypes.STUDENT_REMOVE,
+		type: ActionTypes.REMOVE,
 		entityId
 	}
 }
 
-export const cancel = () : IStudentCancel => { 
+export const cancel = () : ICancel => { 
 	return { 
-		type: StudentActionTypes.STUDENT_CANCEL
+		type: ActionTypes.CANCEL
 	}
 }
 

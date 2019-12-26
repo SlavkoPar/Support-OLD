@@ -7,17 +7,17 @@ import { edit, remove, Actions } from "../actions";
 import { useHoverUL } from "../../../common/useHoverUL";
 import { IEntity } from "../types";
 
-interface IRowProps<T extends IEntity> {
+interface IRowProps<T> {
 	entity: T,
 	dispatch: React.Dispatch<Actions>,
-	renderItem: (item: T) => JSX.Element[]
+	renderColumns: (item: T) => JSX.Element[]
 }
-
 
 export const EntityRow: <
 	T extends IEntity
 >(props: IRowProps<T>) => React.ReactElement<IRowProps<T>> = (props) => {
-	const { entityId, name, url } = props.entity; 
+	const { entity, dispatch, renderColumns } = props;
+	const { entityId, name, url } = entity; 
 	const [hoverRef, hoverProps] = useHoverUL();
 
 	return (
@@ -26,17 +26,17 @@ export const EntityRow: <
 				<li>{entityId}</li>
 				<li><a href={url}>{name}</a></li>
 
-				props.renderItem(item)
+				{ renderColumns(entity) }
 
 				<li>
 				{hoverProps.isHovered &&
-					<button className="button-edit" title="Edit" onClick={() => props.dispatch(edit(entityId))}>
+					<button className="button-edit" title="Edit" onClick={() => dispatch(edit(entityId))}>
 						<FontAwesomeIcon icon={faEdit} color='lightblue' />
 					</button>
 				}
 				{hoverProps.isHovered &&
 					<button className="button-remove" title="Remove" onClick={() => { 
-							props.dispatch(remove(entityId));	
+							dispatch(remove(entityId));
 						}}
 					>
 						<FontAwesomeIcon icon={faWindowClose}  color='lightblue' />
@@ -48,39 +48,3 @@ export const EntityRow: <
 		</li>		
 	)
 };
-
-/*
-export const EntityRow<
-	T extends IEntity
-> (props: IRowProps<T extends IEntity>) : JSX.Element => {
-	const { entityId, name, url } = props.entity; 
-	const [hoverRef, hoverProps] = useHoverUL();
-
-	return (
-		<li key={entityId}>
-			<ul className="ul-line" ref={hoverRef}>
-				<li>{entityId}</li>
-				<li><a href={url}>{name}</a></li>
-
-				<li>
-				{hoverProps.isHovered &&
-					<button className="button-edit" title="Edit" onClick={() => props.dispatch(edit(entityId))}>
-						<FontAwesomeIcon icon={faEdit} color='lightblue' />
-					</button>
-				}
-				{hoverProps.isHovered &&
-					<button className="button-remove" title="Remove" onClick={() => { 
-							props.dispatch(remove(entityId));	
-						}}
-					>
-						<FontAwesomeIcon icon={faWindowClose}  color='lightblue' />
-					</button>
-				}
-				</li>
-
-			</ul>
-		</li>		
-	)
-}
-*/
-

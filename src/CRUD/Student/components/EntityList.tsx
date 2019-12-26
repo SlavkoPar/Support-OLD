@@ -5,12 +5,10 @@ import { IEntity } from "../types";
 
 
 interface IProps<T extends IEntity> {
-	items: T[],
+	entities: T[],
 	dispatch: React.Dispatch<Actions>,
-	renderItem: (item: T) => JSX.Element[]
+	renderColumns: (item: T) => JSX.Element[]
 }
-
-// export const EntityList = (props: IProps) => {
 
 export const EntityList: <
 	T extends IEntity
@@ -19,12 +17,12 @@ export const EntityList: <
 	return (
    	<div>
 			<ul className="ul-row">
-				{props.items.map(item =>
+				{props.entities.map(entity =>
 					<EntityRow
-						key={item.entityId}
+						key={entity.entityId}
 						dispatch={props.dispatch}
-						entity={item}
-						renderItem={props.renderItem}
+						entity={entity}
+						renderColumns={props.renderColumns}
 					/>	
 				)}
 			</ul>		

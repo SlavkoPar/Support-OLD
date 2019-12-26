@@ -8,7 +8,6 @@ interface IProps {
 }
 
 export const StudentPage: React.FC<IProps> = (props: IProps) => {
-
   return (
     <StudentProvider>
 		 <Page query={props.query} />

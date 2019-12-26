@@ -9,7 +9,6 @@ interface IProps {
 	query: string;
 }
 
-
 export const Page: React.FC<IProps> = (props: IProps) => {
 
 	const { state, dispatch } = useStudent();
@@ -25,12 +24,12 @@ export const Page: React.FC<IProps> = (props: IProps) => {
 			<div className="a">
 				<h3>Students</h3>
 				<EntityList 
-					entites={state.entites}
+					entities={state.entites}
 					dispatch={dispatch}
-					renderItem = {(item: IStudent) => [
-						<li>{item.email}</li>,
-						<li>{item.firstName}</li>,
-						<li>{item.lastName}</li>
+					renderColumns = {(entity: IStudent) => [
+						<li>{entity.email}</li>,
+						<li>{entity.firstName}</li>,
+						<li>{entity.lastName}</li>
 					]}
 				 />
 			</div>

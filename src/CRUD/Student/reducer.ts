@@ -18,7 +18,7 @@ export const reducer: React.Reducer<IStudentState, Actions> = (state, action) =>
 		case ActionTypes.GET_ALL:
 			return {
 				...state,
-				students: action.students,
+				entites: action.students,
 			}
 
 		case ActionTypes.SET_LOADING:
@@ -30,7 +30,7 @@ export const reducer: React.Reducer<IStudentState, Actions> = (state, action) =>
 		case ActionTypes.GET: {
 			return {
 				...state,
-				student: action.student
+				entity: action.student
 			};
 		}    
 
@@ -38,7 +38,7 @@ export const reducer: React.Reducer<IStudentState, Actions> = (state, action) =>
 			return {
 				...state,
 				formMode: 'add',
-				student: { 
+				entity: { 
 					...initialStudent, 
 					entityId: action.entityId
 				}
@@ -49,33 +49,33 @@ export const reducer: React.Reducer<IStudentState, Actions> = (state, action) =>
 			return {
 				...state,
 				formMode: 'edit',
-				student: { ...action.student }				
+				entity: { ...action.student }				
 			}
 			
 		case ActionTypes.REMOVE: {
-			localStorageSave(JSON.stringify(state.students.filter(e => e.entityId !== action.entityId)))
+			localStorageSave(JSON.stringify(state.entites.filter(e => e.entityId !== action.entityId)))
 			return {
 				...state,
 				formMode: 'display',
-				student: undefined,
-				students: state.students.filter(e => e.entityId !== action.entityId)
+				entity: undefined,
+				entites: state.entites.filter(e => e.entityId !== action.entityId)
 			}
 		}
 		
 		case ActionTypes.STORE: {
 			let students: IStudent[] = [];
 			if (state.formMode === 'add') {
-				students = [...state.students, { ...action.student }]
+				students = [...state.entites, { ...action.student }]
 			}
 			else {
-				students = state.students.map(a => a.entityId === action.student.entityId ? { ...action.student } : a)
+				students = state.entites.map(a => a.entityId === action.student.entityId ? { ...action.student } : a)
 			}
 			localStorageSave(JSON.stringify(students))
 			return {
 				...state,
 				formMode: 'edit',
-				student: { ...action.student },
-				students: students
+				entity: { ...action.student },
+				entites: students
 			};
 		}
 

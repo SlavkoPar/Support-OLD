@@ -9,7 +9,7 @@ interface IProps {
 
 export const StudentForm: React.FC<IProps> = (props: IProps) => {
 	const { state, dispatch } = useStudent();
-	const { student, formMode, canEdit } = state;
+	const { entity: student, formMode, canEdit } = state;
 
 	let title: string = ''
 	switch (state.formMode) {

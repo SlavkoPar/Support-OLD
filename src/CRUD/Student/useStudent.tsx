@@ -6,17 +6,17 @@ import { Actions } from './actions';
 
 
 const initialState: IStudentState = { 
-	students: [],
+	entites: [],
 	loading: false,
 	formMode: 'display',
 	canEdit: true
 };
 
 
-interface IStudentContext {
+export interface IStudentContext {
 	state: IStudentState;
 	dispatch: Dispatch<Actions>;
- }
+}
 
 // The standard way to create context. It takes an initial value object
 let StudentContext: React.Context<IStudentContext>;

@@ -87,7 +87,7 @@ const Root: React.SFC<IProps> = props => {
 				</nav>
 				<div>
 					<Switch>
-						<Route exact path="/">
+						<Route exact path="/zzzz">
 							{<App /> }
 						</Route>
 						<Route path="/questions">
@@ -103,8 +103,8 @@ const Root: React.SFC<IProps> = props => {
 								return <div>{match}</div>;
 							}}
 						/> */}
-						<Route path="/crud">
-							<StudentPage />
+						<Route path="/">
+							<StudentPage query="all" />
 						</Route>
 					</Switch>
 				</div>	

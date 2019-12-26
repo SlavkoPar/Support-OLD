@@ -1,16 +1,7 @@
 import { IStudentState, IStudent } from './types';
 
 import { Actions, ActionTypes, localStorageSave } from './actions';
-
-const initialStudent: IStudent = { 
-	entityId: 0, 
-	name: '',
-	firstName: '',
-	lastName: '',
-	email: '',
-	url: ''
-};
-
+import { initialStudent } from './useStudent';
 
 export const reducer: React.Reducer<IStudentState, Actions> = (state, action) =>  {
 	switch(action.type) {

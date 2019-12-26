@@ -1,9 +1,18 @@
 
 import React, { createContext, useContext, useReducer, Dispatch } from 'react';
-import { IStudentState } from './types';
+import { IStudent, IStudentState } from './types';
 import { reducer } from './reducer';
 import { Actions } from './actions';
 
+
+export const initialStudent: IStudent = { 
+	entityId: 0, 
+	name: '',
+	firstName: '',
+	lastName: '',
+	email: '',
+	url: ''
+};
 
 const initialState: IStudentState = { 
 	entites: [],
@@ -18,7 +27,6 @@ export interface IStudentContext {
 	dispatch: Dispatch<Actions>;
 }
 
-// The standard way to create context. It takes an initial value object
 let StudentContext: React.Context<IStudentContext>;
 
 interface IProps {

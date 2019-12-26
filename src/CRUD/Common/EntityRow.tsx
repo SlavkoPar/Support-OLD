@@ -2,10 +2,10 @@ import React from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faWindowClose, faEdit } from '@fortawesome/free-solid-svg-icons'
 
-import { edit, remove, Actions } from "../actions";
+import { edit, remove, Actions } from "../Student/actions";
 
-import { useHoverUL } from "../../../common/useHoverUL";
-import { IEntity } from "../types";
+import { useHoverUL } from "./useHoverUL";
+import { IEntity } from "../Student/types";
 
 interface IRowProps<T> {
 	entity: T,

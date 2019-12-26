@@ -1,7 +1,7 @@
 import React from "react";
-import { add, Actions } from "../actions";
+import { add, Actions } from "../Student/actions";
 import { EntityRow } from "./EntityRow";
-import { IEntity } from "../types";
+import { IEntity } from "../Student/types";
 
 
 interface IProps<T extends IEntity> {

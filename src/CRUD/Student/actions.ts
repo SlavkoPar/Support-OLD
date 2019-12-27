@@ -1,11 +1,13 @@
 import { IStudent } from "./types";
+import jsonStudents from "./Students.json"
 
 export enum ActionTypes {
 	GET_ALL = 'GET_ALL',
 	SET_LOADING = 'SET_LOADING',
 	ADD = 'ADD',
 	GET = 'GET',
-  	EDIT = 'EDIT',
+	DISPLAY = 'DISPLAY',
+	EDIT = 'EDIT',
 	REMOVE = 'REMOVE',
   	STORE = 'STORE',
 	CANCEL = 'CANCEL',
@@ -31,6 +33,11 @@ export interface IAdd {
 	entityId: number;
 }
 
+export interface IDisplay {
+	type: ActionTypes.DISPLAY;
+	student: IStudent;
+}
+
 export interface IEdit {
 	type: ActionTypes.EDIT;
 	student: IStudent;
@@ -53,15 +60,16 @@ export interface ICancel {
 
 // Combine the action types with a union (we assume there are more)
 export type Actions = IGetAll | IGet | ISetLoading | 
-					IAdd | IEdit | IRemove | 
+					IDisplay | IAdd | IEdit | IRemove | 
 					IStore | ICancel;
 
 
 export const getAll = () : IGetAll => { 
-	const list = localStorageStudents.map(s => { return {...s, name: s.firstName.trim() + ' ' + s.lastName.trim() } })
+	// create name column of needed
+	// const list = localStorageStudents.map(s => { return {...s, name: s.firstName.trim() + ' ' + s.lastName.trim() } })
 	return { 
 		type: ActionTypes.GET_ALL,
-		students: [...list]
+		students: [...localStorageStudents]
 	}
 }
 
@@ -95,6 +103,14 @@ export const edit = (entityId: number) : IEdit => {
 	}
 }
 
+export const display = (entityId: number) : IDisplay => { 
+	return { 
+		type: ActionTypes.DISPLAY,
+		student: localStorageStudents.find(e => e.entityId === entityId)!
+	}
+}
+
+
 export const store = (student: IStudent) : IStore => { 
 	return { 
 		type: ActionTypes.STORE,
@@ -115,17 +131,41 @@ export const cancel = () : ICancel => {
 	}
 }
 
+/*
+
+(function() {
+	// const poks: IPokemon[] = pokemons;
+	const x = localStorageStudents.map(p => { return { 
+			entityId: p.entityId,
+			//code: p.code,
+			name: p.name,
+			email: p.name.toLowerCase() + "@gmail.com",
+			types: [...p.types],
+			image: p.image,
+			url: p.url
+		}
+	 })
+	const z = JSON.stringify(x)
+
+})()
+*/
+
+//let localStorageStudentsss: IStudent[] = [
+//]
+
+/*
 let localStorageStudents: IStudent[] = [
 	{ entityId: 101, name: '', firstName: 'Piter', lastName: 'Fonda',  email: 'piter@gmail.com', url: '/student/'},
 	{ entityId: 102, name: '', firstName: 'Ana', lastName: 'Karenjina', email: 'ana@gmail.com', url: '/student/'},
 	{ entityId: 103, name: '', firstName: 'Jack', lastName: 'Daniels', email: 'jack@gmail.com', url: '/student/'},
 	{ entityId: 104, name: '', firstName: 'Robert', lastName:'De Niro', email: 'robi@gmail.com', url: '/student/'},
 ]
+*/
+let localStorageStudents: IStudent[] = [ ...jsonStudents ]
+
 
 export const localStorageSave = (sStudents: string) => {
 	const students: IStudent[] = JSON.parse(sStudents);
 	localStorageStudents = students
 }
-
-
 

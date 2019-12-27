@@ -21,18 +21,19 @@ export const MyForm: React.FC<IFormProps> = (props: IFormProps) => {
 		canEdit: props.canEdit,
       entityId: props.student.entityId,
 		url: props.student.url,
-		firstName: props.student.firstName,
-		lastName: props.student.lastName,
+		code: props.student.code,
+		avatar: props.student.avatar,
 		name: props.student.name,
 		email: props.student.email,
+		types: props.student.types,
    },
    validationSchema: Yup.object({
-      firstName: Yup.string()
+      code: Yup.string()
         .max(150, 'Must be 150 characters or less')
         .required('Required'),
    }),
    onSubmit: (values) => {
-		values.name = values.firstName.trim() + ' ' + values.lastName.trim()
+		// values.name = values.firstName.trim() + ' ' + values.lastName.trim()
 		// alert(JSON.stringify(values, null, 2));
 		props.saveForm(values)
    },
@@ -59,18 +60,18 @@ export const MyForm: React.FC<IFormProps> = (props: IFormProps) => {
 			</>
 		}
 
-      <label htmlFor="firstName">First name</label>
+      <label htmlFor="code">First name</label>
       <input
-        id="firstName"
-        name="firstName"
+        id="code"
+        name="code"
         type="text"
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
-		  value={formik.values.firstName}
+		  value={formik.values.code}
 		  disabled = {props.formMode === 'display'}
       />
-      {formik.touched.firstName && formik.errors.firstName ? (
-        <div>{formik.errors.firstName}</div>
+      {formik.touched.code && formik.errors.code ? (
+        <div>{formik.errors.code}</div>
       ) : null}
 
 		<label htmlFor="lastName">Last name</label>
@@ -80,11 +81,11 @@ export const MyForm: React.FC<IFormProps> = (props: IFormProps) => {
         type="text"
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
-		  value={formik.values.lastName}
+		  value={formik.values.avatar}
 		  disabled = {props.formMode === 'display'}
       />
-      {formik.touched.lastName && formik.errors.lastName ? (
-        <div>{formik.errors.lastName}</div>
+      {formik.touched.avatar && formik.errors.avatar ? (
+        <div>{formik.errors.avatar}</div>
       ) : null}		
 
 		<label htmlFor="lastName">Email</label>

@@ -1,14 +1,10 @@
-
-export interface IEntity {
-	entityId: number; 
-	name: string;
-	url: string;
-}
+import { IEntity } from "../Common/types";
 
 export interface IStudent extends IEntity {
-	firstName: string;
-	lastName: string;
+	code: string;
 	email: string;
+	types: string[];
+	avatar: string;
 }
 
 export interface IStudentState {
@@ -18,4 +14,3 @@ export interface IStudentState {
 	formMode: string;
 	canEdit: boolean;
 }
-

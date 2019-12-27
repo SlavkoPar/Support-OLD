@@ -1,7 +1,7 @@
 import React from "react";
 import { add, Actions } from "../Student/actions";
 import { EntityRow } from "./EntityRow";
-import { IEntity } from "../Student/types";
+import { IEntity } from "../Common/types";
 
 
 interface IProps<T extends IEntity> {
@@ -10,21 +10,20 @@ interface IProps<T extends IEntity> {
 	renderColumns: (item: T) => JSX.Element[]
 }
 
-export const EntityList: <
-	T extends IEntity
->(props: IProps<T>) => React.ReactElement<IProps<T>> = (props) => {
-
+export const EntityList: <T extends IEntity>
+					(props: IProps<T>) => React.ReactElement<IProps<T>> = (props) => {
 	return (
-   	<div>
-			<ul className="ul-row">
-				{props.entities.map(entity =>
-					<EntityRow
-						key={entity.entityId}
-						dispatch={props.dispatch}
-						entity={entity}
-						renderColumns={props.renderColumns}
-					/>	
-				)}
+   	<div style={{border: '1px solid navy'}}>
+			<ul className="entity-list">
+				{props.entities.map(entity => (
+					<li key={entity.entityId}>
+						<EntityRow
+							entity={entity}
+							dispatch={props.dispatch}
+							renderColumns={props.renderColumns}
+						/>	
+					</li>
+				))}
 			</ul>		
 			<button onClick={() => props.dispatch(add())}>Add new</button>			
 		</div>

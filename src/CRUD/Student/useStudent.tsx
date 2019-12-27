@@ -8,10 +8,11 @@ import { Actions } from './actions';
 export const initialStudent: IStudent = { 
 	entityId: 0, 
 	name: '',
-	firstName: '',
-	lastName: '',
+	url: '',
+	code: '',
 	email: '',
-	url: ''
+	avatar: 'https://img.pokemondb.net/artwork/diglett.jpg',
+	types: []
 };
 
 const initialState: IStudentState = { 

@@ -51,29 +51,31 @@ nav ul {
  }
 
 /* */
-ul.ul-row {
-	display: flex;
-	flex-wrap: wrap;
-	margin: 10 -10px;
-	list-style: none;
-	border: 1px solid gray;
-}
-
-ul.ul-row li {
-	 margin: 0 10px;
-	 border: 0px inset silver;
-	}
-
-
-ul.ul-line {
+ul.entity-list {
 	display: flex;
 	flex-wrap: wrap;
 	margin: 10 -10px;
 	list-style: none;
 }
 
-ul.ul-line li {
-	 margin: 0 10px;
+
+
+ul.entity-list > li {
+	margin: 10px;
+	border: 1px inset silver;
+	width: 40%;
+}
+
+
+ul.entity-columns {
+	display: flex;
+	flex-wrap: wrap;
+	margin: 10 -10px;
+	list-style: none;
+}
+
+ul.entity-columns > li {
+	margin: 0 10px;
 }
 
 

@@ -30,9 +30,8 @@ export const Page: React.FC<IPageProps> = (props: IProps) => {
 					entities={state.entites}
 					dispatch={dispatch}
 					renderColumns = {(entity: IStudent) => [
-						<li>{entity.email}</li>,
-						<li>{entity.firstName}</li>,
-						<li>{entity.lastName}</li>
+						<li style={{minWidth: '80%'}}>{entity.types.join(', ')}</li>,
+						<li><img src={entity.avatar} style={{height: '30px'}} alt="Slika"></img></li>
 					]}
 				 />
 			</div>

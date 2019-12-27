@@ -54,16 +54,16 @@ nav ul {
 ul.entity-list {
 	display: flex;
 	flex-wrap: wrap;
-	margin: 10 -10px;
+	margin: 5 -5px;
 	list-style: none;
+	padding-inline-start: 3px;
 }
 
-
-
 ul.entity-list > li {
-	margin: 10px;
+	margin: 5px;
 	border: 1px inset silver;
-	width: 40%;
+	border-radius: 10px;
+	width: 30%;
 }
 
 
@@ -72,6 +72,7 @@ ul.entity-columns {
 	flex-wrap: wrap;
 	margin: 10 -10px;
 	list-style: none;
+	padding-inline-start: 3px;
 }
 
 ul.entity-columns > li {
@@ -101,7 +102,7 @@ ul.entity-columns > li {
 	font-size: 1.2em;
 	width: 100%;
 	display: grid;
-	grid-template-columns: 1fr 1fr;
+	grid-template-columns: 1.3fr 1fr;
 	grid-template-rows: 1fr;
 	grid-gap: 15px;
 	grid-template-areas:

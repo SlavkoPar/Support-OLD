@@ -13,7 +13,7 @@ interface IProps<T extends IEntity> {
 export const EntityList: <T extends IEntity>
 					(props: IProps<T>) => React.ReactElement<IProps<T>> = (props) => {
 	return (
-   	<div style={{border: '1px solid navy'}}>
+   	<div style={{border: '1px solid lightblue'}}>
 			<ul className="entity-list">
 				{props.entities.map(entity => (
 					<li key={entity.entityId}>

@@ -7,6 +7,7 @@ export enum ActionTypes {
 	ADD = 'ADD',
 	GET = 'GET',
 	DISPLAY = 'DISPLAY',
+	CLOSE = 'CLOSE',
 	EDIT = 'EDIT',
 	REMOVE = 'REMOVE',
   	STORE = 'STORE',
@@ -38,6 +39,10 @@ export interface IDisplay {
 	student: IStudent;
 }
 
+export interface IClose {
+	type: ActionTypes.CLOSE;
+}
+
 export interface IEdit {
 	type: ActionTypes.EDIT;
 	student: IStudent;
@@ -60,7 +65,7 @@ export interface ICancel {
 
 // Combine the action types with a union (we assume there are more)
 export type Actions = IGetAll | IGet | ISetLoading | 
-					IDisplay | IAdd | IEdit | IRemove | 
+					IDisplay | IClose | IAdd | IEdit | IRemove | 
 					IStore | ICancel;
 
 
@@ -111,6 +116,13 @@ export const display = (entityId: number) : IDisplay => {
 }
 
 
+export const close = () : IClose => { 
+	return { 
+		type: ActionTypes.CLOSE
+	}
+}
+
+
 export const store = (student: IStudent) : IStore => { 
 	return { 
 		type: ActionTypes.STORE,
@@ -150,17 +162,6 @@ export const cancel = () : ICancel => {
 })()
 */
 
-//let localStorageStudentsss: IStudent[] = [
-//]
-
-/*
-let localStorageStudents: IStudent[] = [
-	{ entityId: 101, name: '', firstName: 'Piter', lastName: 'Fonda',  email: 'piter@gmail.com', url: '/student/'},
-	{ entityId: 102, name: '', firstName: 'Ana', lastName: 'Karenjina', email: 'ana@gmail.com', url: '/student/'},
-	{ entityId: 103, name: '', firstName: 'Jack', lastName: 'Daniels', email: 'jack@gmail.com', url: '/student/'},
-	{ entityId: 104, name: '', firstName: 'Robert', lastName:'De Niro', email: 'robi@gmail.com', url: '/student/'},
-]
-*/
 let localStorageStudents: IStudent[] = [ ...jsonStudents ]
 
 

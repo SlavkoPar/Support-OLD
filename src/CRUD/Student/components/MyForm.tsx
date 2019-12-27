@@ -60,7 +60,7 @@ export const MyForm: React.FC<IFormProps> = (props: IFormProps) => {
 			</>
 		}
 
-      <label htmlFor="code">First name</label>
+      <label htmlFor="code">Code</label>
       <input
         id="code"
         name="code"
@@ -74,10 +74,10 @@ export const MyForm: React.FC<IFormProps> = (props: IFormProps) => {
         <div>{formik.errors.code}</div>
       ) : null}
 
-		<label htmlFor="lastName">Last name</label>
+		<label htmlFor="lastName">Avatar</label>
       <input
-        id="lastName"
-        name="lastName"
+        id="avtar"
+        name="avtar"
         type="text"
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
@@ -88,7 +88,7 @@ export const MyForm: React.FC<IFormProps> = (props: IFormProps) => {
         <div>{formik.errors.avatar}</div>
       ) : null}		
 
-		<label htmlFor="lastName">Email</label>
+		<label htmlFor="email">Email</label>
       <input
         id="email"
         name="email"

@@ -43,6 +43,13 @@ export const reducer: React.Reducer<IStudentState, Actions> = (state, action) =>
 				entity: { ...action.student }				
 			}
 
+		case ActionTypes.CLOSE: 
+			return {
+				...state,
+				formMode: 'none',
+				entity: undefined			
+			}
+
 		case ActionTypes.EDIT: 
 			return {
 				...state,

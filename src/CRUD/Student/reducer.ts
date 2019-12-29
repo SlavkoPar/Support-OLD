@@ -1,8 +1,9 @@
 import { IStudentState, IStudent } from './types';
 
-import { Actions, ActionTypes } from './actions';  // , localStorageSave
+import { Actions } from './actions';  // , localStorageSave
 import { initialStudent } from './useStudent';
 import { IEntityState, IEntity } from '../Common/types';
+import { ActionTypes } from '../Common/actions';
 
 interface IProps<T> {
 	state: T, 
@@ -22,7 +23,7 @@ export const reducer: <T extends IEntityState<IEntity>>() => React.Reducer<T, Ac
 			case ActionTypes.GET_ALL:
 				return {
 					...state,
-					entites: action.students,
+					entites: action.entites,
 				}
 	
 			case ActionTypes.SET_LOADING:
@@ -34,7 +35,7 @@ export const reducer: <T extends IEntityState<IEntity>>() => React.Reducer<T, Ac
 			case ActionTypes.GET: {
 				return {
 					...state,
-					entity: action.student
+					entity: action.entity
 				};
 			}    
 	
@@ -53,7 +54,7 @@ export const reducer: <T extends IEntityState<IEntity>>() => React.Reducer<T, Ac
 				return {
 					...state,
 					formMode: 'display',
-					entity: { ...action.student }				
+					entity: { ...action.entity }				
 				}
 	
 			case ActionTypes.CLOSE: 
@@ -67,7 +68,7 @@ export const reducer: <T extends IEntityState<IEntity>>() => React.Reducer<T, Ac
 				return {
 					...state,
 					formMode: 'edit',
-					entity: { ...action.student }				
+					entity: { ...action.entity }				
 				}
 				
 			case ActionTypes.REMOVE: {
@@ -83,16 +84,16 @@ export const reducer: <T extends IEntityState<IEntity>>() => React.Reducer<T, Ac
 			case ActionTypes.STORE: {
 				let entites: IEntity[] = [];
 				if (state.formMode === 'add') {
-					entites = [...state.entites, { ...action.student }]
+					entites = [...state.entites, { ...action.entity }]
 				}
 				else {
-					entites = state.entites.map(a => a.entityId === action.student.entityId ? { ...action.student } : a)
+					entites = state.entites.map(a => a.entityId === action.entity.entityId ? { ...action.entity } : a)
 				}
 				// localStorageSave(JSON.stringify(students))
 				return {
 					...state,
 					formMode: 'edit',
-					entity: { ...action.student },
+					entity: { ...action.entity },
 					entites: entites
 				};
 			}
@@ -110,7 +111,7 @@ export const reducer: <T extends IEntityState<IEntity>>() => React.Reducer<T, Ac
 	}
 }
 
-
+/*
 export const reducerWas: React.Reducer<IStudentState, Actions> = (state, action) =>  {
 	switch(action.type) {
 
@@ -203,3 +204,4 @@ export const reducerWas: React.Reducer<IStudentState, Actions> = (state, action)
 			throw new Error(`Unhandled action type: ${action!.type}`);
 	}
 }
+*/

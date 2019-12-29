@@ -1,9 +1,116 @@
 import { IStudentState, IStudent } from './types';
 
-import { Actions, ActionTypes, localStorageSave } from './actions';
+import { Actions, ActionTypes } from './actions';  // , localStorageSave
 import { initialStudent } from './useStudent';
 
-export const reducer: React.Reducer<IStudentState, Actions> = (state, action) =>  {
+interface IProps<T> {
+	state: T, 
+	action: Actions
+}
+
+// const middleElement: <T>(arr: Array<T>) => T = (arr) => {
+// 	return arr[Math.floor(arr.length / 2)];
+// };
+
+// type Reducer<S, A> = (prevState: S, action: A) => S;
+
+export const reducer: <T extends IStudentState>() => React.Reducer<T, Actions> = () => {
+	return (state, action) =>  {
+		switch(action.type) {
+
+			case ActionTypes.GET_ALL:
+				return {
+					...state,
+					entites: action.students,
+				}
+	
+			case ActionTypes.SET_LOADING:
+				return {
+					...state,
+					loading: action.loading
+				}
+	
+			case ActionTypes.GET: {
+				return {
+					...state,
+					entity: action.student
+				};
+			}    
+	
+			case ActionTypes.ADD: {
+				return {
+					...state,
+					formMode: 'add',
+					entity: { 
+						...initialStudent, 
+						entityId: action.entityId
+					}
+				};
+			}    	
+	
+			case ActionTypes.DISPLAY: 
+				return {
+					...state,
+					formMode: 'display',
+					entity: { ...action.student }				
+				}
+	
+			case ActionTypes.CLOSE: 
+				return {
+					...state,
+					formMode: 'none',
+					entity: undefined			
+				}
+	
+			case ActionTypes.EDIT: 
+				return {
+					...state,
+					formMode: 'edit',
+					entity: { ...action.student }				
+				}
+				
+			case ActionTypes.REMOVE: {
+				// localStorageSave(JSON.stringify(state.entites.filter(e => e.entityId !== action.entityId)))
+				return {
+					...state,
+					formMode: 'display',
+					entity: undefined,
+					entites: state.entites.filter(e => e.entityId !== action.entityId)
+				}
+			}
+			
+			case ActionTypes.STORE: {
+				let students: IStudent[] = [];
+				if (state.formMode === 'add') {
+					students = [...state.entites, { ...action.student }]
+				}
+				else {
+					students = state.entites.map(a => a.entityId === action.student.entityId ? { ...action.student } : a)
+				}
+				// localStorageSave(JSON.stringify(students))
+				return {
+					...state,
+					formMode: 'edit',
+					entity: { ...action.student },
+					entites: students
+				};
+			}
+	
+			case ActionTypes.CANCEL: {
+				return {
+					...state,
+					formMode: 'display',
+				};
+			}
+	
+			default:
+				throw new Error(`Unhandled action type: ${action!.type}`);
+		}
+	}
+}
+
+
+export const reducerWas: React.Reducer<IStudentState, Actions> = (state, action) =>  {
 	switch(action.type) {
 
 		case ActionTypes.GET_ALL:
@@ -58,7 +165,7 @@ export const reducer: React.Reducer<IStudentState, Actions> = (state, action) =>
 			}
 			
 		case ActionTypes.REMOVE: {
-			localStorageSave(JSON.stringify(state.entites.filter(e => e.entityId !== action.entityId)))
+			// localStorageSave(JSON.stringify(state.entites.filter(e => e.entityId !== action.entityId)))
 			return {
 				...state,
 				formMode: 'display',
@@ -75,7 +182,7 @@ export const reducer: React.Reducer<IStudentState, Actions> = (state, action) =>
 			else {
 				students = state.entites.map(a => a.entityId === action.student.entityId ? { ...action.student } : a)
 			}
-			localStorageSave(JSON.stringify(students))
+			// localStorageSave(JSON.stringify(students))
 			return {
 				...state,
 				formMode: 'edit',

@@ -162,7 +162,7 @@ export const cancel = () : ICancel => {
 })()
 */
 
-let localStorageStudents: IStudent[] = [ ...jsonStudents ]
+let localStorageStudents: IStudent[] = [jsonStudents[0], jsonStudents[1], jsonStudents[2]] // [ ...jsonStudents ]
 
 
 export const localStorageSave = (sStudents: string) => {

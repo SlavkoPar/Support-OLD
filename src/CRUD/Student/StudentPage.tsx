@@ -4,10 +4,11 @@ import { StudentProvider } from "./useStudent";
 import { useStudent } from "./useStudent";
 
 import { EntityList } from "../Common/EntityList";
-import { StudentForm } from "./components/StudentForm";
+// import { StudentForm } from "./components/StudentForm";
 
 import { IStudent } from "./types";
 import { getAll, setLoading } from "./actions";
+import { Generics } from "./Generics";
 
 interface IPageProps {
 	query: string;
@@ -25,6 +26,11 @@ export const Page: React.FC<IPageProps> = (props: IProps) => {
   	return (
 		<div className="two-columns">
 			<div className="a">
+				<div>
+					<h5>Generics</h5>
+					<Generics query="all" />
+				</div>
+
 				<h3>Students</h3>
 				<EntityList 
 					entities={state.entites}
@@ -36,7 +42,7 @@ export const Page: React.FC<IPageProps> = (props: IProps) => {
 				 />
 			</div>
 			<div className="b">
-				<StudentForm />
+				{/* <StudentForm /> */}
 			</div>
 		</div>    		
   );

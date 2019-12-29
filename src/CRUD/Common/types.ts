@@ -5,8 +5,6 @@ export interface IEntity {
 	url: string;
 }
 
-
-
 export interface IEntityState<T> {
 	readonly entites: T[];
 	readonly entity?: T;

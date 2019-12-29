@@ -5,7 +5,7 @@ interface IHoverProps {
 }
 
 // Hook
-export function useHoverUL() : [React.RefObject<HTMLUListElement>, IHoverProps] {
+export function useHover() : [React.RefObject<HTMLUListElement>, IHoverProps] {
 	const [hoverProps, setValue] = useState({ isHovered: false });
  
 	const divRef = useRef<HTMLUListElement>(null);

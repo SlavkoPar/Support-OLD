@@ -36,7 +36,8 @@ interface IProps {
 
 export const StudentProvider: React.FC<IProps> = ({ children }) => {
 
-  const [state, dispatch] = useReducer<React.Reducer<IStudentState, Actions>>(reducer<IStudentState, IStudent>(initialStudent), initialState);
+	const [state, dispatch] = useReducer<React.Reducer<IStudentState, Actions>>
+  		(reducer<IStudentState, IStudent>(initialStudent), initialState);
   
 	if (StudentContext === undefined)
   		StudentContext = createContext<IStudentContext>({ state, dispatch })

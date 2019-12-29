@@ -4,7 +4,7 @@ import { faWindowClose, faEdit } from '@fortawesome/free-solid-svg-icons'
 
 import { Actions, EntityActions } from "../Common/actions";
 
-import { useHoverUL } from "./useHoverUL";
+import { useHover } from "./useHover";
 import { IEntity } from "../Common/types";
 
 interface IRowProps<T> {
@@ -17,7 +17,7 @@ export const EntityRow: <T extends IEntity>
 					(props: IRowProps<T>) => React.ReactElement<IRowProps<T>> = (props) => {
 	const { entity, dispatch, renderColumns } = props;
 	const { entityId, name } = entity; // , url 
-	const [hoverRef, hoverProps] = useHoverUL();
+	const [hoverRef, hoverProps] = useHover();
 
 	return (
 		<ul className="entity-columns" ref={hoverRef}>

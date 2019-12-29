@@ -8,7 +8,7 @@ import { EntityList } from "../Common/EntityList";
 // import { StudentForm } from "./components/StudentForm";
 
 import { IStudent } from "./types";
-import { Generics } from "../Generics";
+// import { Generics } from "../Generics";
 import { EntityActions } from "../Common/actions";
 
 interface IPageProps {
@@ -29,10 +29,10 @@ export const Page: React.FC<IPageProps> = (props: IProps) => {
   	return (
 		<div className="two-columns">
 			<div className="a">
-				<div>
+				{/* <div>
 					<h5>Generics</h5>
 					<Generics query="all" />
-				</div>
+				</div> */}
 
 				<h3>Students</h3>
 				<EntityList 

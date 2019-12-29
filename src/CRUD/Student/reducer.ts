@@ -2,6 +2,7 @@ import { IStudentState, IStudent } from './types';
 
 import { Actions, ActionTypes } from './actions';  // , localStorageSave
 import { initialStudent } from './useStudent';
+import { IEntityState, IEntity } from '../Common/types';
 
 interface IProps<T> {
 	state: T, 
@@ -14,7 +15,7 @@ interface IProps<T> {
 
 // type Reducer<S, A> = (prevState: S, action: A) => S;
 
-export const reducer: <T extends IStudentState>() => React.Reducer<T, Actions> = () => {
+export const reducer: <T extends IEntityState<IEntity>>() => React.Reducer<T, Actions> = () => {
 	return (state, action) =>  {
 		switch(action.type) {
 
@@ -80,19 +81,19 @@ export const reducer: <T extends IStudentState>() => React.Reducer<T, Actions> =
 			}
 			
 			case ActionTypes.STORE: {
-				let students: IStudent[] = [];
+				let entites: IEntity[] = [];
 				if (state.formMode === 'add') {
-					students = [...state.entites, { ...action.student }]
+					entites = [...state.entites, { ...action.student }]
 				}
 				else {
-					students = state.entites.map(a => a.entityId === action.student.entityId ? { ...action.student } : a)
+					entites = state.entites.map(a => a.entityId === action.student.entityId ? { ...action.student } : a)
 				}
 				// localStorageSave(JSON.stringify(students))
 				return {
 					...state,
 					formMode: 'edit',
 					entity: { ...action.student },
-					entites: students
+					entites: entites
 				};
 			}
 	

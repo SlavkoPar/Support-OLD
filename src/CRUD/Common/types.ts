@@ -7,3 +7,10 @@ export interface IEntity {
 
 
 
+export interface IEntityState<T> {
+	readonly entites: T[];
+	readonly entity?: T;
+	loading: boolean;
+	formMode: string;
+	canEdit: boolean;
+}

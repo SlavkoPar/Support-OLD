@@ -1,4 +1,4 @@
-import { IEntity } from "../Common/types";
+import { IEntity, IEntityState } from "../Common/types";
 
 export interface IStudent extends IEntity {
 	code: string;
@@ -7,10 +7,5 @@ export interface IStudent extends IEntity {
 	avatar: string;
 }
 
-export interface IStudentState {
-	readonly entites: IStudent[];
-	readonly entity?: IStudent;
-	loading: boolean;
-	formMode: string;
-	canEdit: boolean;
+export interface IStudentState extends IEntityState<IStudent> {
 }

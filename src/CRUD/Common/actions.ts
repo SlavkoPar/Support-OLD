@@ -62,4 +62,87 @@ export interface ICancel {
 	type: ActionTypes.CANCEL;
 }
 
+export type Actions = IGetAll<IEntity> | IGet<IEntity> | ISetLoading | 
+					IDisplay<IEntity> | IClose | IAdd | IEdit<IEntity> | IRemove | 
+					IStore<IEntity> | ICancel;
+
+
+export interface IEntityActions<T extends IEntity> {
+	localStorageEntites: T[],
+	getAll: (entities: T[]) => IGetAll<T>,
+	get: (entityId: number) => IGet<T>,
+	add: () => IAdd,
+	setLoading: (b: boolean) => ISetLoading,
+	edit: (entityId: number) => IEdit<T>,
+	display: (entityId: number) => IDisplay<T>,
+	close: () => IClose,
+	store: (entity: T) => IStore<T>,
+	remove: (entityId: number) => IRemove,
+	cancel: () => ICancel,
+}
+
+export const EntityActions: IEntityActions<IEntity> = {
+	localStorageEntites: [],
+	getAll: (entities) : IGetAll<IEntity> => { 
+		return { 
+			type: ActionTypes.GET_ALL,
+			entites: [...entities]
+		}
+	},
+	get: (entityId: number) : IGet<IEntity> => { 
+		return { 
+			type: ActionTypes.GET,
+			entity: localStorageEntities.find(e => e.entityId === entityId)!
+		}
+	},
+	add: () : IAdd => { 
+		return { 
+			type: ActionTypes.ADD,
+			entityId: localStorageEntities.length === 0 ? 
+				1 : Math.max(...localStorageEntities.map(e => e.entityId)) + 1
+		}
+	},
+	setLoading: (b: boolean) : ISetLoading => { 
+		return { 
+			type: ActionTypes.SET_LOADING,
+			loading: b
+		}
+	},
+	edit: (entityId: number) : IEdit<IEntity> => { 
+		return { 
+			type: ActionTypes.EDIT,
+			entity: localStorageEntities.find(e => e.entityId === entityId)!
+		}
+	},
+	display: (entityId: number) : IDisplay<IEntity> => { 
+		return { 
+			type: ActionTypes.DISPLAY,
+			entity: localStorageEntities.find(e => e.entityId === entityId)!
+		}
+	},
+	close: () : IClose => { 
+		return { 
+			type: ActionTypes.CLOSE
+		}
+	},
+	store: (entity: IEntity) : IStore<IEntity> => { 
+		return { 
+			type: ActionTypes.STORE,
+			entity
+		}
+	},
+	remove: (entityId: number) : IRemove => { 
+		return { 
+			type: ActionTypes.REMOVE,
+			entityId
+		}
+	},
+	cancel: () : ICancel => { 
+		return { 
+			type: ActionTypes.CANCEL
+		}
+	}	
+}
+
+export let localStorageEntities: IEntity[] = []
 

@@ -2,7 +2,7 @@ import React from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faWindowClose, faEdit } from '@fortawesome/free-solid-svg-icons'
 
-import { display, edit, remove, Actions } from "../Student/actions";
+import { Actions, EntityActions } from "../Common/actions";
 
 import { useHoverUL } from "./useHoverUL";
 import { IEntity } from "../Common/types";
@@ -23,7 +23,7 @@ export const EntityRow: <T extends IEntity>
 		<ul className="entity-columns" ref={hoverRef}>
 			{/* <li>{entityId}</li> */}
 			<li>
-				<a href="#/" onClick={(e) => { e.preventDefault(); dispatch(display(entityId)) }}>
+				<a href="#/" onClick={(e) => { e.preventDefault(); dispatch(EntityActions.display(entityId)) }}>
 					{name}
 				</a>
 			</li>
@@ -32,13 +32,13 @@ export const EntityRow: <T extends IEntity>
 
 			<li>
 			{hoverProps.isHovered &&
-				<button className="button-edit" title="Edit" onClick={() => dispatch(edit(entityId))}>
+				<button className="button-edit" title="Edit" onClick={() => dispatch(EntityActions.edit(entityId))}>
 					<FontAwesomeIcon icon={faEdit} color='lightblue' />
 				</button>
 			}
 			{hoverProps.isHovered &&
 				<button className="button-remove" title="Remove" onClick={() => { 
-						dispatch(remove(entityId));
+						dispatch(EntityActions.remove(entityId));
 					}}
 				>
 					<FontAwesomeIcon icon={faWindowClose}  color='lightblue' />

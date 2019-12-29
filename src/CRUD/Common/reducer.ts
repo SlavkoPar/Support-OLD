@@ -1,9 +1,7 @@
-import { IStudentState, IStudent } from './types';
 
 import { Actions } from './actions';  // , localStorageSave
-import { initialStudent } from './useStudent';
-import { IEntityState, IEntity } from '../Common/types';
-import { ActionTypes } from '../Common/actions';
+import { IEntityState, IEntity } from './types';
+import { ActionTypes } from './actions';
 
 interface IProps<T> {
 	state: T, 
@@ -16,7 +14,10 @@ interface IProps<T> {
 
 // type Reducer<S, A> = (prevState: S, action: A) => S;
 
-export const reducer: <T extends IEntityState<IEntity>>() => React.Reducer<T, Actions> = () => {
+export const reducer: <
+	TS extends IEntityState<IEntity>,
+	T extends IEntity
+>(initialEntity: T) => React.Reducer<TS, Actions> = (initialEntity) => {
 	return (state, action) =>  {
 		switch(action.type) {
 
@@ -44,7 +45,7 @@ export const reducer: <T extends IEntityState<IEntity>>() => React.Reducer<T, Ac
 					...state,
 					formMode: 'add',
 					entity: { 
-						...initialStudent, 
+						...initialEntity, 
 						entityId: action.entityId
 					}
 				};

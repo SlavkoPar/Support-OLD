@@ -1,8 +1,8 @@
 
 import React, { createContext, useContext, useReducer, Dispatch } from 'react';
 import { IStudent, IStudentState } from './types';
-import { reducer } from './reducer';
-import { Actions } from './actions';
+import { reducer } from '../Common/reducer';
+import { Actions } from '../Common/actions';
 
 
 export const initialStudent: IStudent = { 
@@ -36,7 +36,7 @@ interface IProps {
 
 export const StudentProvider: React.FC<IProps> = ({ children }) => {
 
-  const [state, dispatch] = useReducer<React.Reducer<IStudentState, Actions>>(reducer<IStudentState>(), initialState);
+  const [state, dispatch] = useReducer<React.Reducer<IStudentState, Actions>>(reducer<IStudentState, IStudent>(initialStudent), initialState);
   
 	if (StudentContext === undefined)
   		StudentContext = createContext<IStudentContext>({ state, dispatch })

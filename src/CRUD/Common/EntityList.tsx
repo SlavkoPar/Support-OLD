@@ -1,5 +1,5 @@
 import React from "react";
-import { add, Actions } from "../Student/actions";
+import { Actions, EntityActions } from "../Common/actions";
 import { EntityRow } from "./EntityRow";
 import { IEntity } from "../Common/types";
 
@@ -25,7 +25,7 @@ export const EntityList: <T extends IEntity>
 					</li>
 				))}
 			</ul>		
-			<button onClick={() => props.dispatch(add())}>Add new</button>			
+			<button onClick={() => props.dispatch(EntityActions.add())}>Add new</button>			
 		</div>
   )
 }

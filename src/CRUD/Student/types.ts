@@ -8,4 +8,5 @@ export interface IStudent extends IEntity {
 }
 
 export interface IStudentState extends IEntityState<IStudent> {
+	something: number[]
 }

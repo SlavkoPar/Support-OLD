@@ -14,7 +14,7 @@ interface IProps<T> {
 
 // type Reducer<S, A> = (prevState: S, action: A) => S;
 
-export const reducer: <
+export const entityReducer: <
 	TS extends IEntityState<IEntity>,
 	T extends IEntity
 >(initialEntity: T) => React.Reducer<TS, Actions> = (initialEntity) => {
@@ -24,7 +24,7 @@ export const reducer: <
 			case ActionTypes.GET_ALL:
 				return {
 					...state,
-					entites: action.entites,
+					entities: action.entities,
 				}
 	
 			case ActionTypes.SET_LOADING:
@@ -73,29 +73,29 @@ export const reducer: <
 				}
 				
 			case ActionTypes.REMOVE: {
-				// localStorageSave(JSON.stringify(state.entites.filter(e => e.entityId !== action.entityId)))
+				// localStorageSave(JSON.stringify(state.entities.filter(e => e.entityId !== action.entityId)))
 				return {
 					...state,
 					formMode: 'display',
 					entity: undefined,
-					entites: state.entites.filter(e => e.entityId !== action.entityId)
+					entities: state.entities.filter(e => e.entityId !== action.entityId)
 				}
 			}
 			
 			case ActionTypes.STORE: {
-				let entites: IEntity[] = [];
+				let entities: IEntity[] = [];
 				if (state.formMode === 'add') {
-					entites = [...state.entites, { ...action.entity }]
+					entities = [...state.entities, { ...action.entity }]
 				}
 				else {
-					entites = state.entites.map(a => a.entityId === action.entity.entityId ? { ...action.entity } : a)
+					entities = state.entities.map(a => a.entityId === action.entity.entityId ? { ...action.entity } : a)
 				}
 				// localStorageSave(JSON.stringify(students))
 				return {
 					...state,
 					formMode: 'edit',
 					entity: { ...action.entity },
-					entites: entites
+					entities: entities
 				};
 			}
 	
@@ -107,7 +107,9 @@ export const reducer: <
 			}
 	
 			default:
-				throw new Error(`Unhandled action type: ${action!.type}`);
+				//throw new Error(`Unhandled action type: ${action!.type}`);
+				// when combine reducers 
+				return state
 		}
 	}
 }

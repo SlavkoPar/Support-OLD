@@ -16,7 +16,7 @@ export enum ActionTypes {
 
 export interface IGetAll<T extends IEntity> {
 	type: ActionTypes.GET_ALL;
-	entites: T[]
+	entities: T[]
 }
 
 export interface ISetLoading {
@@ -68,7 +68,7 @@ export type Actions = IGetAll<IEntity> | IGet<IEntity> | ISetLoading |
 
 
 export interface IEntityActions<T extends IEntity> {
-	localStorageEntites: T[],
+	localStorageEntities: T[],
 	getAll: (entities: T[]) => IGetAll<T>,
 	get: (entityId: number) => IGet<T>,
 	add: () => IAdd,
@@ -82,11 +82,11 @@ export interface IEntityActions<T extends IEntity> {
 }
 
 export const EntityActions: IEntityActions<IEntity> = {
-	localStorageEntites: [],
+	localStorageEntities: [],
 	getAll: (entities) : IGetAll<IEntity> => { 
 		return { 
 			type: ActionTypes.GET_ALL,
-			entites: [...entities]
+			entities: [...entities]
 		}
 	},
 	get: (entityId: number) : IGet<IEntity> => { 

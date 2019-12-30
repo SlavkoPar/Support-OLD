@@ -1,27 +1,16 @@
 
 import React, { createContext, useContext, useReducer, Dispatch } from 'react';
-import { IStudent, IStudentState } from './types';
-import { reducer } from '../Common/reducer';
+import { IStudentState } from './types';
 import { Actions } from '../Common/actions';
-
-
-export const initialStudent: IStudent = { 
-	entityId: 0, 
-	name: '',
-	url: '',
-	code: '',
-	email: '',
-	avatar: 'https://img.pokemondb.net/artwork/diglett.jpg',
-	types: []
-};
+import { Reducer } from './studentReducer';
 
 const initialState: IStudentState = { 
-	entites: [],
+	entities: [],
 	loading: false,
 	formMode: 'display',
-	canEdit: true
+	canEdit: true,
+	something: [1, 2, 3]
 };
-
 
 export interface IStudentContext {
 	state: IStudentState;
@@ -35,10 +24,8 @@ interface IProps {
 }
 
 export const StudentProvider: React.FC<IProps> = ({ children }) => {
+	const [state, dispatch] = useReducer(Reducer, initialState)
 
-	const [state, dispatch] = useReducer<React.Reducer<IStudentState, Actions>>
-  		(reducer<IStudentState, IStudent>(initialStudent), initialState);
-  
 	if (StudentContext === undefined)
   		StudentContext = createContext<IStudentContext>({ state, dispatch })
 

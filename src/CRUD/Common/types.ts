@@ -11,4 +11,7 @@ export interface IEntityState<T> {
 	loading: boolean;
 	formMode: string;
 	canEdit: boolean;
+	// list
+	pageCount: number;
+	currentPage: number;
 }

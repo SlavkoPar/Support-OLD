@@ -324,3 +324,14 @@ ul.entity-columns > li {
 	border: 1px solid silver;
 	padding: 3px;
  }
+
+ #react-paginate ul {
+	display: inline-block;
+	padding-left: 15px;
+	padding-right: 15px;
+}
+
+#react-paginate li {
+	display: inline-block;
+	padding-left: 10px;
+}

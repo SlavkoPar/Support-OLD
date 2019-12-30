@@ -33,7 +33,8 @@ export const studentReducer: <
 			case ActionTypes.GET_ALL:
 				return {
 					...state,
-					entities: action.entities
+					entities: action.entities,
+					pageCount: Math.ceil(action.entities.length / action.pageSize)
 				}
 	
 			default:

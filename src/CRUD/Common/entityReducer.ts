@@ -25,6 +25,7 @@ export const entityReducer: <
 				return {
 					...state,
 					entities: action.entities,
+					pageCount: Math.ceil(action.entities.length / action.pageSize)
 				}
 	
 			case ActionTypes.SET_LOADING:
@@ -105,6 +106,14 @@ export const entityReducer: <
 					formMode: 'display',
 				};
 			}
+
+			case ActionTypes.GO_TO_PAGE: {
+				return {
+					...state,
+					currentPage: action.page
+				}
+			}
+			
 	
 			default:
 				//throw new Error(`Unhandled action type: ${action!.type}`);

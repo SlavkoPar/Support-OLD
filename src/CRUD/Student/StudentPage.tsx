@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import jsonStudents from "./Students.json"
 
 import { StudentProvider } from "./useStudent";
@@ -9,6 +9,7 @@ import { EntityList } from "../Common/EntityList";
 
 import { IStudent } from "./types";
 import { EntityActions } from "../Common/actions";
+import { IEntity } from "../Common/types.js";
 
 interface IPageProps {
 	query: string;
@@ -17,21 +18,38 @@ interface IPageProps {
 export const Page: React.FC<IPageProps> = (props: IProps) => {
 	const { state, dispatch } = useStudent();
 
-	React.useEffect(() => {
-		dispatch(EntityActions.setLoading(true))
+	// const [offset, setOffset] = useState(0);
+	// const [currentPage, setCurrentPage] = useState(1);
+	// const [data, setData] = useState<IEntity[]>([]);
+	const [currentData, setCurrentData] = useState<IStudent[]>([]);
+	 
+	const { entities, currentPage, pageCount } = state;
 
-		//let localStorageStudents: IStudent[] = [jsonStudents[0], jsonStudents[1], jsonStudents[2]] // [ ...jsonStudents ]
-		dispatch(EntityActions.getAll([jsonStudents[0], jsonStudents[1], jsonStudents[2]]))
+	const pageSize = 6;
+	useEffect(() => {
+		dispatch(EntityActions.setLoading(true))
+		let allStudents: IStudent[] = [...jsonStudents]
+		dispatch(EntityActions.getAll(allStudents, pageSize))
 		dispatch(EntityActions.setLoading(false))
 	}, [dispatch, props.query]);
+	
+	useEffect(() => {
+		const offset = currentPage * pageSize
+		setCurrentData(entities.slice(offset, offset + pageSize));
+	 }, [entities, currentPage]);
+
 
   	return (
 		<div className="two-columns">
 			<div className="a">
 				<h3>Students</h3>
 				<EntityList 
-					entities={state.entities}
+					entities={currentData}
 					dispatch={dispatch}
+					currentPage={currentPage}
+					pageCount={pageCount}
+					marginPagesDisplayed={2}
+					pageRangeDisplayed={5}
 					renderColumns = {(entity: IStudent) => [
 						<li style={{minWidth: '60%'}}>{entity.types.join(', ')}</li>,
 						<li><img src={entity.avatar} style={{height: '30px'}} alt="Slika"></img></li>

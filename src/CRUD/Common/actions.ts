@@ -11,12 +11,14 @@ export enum ActionTypes {
 	REMOVE = 'REMOVE',
   	STORE = 'STORE',
 	CANCEL = 'CANCEL',
+	GO_TO_PAGE = 'GO_TO_PAGE'
 }
 
 
 export interface IGetAll<T extends IEntity> {
 	type: ActionTypes.GET_ALL;
-	entities: T[]
+	entities: T[];
+	pageSize: number;
 }
 
 export interface ISetLoading {
@@ -62,14 +64,20 @@ export interface ICancel {
 	type: ActionTypes.CANCEL;
 }
 
+export interface IGoToPage {
+	type: ActionTypes.GO_TO_PAGE;
+	page: number;
+}
+
+
 export type Actions = IGetAll<IEntity> | IGet<IEntity> | ISetLoading | 
 					IDisplay<IEntity> | IClose | IAdd | IEdit<IEntity> | IRemove | 
-					IStore<IEntity> | ICancel;
+					IStore<IEntity> | ICancel | IGoToPage;
 
 
 export interface IEntityActions<T extends IEntity> {
 	localStorageEntities: T[],
-	getAll: (entities: T[]) => IGetAll<T>,
+	getAll: (entities: T[], pageSize: number) => IGetAll<T>,
 	get: (entityId: number) => IGet<T>,
 	add: () => IAdd,
 	setLoading: (b: boolean) => ISetLoading,
@@ -79,14 +87,17 @@ export interface IEntityActions<T extends IEntity> {
 	store: (entity: T) => IStore<T>,
 	remove: (entityId: number) => IRemove,
 	cancel: () => ICancel,
+	goToPage: (page: number) => IGoToPage,
+
 }
 
 export const EntityActions: IEntityActions<IEntity> = {
 	localStorageEntities: [],
-	getAll: (entities) : IGetAll<IEntity> => { 
+	getAll: (entities, pageSize) : IGetAll<IEntity> => { 
 		return { 
 			type: ActionTypes.GET_ALL,
-			entities: [...entities]
+			entities: [...entities],
+			pageSize
 		}
 	},
 	get: (entityId: number) : IGet<IEntity> => { 
@@ -141,7 +152,13 @@ export const EntityActions: IEntityActions<IEntity> = {
 		return { 
 			type: ActionTypes.CANCEL
 		}
-	}	
+	},
+	goToPage: (page: number) : IGoToPage => { 
+		return { 
+			type: ActionTypes.GO_TO_PAGE,
+			page
+		}
+	},	
 }
 
 export let localStorageEntities: IEntity[] = []

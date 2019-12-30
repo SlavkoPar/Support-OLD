@@ -9,6 +9,8 @@ const initialState: IStudentState = {
 	loading: false,
 	formMode: 'display',
 	canEdit: true,
+	pageCount: 0,
+	currentPage: 0,
 	something: [1, 2, 3]
 };
 

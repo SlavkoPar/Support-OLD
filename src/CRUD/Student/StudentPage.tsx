@@ -17,15 +17,11 @@ interface IPageProps {
 
 export const Page: React.FC<IPageProps> = (props: IProps) => {
 	const { state, dispatch } = useStudent();
-
-	// const [offset, setOffset] = useState(0);
-	// const [currentPage, setCurrentPage] = useState(1);
-	// const [data, setData] = useState<IEntity[]>([]);
-	const [currentData, setCurrentData] = useState<IStudent[]>([]);
-	 
 	const { entities, currentPage, pageCount } = state;
 
+	const [currentData, setCurrentData] = useState<IStudent[]>([]);
 	const pageSize = 6;
+	
 	useEffect(() => {
 		dispatch(EntityActions.setLoading(true))
 		let allStudents: IStudent[] = [...jsonStudents]

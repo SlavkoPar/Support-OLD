@@ -1,5 +1,5 @@
 
-import { Actions } from './actions';  // , localStorageSave
+import { Actions, saveStorage } from './actions'; 
 import { IEntityState, IEntity } from './types';
 import { ActionTypes } from './actions';
 
@@ -8,11 +8,6 @@ interface IProps<T> {
 	action: Actions
 }
 
-// const middleElement: <T>(arr: Array<T>) => T = (arr) => {
-// 	return arr[Math.floor(arr.length / 2)];
-// };
-
-// type Reducer<S, A> = (prevState: S, action: A) => S;
 
 export const entityReducer: <
 	TS extends IEntityState<IEntity>,
@@ -74,7 +69,7 @@ export const entityReducer: <
 				}
 				
 			case ActionTypes.REMOVE: {
-				// localStorageSave(JSON.stringify(state.entities.filter(e => e.entityId !== action.entityId)))
+				saveStorage(JSON.stringify(state.entities.filter(e => e.entityId !== action.entityId)))
 				return {
 					...state,
 					formMode: 'display',
@@ -91,7 +86,7 @@ export const entityReducer: <
 				else {
 					entities = state.entities.map(a => a.entityId === action.entity.entityId ? { ...action.entity } : a)
 				}
-				// localStorageSave(JSON.stringify(students))
+				saveStorage(JSON.stringify(entities))
 				return {
 					...state,
 					formMode: 'edit',
@@ -113,7 +108,6 @@ export const entityReducer: <
 					currentPage: action.page
 				}
 			}
-			
 	
 			default:
 				//throw new Error(`Unhandled action type: ${action!.type}`);

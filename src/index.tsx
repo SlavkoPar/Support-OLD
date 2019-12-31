@@ -81,6 +81,9 @@ const Root: React.SFC<IProps> = props => {
 							<Link to="/answers/pera">Answers</Link>
 						</li>
 						<li className="push-right">
+							<Link to="/crud">Crud</Link>
+						</li>
+						<li className="push-right">
 							<Link to="/answers/pera">Sign In</Link>
 						</li>
 					</ul>					

@@ -5,11 +5,10 @@ import { StudentProvider } from "./useStudent";
 import { useStudent } from "./useStudent";
 
 import { EntityList } from "../Common/EntityList";
-// import { StudentForm } from "./components/StudentForm";
+import { StudentForm } from "./components/StudentForm";
 
 import { IStudent } from "./types";
 import { EntityActions } from "../Common/actions";
-import { IEntity } from "../Common/types.js";
 
 interface IPageProps {
 	query: string;
@@ -20,7 +19,7 @@ export const Page: React.FC<IPageProps> = (props: IProps) => {
 	const { entities, currentPage, pageCount } = state;
 
 	const [currentData, setCurrentData] = useState<IStudent[]>([]);
-	const pageSize = 6;
+	const pageSize = 9;
 	
 	useEffect(() => {
 		dispatch(EntityActions.setLoading(true))
@@ -47,13 +46,13 @@ export const Page: React.FC<IPageProps> = (props: IProps) => {
 					marginPagesDisplayed={2}
 					pageRangeDisplayed={5}
 					renderColumns = {(entity: IStudent) => [
-						<li style={{minWidth: '60%'}}>{entity.types.join(', ')}</li>,
-						<li><img src={entity.avatar} style={{height: '30px'}} alt="Slika"></img></li>
+						<li key="types" style={{minWidth: '60%'}}>{entity.types.join(', ')}</li>,
+						<li key="img"><img src={entity.avatar} style={{height: '30px'}} alt="Slika"></img></li>
 					]}
 				 />
 			</div>
 			<div className="b">
-				{/* <StudentForm /> */}
+				<StudentForm />
 			</div>
 		</div>    		
   );

@@ -22,7 +22,7 @@ export const EntityRow: <T extends IEntity>
 	return (
 		<ul className="entity-columns" ref={hoverRef}>
 			{/* <li>{entityId}</li> */}
-			<li>
+			<li key={entityId}>
 				<a href="#/" onClick={(e) => { e.preventDefault(); dispatch(EntityActions.display(entityId)) }}>
 					{name}
 				</a>
@@ -30,7 +30,7 @@ export const EntityRow: <T extends IEntity>
 
 			{ renderColumns(entity) }
 
-			<li>
+			<li key="buttons">
 			{hoverProps.isHovered &&
 				<button className="button-edit" title="Edit" onClick={() => dispatch(EntityActions.edit(entityId))}>
 					<FontAwesomeIcon icon={faEdit} color='lightblue' />

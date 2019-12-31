@@ -76,7 +76,6 @@ export type Actions = IGetAll<IEntity> | IGet<IEntity> | ISetLoading |
 
 
 export interface IEntityActions<T extends IEntity> {
-	localStorageEntities: T[],
 	getAll: (entities: T[], pageSize: number) => IGetAll<T>,
 	get: (entityId: number) => IGet<T>,
 	add: () => IAdd,
@@ -88,12 +87,11 @@ export interface IEntityActions<T extends IEntity> {
 	remove: (entityId: number) => IRemove,
 	cancel: () => ICancel,
 	goToPage: (page: number) => IGoToPage,
-
 }
 
 export const EntityActions: IEntityActions<IEntity> = {
-	localStorageEntities: [],
 	getAll: (entities, pageSize) : IGetAll<IEntity> => { 
+		localStorageEntities = [...entities]
 		return { 
 			type: ActionTypes.GET_ALL,
 			entities: [...entities],
@@ -161,5 +159,9 @@ export const EntityActions: IEntityActions<IEntity> = {
 	},	
 }
 
-export let localStorageEntities: IEntity[] = []
+let localStorageEntities: IEntity[] = []
+
+export const saveStorage = (s: string) => {
+	localStorageEntities = JSON.parse(s)
+}
 

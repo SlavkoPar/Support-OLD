@@ -36,7 +36,12 @@ export const studentReducer: <
 					entities: action.entities,
 					pageCount: Math.ceil(action.entities.length / action.pageSize)
 				}
-	
+
+			// case StudentActionTypes.STUDENT_ADD_GRADE:
+			// ...to be implemented
+			// case StudentActionTypes.STUDENT_REMOVE_GRADE:
+			// ...to be implemented
+		
 			default:
 			//	throw new Error(`Unhandled action type: ${action!.type}`);
 			// when combine reducers 

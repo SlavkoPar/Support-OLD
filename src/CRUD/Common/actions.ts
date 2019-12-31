@@ -90,6 +90,21 @@ export interface IEntityActions<T extends IEntity> {
 }
 
 export const EntityActions: IEntityActions<IEntity> = {
+
+	/*
+	getAll: ActionCreator<ThunkAction<Promise<any>, IStudentState, null, IGetAll>> = () => {
+		return async (dispatch: Dispatch) => {
+		try {
+			const response = await axios.get('https://swapi.co/api/people/');
+			dispatch({
+				type: ActionTypes.GET_ALL,
+				answers: response.data.results,
+			});
+		} catch (err) {
+			console.error(err);
+		}
+	},
+	*/	
 	getAll: (entities, pageSize) : IGetAll<IEntity> => { 
 		localStorageEntities = [...entities]
 		return { 

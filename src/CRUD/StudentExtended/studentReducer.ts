@@ -2,6 +2,7 @@ import { IStudentState, IStudent } from "./types";
 import { Actions, ActionTypes } from "../Common/actions";
 import { IEntityState, IEntity } from "../Common/types";
 import { entityReducer } from "../Common/entityReducer";
+import { ActionsExtended, StudentActionTypes } from "./actions";
 
 
 export const initialStudent: IStudent = { 
@@ -26,7 +27,7 @@ export const combineReducers: (reducers: React.Reducer<IStudentState, Actions>[]
 export const studentReducer: <
 	TS extends IEntityState<IEntity>,
 	T extends IEntity
->(initialEntity: T) => React.Reducer<TS, Actions> = (initialEntity) => {
+>(initialEntity: T) => React.Reducer<TS, ActionsExtended> = (initialEntity) => {
 	return (state, action) =>  {
 		switch(action.type) {
 
@@ -37,15 +38,16 @@ export const studentReducer: <
 					pageCount: Math.ceil(action.entities.length / action.pageSize)
 				}
 
-			// case StudentActionTypes.STUDENT_ADD_GRADE:
-			// ...to be implemented
-			// case StudentActionTypes.STUDENT_REMOVE_GRADE:
-			// ...to be implemented
+			case StudentActionTypes.STUDENT_ADD_GRADE:
+				return {...state}
+				
+			case StudentActionTypes.STUDENT_REMOVE_GRADE:
+				return {...state}
 		
 			default:
-			//	throw new Error(`Unhandled action type: ${action!.type}`);
-			// when combine reducers 
-			return state
+				//	throw new Error(`Unhandled action type: ${action!.type}`);
+				// when combine reducers 
+				return state
 		}		
 	}
 }

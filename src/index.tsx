@@ -24,6 +24,7 @@ import { StudentPage } from './CRUD/Student/StudentPage';
 import './formik/formikStyles.css';
 import { css } from 'glamor';
 import { COLORS } from './formik/theme';
+import { StudentPageExtended } from './CRUD/StudentExtended/StudentPage';
 const { base, black, ...cols } = COLORS;
 
 // Cool example colors.
@@ -81,9 +82,12 @@ const Root: React.SFC<IProps> = props => {
 							<Link to="/answers/pera">Answers</Link>
 						</li>
 						<li className="push-right">
-							<Link to="/crud">Crud</Link>
+							<Link to="/student">Student</Link>
 						</li>
-						<li className="push-right">
+						<li>
+							<Link to="/studentextended">Student Extended</Link>
+						</li>
+						<li>
 							<Link to="/answers/pera">Sign In</Link>
 						</li>
 					</ul>					
@@ -106,9 +110,12 @@ const Root: React.SFC<IProps> = props => {
 								return <div>{match}</div>;
 							}}
 						/> */}
-						<Route path="/crud">
+						<Route path="/student">
 							<StudentPage query="all" />
 						</Route>
+						<Route path="/studentextended">
+							<StudentPageExtended query="all" />
+						</Route>						
 					</Switch>
 				</div>	
 			</Router>

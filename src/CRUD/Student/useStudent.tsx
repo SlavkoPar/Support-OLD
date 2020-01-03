@@ -3,8 +3,19 @@ import React, { createContext, useContext, useReducer, Dispatch } from 'react';
 import { IStudentState } from './types';
 import { Actions } from '../Generics/actions';
 import { entityReducer } from '../Generics/entityReducer';
-import { IStudent } from '../StudentExtended/types';
-import { initialStudent } from '../StudentExtended/studentReducer';
+import { IStudent } from './types';
+
+
+export const initialStudent: IStudent = { 
+	entityId: 0, 
+	name: '',
+	url: '',
+	code: '',
+	email: '',
+	avatar: 'https://img.pokemondb.net/artwork/diglett.jpg',
+	types: []
+};
+
 
 const initialState: IStudentState = { 
 	entities: [],

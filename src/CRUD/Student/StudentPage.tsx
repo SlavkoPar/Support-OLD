@@ -4,11 +4,11 @@ import jsonStudents from "./Students.json"
 import { StudentProvider } from "./useStudent";
 import { useStudent } from "./useStudent";
 
-import { EntityList } from "../Common/EntityList";
+import { EntityList } from "../Generics/EntityList";
 import { StudentForm } from "./components/StudentForm";
 
 import { IStudent } from "./types";
-import { EntityActions } from "../Common/actions";
+import { EntityActions } from "../Generics/actions";
 
 interface IPageProps {
 	query: string;
@@ -23,8 +23,9 @@ export const Page: React.FC<IPageProps> = (props: IProps) => {
 	
 	useEffect(() => {
 		dispatch(EntityActions.setLoading(true))
-		let allStudents: IStudent[] = [...jsonStudents]
-		dispatch(EntityActions.getAll(allStudents, pageSize))
+		// let allStudents: IStudent[] = [...jsonStudents]
+		localStorageStudents = [...jsonStudents]
+		dispatch(EntityActions.getAll(localStorageStudents, pageSize))
 		dispatch(EntityActions.setLoading(false))
 	}, [dispatch, props.query]);
 	
@@ -41,6 +42,7 @@ export const Page: React.FC<IPageProps> = (props: IProps) => {
 				<EntityList 
 					entities={currentData}
 					dispatch={dispatch}
+					saveStorage={saveStorage}
 					currentPage={currentPage}
 					pageCount={pageCount}
 					marginPagesDisplayed={2}
@@ -52,7 +54,7 @@ export const Page: React.FC<IPageProps> = (props: IProps) => {
 				 />
 			</div>
 			<div className="b">
-				<StudentForm />
+				<StudentForm saveStorage={saveStorage} />
 			</div>
 		</div>    		
   );
@@ -71,3 +73,8 @@ export const StudentPage: React.FC<IProps> = (props: IProps) => {
   );
 }
 
+let localStorageStudents: IStudent[] = []
+
+export const saveStorage = (s: string) => {
+	localStorageStudents = JSON.parse(s)
+}

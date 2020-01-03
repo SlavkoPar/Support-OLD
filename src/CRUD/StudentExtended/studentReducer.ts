@@ -1,7 +1,7 @@
 import { IStudentState, IStudent } from "./types";
-import { Actions, ActionTypes } from "../Common/actions";
-import { IEntityState, IEntity } from "../Common/types";
-import { entityReducer } from "../Common/entityReducer";
+import { Actions, ActionTypes } from "../Generics/actions";
+import { IEntityState, IEntity } from "../Generics/types";
+import { entityReducer } from "../Generics/entityReducer";
 import { ActionsExtended, StudentActionTypes } from "./actions";
 
 

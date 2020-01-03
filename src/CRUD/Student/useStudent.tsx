@@ -1,8 +1,8 @@
 
 import React, { createContext, useContext, useReducer, Dispatch } from 'react';
 import { IStudentState } from './types';
-import { Actions } from '../Common/actions';
-import { entityReducer } from '../Common/entityReducer';
+import { Actions } from '../Generics/actions';
+import { entityReducer } from '../Generics/entityReducer';
 import { IStudent } from '../StudentExtended/types';
 import { initialStudent } from '../StudentExtended/studentReducer';
 

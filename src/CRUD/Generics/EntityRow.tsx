@@ -2,20 +2,23 @@ import React from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faWindowClose, faEdit } from '@fortawesome/free-solid-svg-icons'
 
-import { Actions, EntityActions } from "../Common/actions";
+import { Actions, EntityActions } from "./actions";
 
-import { useHover } from "./useHover";
-import { IEntity } from "../Common/types";
+import { useHover } from "../Common/useHover";
+import { IEntity } from "./types";
 
 interface IRowProps<T> {
 	entity: T,
-	dispatch: React.Dispatch<Actions>,
-	renderColumns: (item: T) => JSX.Element[]
+	// dispatch: React.Dispatch<Actions>,
+	renderColumns: (item: T) => JSX.Element[],
+	display: (entityId: number) => void,
+	edit: (entityId: number) => void,
+	remove: (entityId: number) => void,
 }
 
 export const EntityRow: <T extends IEntity> 
 					(props: IRowProps<T>) => React.ReactElement<IRowProps<T>> = (props) => {
-	const { entity, dispatch, renderColumns } = props;
+	const { entity, renderColumns, display, edit, remove } = props;
 	const { entityId, name } = entity; // , url 
 	const [hoverRef, hoverProps] = useHover();
 
@@ -23,7 +26,7 @@ export const EntityRow: <T extends IEntity>
 		<ul className="entity-columns" ref={hoverRef}>
 			{/* <li>{entityId}</li> */}
 			<li key={entityId}>
-				<a href="#/" onClick={(e) => { e.preventDefault(); dispatch(EntityActions.display(entityId)) }}>
+				<a href="#/" onClick={(e) => { e.preventDefault(); display(entityId)  }}>  {/* dispatch(EntityActions.display(entityId)) */}
 					{name}
 				</a>
 			</li>
@@ -32,15 +35,12 @@ export const EntityRow: <T extends IEntity>
 
 			<li key="buttons">
 			{hoverProps.isHovered &&
-				<button className="button-edit" title="Edit" onClick={() => dispatch(EntityActions.edit(entityId))}>
+				<button className="button-edit" title="Edit" onClick={() => edit(entityId)}>
 					<FontAwesomeIcon icon={faEdit} color='lightblue' />
 				</button>
 			}
 			{hoverProps.isHovered &&
-				<button className="button-remove" title="Remove" onClick={() => { 
-						dispatch(EntityActions.remove(entityId));
-					}}
-				>
+				<button className="button-remove" title="Remove" onClick={() => { remove(entityId) }}>
 					<FontAwesomeIcon icon={faWindowClose}  color='lightblue' />
 				</button>
 			}

@@ -1,4 +1,4 @@
-import { IEntity } from "../Common/types";
+import { IEntity } from "./types";
 
 export enum ActionTypes {
 	GET_ALL = 'GET_ALL',
@@ -53,11 +53,13 @@ export interface IEdit<T extends IEntity> {
 export interface IRemove {
 	type: ActionTypes.REMOVE;
 	entityId: number;
+	saveStorage: (s: string) => void;
 }
 
 export interface IStore<T extends IEntity> {
 	type: ActionTypes.STORE;
-	entity: T
+	entity: T;
+	saveStorage: (s: string) => void;
 }
 
 export interface ICancel {
@@ -77,14 +79,14 @@ export type Actions = IGetAll<IEntity> | IGet<IEntity> | ISetLoading |
 
 export interface IEntityActions<T extends IEntity> {
 	getAll: (entities: T[], pageSize: number) => IGetAll<T>,
-	get: (entityId: number) => IGet<T>,
-	add: () => IAdd,
+	get: (entities: T[], entityId: number) => IGet<T>,
+	add: (entities: T[]) => IAdd,
 	setLoading: (b: boolean) => ISetLoading,
-	edit: (entityId: number) => IEdit<T>,
-	display: (entityId: number) => IDisplay<T>,
+	display: (entities: T[], entityId: number) => IDisplay<T>,
+	edit: (entities: T[], entityId: number) => IEdit<T>,
 	close: () => IClose,
-	store: (entity: T) => IStore<T>,
-	remove: (entityId: number) => IRemove,
+	store: (saveStorage: (s: string) => void, entity: T) => IStore<T>,
+	remove: (saveStorage: (s: string) => void, entityId: number) => IRemove,
 	cancel: () => ICancel,
 	goToPage: (page: number) => IGoToPage,
 }
@@ -106,24 +108,23 @@ export const EntityActions: IEntityActions<IEntity> = {
 	},
 	*/	
 	getAll: (entities, pageSize) : IGetAll<IEntity> => { 
-		localStorageEntities = [...entities]
 		return { 
 			type: ActionTypes.GET_ALL,
 			entities: [...entities],
 			pageSize
 		}
 	},
-	get: (entityId: number) : IGet<IEntity> => { 
+	get: (entities: IEntity[], entityId: number) : IGet<IEntity> => { 
 		return { 
 			type: ActionTypes.GET,
-			entity: localStorageEntities.find(e => e.entityId === entityId)!
+			entity: entities.find(e => e.entityId === entityId)!
 		}
 	},
-	add: () : IAdd => { 
+	add: (entities: IEntity[]) : IAdd => { 
 		return { 
 			type: ActionTypes.ADD,
-			entityId: localStorageEntities.length === 0 ? 
-				1 : Math.max(...localStorageEntities.map(e => e.entityId)) + 1
+			entityId: entities.length === 0 ? 
+				1 : Math.max(...entities.map(e => e.entityId)) + 1
 		}
 	},
 	setLoading: (b: boolean) : ISetLoading => { 
@@ -132,16 +133,16 @@ export const EntityActions: IEntityActions<IEntity> = {
 			loading: b
 		}
 	},
-	edit: (entityId: number) : IEdit<IEntity> => { 
+	edit: (entities: IEntity[], entityId: number) : IEdit<IEntity> => { 
 		return { 
 			type: ActionTypes.EDIT,
-			entity: localStorageEntities.find(e => e.entityId === entityId)!
+			entity: entities.find(e => e.entityId === entityId)!
 		}
 	},
-	display: (entityId: number) : IDisplay<IEntity> => { 
+	display: (entities: IEntity[], entityId: number) : IDisplay<IEntity> => { 
 		return { 
 			type: ActionTypes.DISPLAY,
-			entity: localStorageEntities.find(e => e.entityId === entityId)!
+			entity: entities.find(e => e.entityId === entityId)!
 		}
 	},
 	close: () : IClose => { 
@@ -149,16 +150,18 @@ export const EntityActions: IEntityActions<IEntity> = {
 			type: ActionTypes.CLOSE
 		}
 	},
-	store: (entity: IEntity) : IStore<IEntity> => { 
+	store: (saveStorage: (s: string) => void, entity: IEntity) : IStore<IEntity> => { 
 		return { 
 			type: ActionTypes.STORE,
-			entity
+			entity,
+			saveStorage
 		}
 	},
-	remove: (entityId: number) : IRemove => { 
+	remove: (saveStorage: (s: string) => void, entityId: number) : IRemove => { 
 		return { 
 			type: ActionTypes.REMOVE,
-			entityId
+			entityId,
+			saveStorage
 		}
 	},
 	cancel: () : ICancel => { 
@@ -174,9 +177,11 @@ export const EntityActions: IEntityActions<IEntity> = {
 	},	
 }
 
+/*
 let localStorageEntities: IEntity[] = []
 
 export const saveStorage = (s: string) => {
 	localStorageEntities = JSON.parse(s)
 }
+*/
 

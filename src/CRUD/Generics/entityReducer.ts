@@ -1,5 +1,5 @@
 
-import { Actions, saveStorage } from './actions'; 
+import { Actions } from './actions'; 
 import { IEntityState, IEntity } from './types';
 import { ActionTypes } from './actions';
 
@@ -69,7 +69,7 @@ export const entityReducer: <
 				}
 				
 			case ActionTypes.REMOVE: {
-				saveStorage(JSON.stringify(state.entities.filter(e => e.entityId !== action.entityId)))
+				action.saveStorage(JSON.stringify(state.entities.filter(e => e.entityId !== action.entityId)))
 				return {
 					...state,
 					formMode: 'display',
@@ -86,7 +86,7 @@ export const entityReducer: <
 				else {
 					entities = state.entities.map(a => a.entityId === action.entity.entityId ? { ...action.entity } : a)
 				}
-				saveStorage(JSON.stringify(entities))
+				action.saveStorage(JSON.stringify(entities))
 				return {
 					...state,
 					formMode: 'edit',

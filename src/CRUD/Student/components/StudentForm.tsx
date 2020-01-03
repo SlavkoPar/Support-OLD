@@ -4,15 +4,18 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import { faWindowClose } from '@fortawesome/free-solid-svg-icons'
 
-import { EntityActions} from '../../Common/actions'
+import { EntityActions} from '../../Generics/actions'
 import { MyForm } from './MyForm';
 
 interface IProps {
+	saveStorage: (s: string) => void,
 }
 
 export const StudentForm: React.FC<IProps> = (props: IProps) => {
 	const { state, dispatch } = useStudent();
-	const { entity, formMode, canEdit } = state;
+	const { entities, entity, formMode, canEdit } = state;
+
+	const { saveStorage } = props;
 
 	let title: string = ''
 	switch (state.formMode) {
@@ -42,9 +45,9 @@ export const StudentForm: React.FC<IProps> = (props: IProps) => {
 					formMode={formMode}
 					canEdit={canEdit}
 					cancel = {() => dispatch(EntityActions.cancel())}
-					saveForm = { (student) => dispatch(EntityActions.store(student))}
-					edit = {() => dispatch(EntityActions.edit(entity!.entityId))}
-					remove = {() => dispatch(EntityActions.remove(entity!.entityId))}
+					saveForm = { (student) => dispatch(EntityActions.store(saveStorage, student))}
+					edit = {() => dispatch(EntityActions.edit(entities, entity!.entityId))}
+					remove = {() => dispatch(EntityActions.remove(saveStorage, entity!.entityId))}
 				/>
 			</div>
 		}

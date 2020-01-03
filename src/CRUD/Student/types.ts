@@ -1,4 +1,4 @@
-import { IEntity, IEntityState } from "../Common/types";
+import { IEntity, IEntityState } from "../Generics/types";
 
 export interface IStudent extends IEntity {
 	code: string;

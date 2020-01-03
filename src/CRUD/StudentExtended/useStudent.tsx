@@ -1,7 +1,7 @@
 
 import React, { createContext, useContext, useReducer, Dispatch } from 'react';
 import { IStudentState } from './types';
-import { Actions } from '../Common/actions';
+import { Actions } from '../Generics/actions';
 import { Reducer } from './studentReducer';
 
 const initialState: IStudentState = { 

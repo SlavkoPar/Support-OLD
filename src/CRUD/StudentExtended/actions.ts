@@ -1,5 +1,5 @@
 import { IGrade } from "./types";
-import { Actions, EntityActions } from "../Common/actions";
+import { Actions, EntityActions } from "../Generics/actions";
 
 export enum StudentActionTypes {
 	STUDENT_ADD_GRADE = 'STUDENT_ADD_GRADE',

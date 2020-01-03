@@ -1,9 +1,9 @@
 
 import React, { createContext, useContext, useReducer, Dispatch } from 'react';
 import { IStudentState } from './types';
-import { Actions } from '../Generics/actions';
 import { entityReducer } from '../Generics/entityReducer';
 import { IStudent } from './types';
+import { AcceptedActions } from '../Generics/actions';
 
 
 export const initialStudent: IStudent = { 
@@ -29,7 +29,7 @@ const initialState: IStudentState = {
 
 export interface IStudentContext {
 	state: IStudentState;
-	dispatch: Dispatch<Actions>;
+	dispatch: Dispatch<AcceptedActions>;
 }
 
 let StudentContext: React.Context<IStudentContext>;

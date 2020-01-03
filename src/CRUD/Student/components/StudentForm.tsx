@@ -37,7 +37,12 @@ export const StudentForm: React.FC<IProps> = (props: IProps) => {
 		{ entity && 
 			<div style={{border: '1px solid silver', borderRadius: '5px', padding: '10px'}}>
 				<h4 style={{marginTop: 0}}>{title}</h4>
-				<button style={{float:'right'}} className="button-remove" title="Close" onClick={() => { dispatch(EntityActions.close())}}>
+				<button 
+					style={{float:'right'}}
+					className="button-remove"
+					title="Close"
+					onClick={() => { dispatch(EntityActions.close())}}
+				>
 					<FontAwesomeIcon icon={faWindowClose} size="2x" color='lightblue' />
 				</button>				
 				<MyForm {...props}
@@ -45,9 +50,9 @@ export const StudentForm: React.FC<IProps> = (props: IProps) => {
 					formMode={formMode}
 					canEdit={canEdit}
 					cancel = {() => dispatch(EntityActions.cancel())}
-					saveForm = { (student) => dispatch(EntityActions.store(saveStorage, student))}
-					edit = {() => dispatch(EntityActions.edit(entities, entity!.entityId))}
-					remove = {() => dispatch(EntityActions.remove(saveStorage, entity!.entityId))}
+					saveForm = { (student) => dispatch(EntityActions.store({ saveStorage, entity: student }))}
+					edit = {() => dispatch(EntityActions.edit({entities, entityId: entity!.entityId}))}
+					remove = {() => dispatch(EntityActions.remove({ saveStorage, entityId: entity!.entityId }))}
 				/>
 			</div>
 		}

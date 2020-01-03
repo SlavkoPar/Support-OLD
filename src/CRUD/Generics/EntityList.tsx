@@ -1,14 +1,14 @@
 import React from "react";
 import ReactPaginate from 'react-paginate';
 
-import { Actions, EntityActions } from "./actions";
+import { EntityActions, AcceptedActions } from "./actions";
 import { EntityRow } from "./EntityRow";
 import { IEntity } from "./types";
 
 
 interface IProps<T extends IEntity> {
 	entities: T[],
-	dispatch: React.Dispatch<Actions>,
+	dispatch: React.Dispatch<AcceptedActions>,
 	renderColumns: (item: T) => JSX.Element[],
 	saveStorage: (s: string) => void,
 	currentPage: number,
@@ -24,9 +24,9 @@ export const EntityList: <T extends IEntity>
 		pageCount, pageRangeDisplayed, marginPagesDisplayed, 
 	} = props;
 	
-	const display = (entityId: number) => dispatch(EntityActions.display(entities, entityId));
-	const edit = (entityId: number) => dispatch(EntityActions.edit(entities, entityId));
-	const remove = (entityId: number) => dispatch(EntityActions.remove(saveStorage, entityId));
+	const display = (entityId: number) => dispatch(EntityActions.display({entities, entityId}));
+	const edit = (entityId: number) => dispatch(EntityActions.edit({entities, entityId}));
+	const remove = (entityId: number) => dispatch(EntityActions.remove({saveStorage, entityId}));
 
 	return (
    	<div style={{border: '1px solid lightblue'}} id="react-paginate">
@@ -58,7 +58,7 @@ export const EntityList: <T extends IEntity>
 				pageRangeDisplayed={pageRangeDisplayed}
 				marginPagesDisplayed={marginPagesDisplayed}
 			/>
-			<button onClick={() => dispatch(EntityActions.add(entities))}>Add new</button>			
+			<button onClick={() => dispatch(EntityActions.add({ entities: entities }))}>Add new</button>			
 		</div>
   )
 }

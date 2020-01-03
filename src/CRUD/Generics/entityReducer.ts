@@ -1,96 +1,102 @@
 
-import { Actions } from './actions'; 
 import { IEntityState, IEntity } from './types';
-import { ActionTypes } from './actions';
-
-interface IProps<T> {
-	state: T, 
-	action: Actions
-}
-
+import { ActionTypes, AcceptedActions } from './actions';
 
 export const entityReducer: <
 	TS extends IEntityState<IEntity>,
 	T extends IEntity
->(initialEntity: T) => React.Reducer<TS, Actions> = (initialEntity) => {
+>(initialEntity: T) => React.Reducer<TS, AcceptedActions> = (initialEntity) => {
 	return (state, action) =>  {
 		switch(action.type) {
 
-			case ActionTypes.GET_ALL:
+			case ActionTypes.GET_ALL: {
+				const { entities, pageSize } = action.payload;
 				return {
 					...state,
-					entities: action.entities,
-					pageCount: Math.ceil(action.entities.length / action.pageSize)
+					entities: entities,
+					pageCount: Math.ceil(entities.length / pageSize)
 				}
-	
+			}
+
 			case ActionTypes.SET_LOADING:
 				return {
 					...state,
-					loading: action.loading
+					loading: action.payload
 				}
 	
 			case ActionTypes.GET: {
+				const { entities, entityId } = action.payload;
 				return {
 					...state,
-					entity: action.entity
+					entity: entities.find(e => e.entityId === entityId)!
 				};
 			}    
-	
+
 			case ActionTypes.ADD: {
+				const { entities } = action.payload
 				return {
 					...state,
 					formMode: 'add',
 					entity: { 
 						...initialEntity, 
-						entityId: action.entityId
+						entityId: entities.length === 0 ? 1 : Math.max(...entities.map(e => e.entityId)) + 1
 					}
 				};
 			}    	
 	
-			case ActionTypes.DISPLAY: 
+			case ActionTypes.DISPLAY: {
+				const { entities, entityId } = action.payload
+				const entity = entities.find(e => e.entityId === entityId)!
 				return {
 					...state,
 					formMode: 'display',
-					entity: { ...action.entity }				
+					entity: { ...entity },			
+					// entity: { ...state.entity, ...{entity } }
 				}
+			}
 	
+			case ActionTypes.EDIT: {
+				const { entities, entityId } = action.payload
+				const entity = entities.find(e => e.entityId === entityId)!
+				return {
+					...state,
+					formMode: 'edit',
+					entity: { ...entity }				
+				}
+			}
+
 			case ActionTypes.CLOSE: 
 				return {
 					...state,
 					formMode: 'none',
 					entity: undefined			
 				}
-	
-			case ActionTypes.EDIT: 
-				return {
-					...state,
-					formMode: 'edit',
-					entity: { ...action.entity }				
-				}
-				
+
 			case ActionTypes.REMOVE: {
-				action.saveStorage(JSON.stringify(state.entities.filter(e => e.entityId !== action.entityId)))
+				const { saveStorage, entityId } = action.payload
+				saveStorage(JSON.stringify(state.entities.filter(e => e.entityId !== entityId)))
 				return {
 					...state,
 					formMode: 'display',
 					entity: undefined,
-					entities: state.entities.filter(e => e.entityId !== action.entityId)
+					entities: state.entities.filter(e => e.entityId !== entityId)
 				}
 			}
 			
 			case ActionTypes.STORE: {
+				const { saveStorage, entity } = action.payload
 				let entities: IEntity[] = [];
 				if (state.formMode === 'add') {
-					entities = [...state.entities, { ...action.entity }]
+					entities = [...state.entities, { ...entity }]
 				}
 				else {
-					entities = state.entities.map(a => a.entityId === action.entity.entityId ? { ...action.entity } : a)
+					entities = state.entities.map(a => a.entityId === entity.entityId ? { ...entity } : a)
 				}
-				action.saveStorage(JSON.stringify(entities))
+				saveStorage(JSON.stringify(entities))
 				return {
 					...state,
 					formMode: 'edit',
-					entity: { ...action.entity },
+					entity: { ...entity },
 					entities: entities
 				};
 			}
@@ -105,12 +111,12 @@ export const entityReducer: <
 			case ActionTypes.GO_TO_PAGE: {
 				return {
 					...state,
-					currentPage: action.page
+					currentPage: action.payload
 				}
 			}
 	
 			default:
-				//throw new Error(`Unhandled action type: ${action!.type}`);
+				// throw new Error(`Unhandled action type: ${action!.type}`);
 				// when combine reducers 
 				return state
 		}

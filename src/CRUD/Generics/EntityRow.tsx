@@ -7,7 +7,6 @@ import { IEntity } from "./types";
 
 interface IRowProps<T> {
 	entity: T,
-	// dispatch: React.Dispatch<Actions>,
 	renderColumns: (item: T) => JSX.Element[],
 	display: (entityId: number) => void,
 	edit: (entityId: number) => void,

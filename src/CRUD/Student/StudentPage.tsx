@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import jsonStudents from "./Students.json"
 
-import { StudentProvider } from "./useStudent";
-import { useStudent } from "./useStudent";
+import { StudentProvider, useStudent } from "./useStudent";
 
 import { EntityList } from "../Generics/EntityList";
 import { StudentForm } from "./components/StudentForm";
 
 import { IStudent } from "./types";
+import { IEntity } from "../Generics/types.js";
 import { EntityActions } from "../Generics/actions";
 
 interface IPageProps {
@@ -25,7 +25,8 @@ export const Page: React.FC<IPageProps> = (props: IProps) => {
 		dispatch(EntityActions.setLoading(true))
 		// let allStudents: IStudent[] = [...jsonStudents]
 		localStorageStudents = [...jsonStudents]
-		dispatch(EntityActions.getAll(localStorageStudents, pageSize))
+		const entities : IEntity[] = localStorageStudents
+		dispatch(EntityActions.getAll({ entities, pageSize}))
 		dispatch(EntityActions.setLoading(false))
 	}, [dispatch, props.query]);
 	

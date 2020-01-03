@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import ReactPaginate from 'react-paginate';
 
 import { Actions, EntityActions } from "./actions";

@@ -2,8 +2,6 @@ import React from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faWindowClose, faEdit } from '@fortawesome/free-solid-svg-icons'
 
-import { Actions, EntityActions } from "./actions";
-
 import { useHover } from "../Common/useHover";
 import { IEntity } from "./types";
 

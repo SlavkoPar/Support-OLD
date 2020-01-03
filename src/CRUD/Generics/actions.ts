@@ -177,11 +177,4 @@ export const EntityActions: IEntityActions<IEntity> = {
 	},	
 }
 
-/*
-let localStorageEntities: IEntity[] = []
-
-export const saveStorage = (s: string) => {
-	localStorageEntities = JSON.parse(s)
-}
-*/
 

@@ -1,5 +1,5 @@
 import { IEntity } from "./types";
-import { createAction, createActionPayload, ActionsUnion } from "./actionsAccepted";
+import { createAction, createActionPayload, ActionsUnion, ActionsWithoutPayload, ActionsWithPayload } from "./actionsAccepted";
 
 export enum ActionTypes {
 	GET_ALL = 'GET_ALL',
@@ -15,23 +15,53 @@ export enum ActionTypes {
 	GO_TO_PAGE = 'GO_TO_PAGE'
 }
 
-/*
-export interface IEntityActions<T extends IEntity>  {
-	close: ActionsWithoutPayload<ActionTypes.CLOSE>;
-	cancel: ActionsWithoutPayload<ActionTypes.CLOSE>;
-	setLoading: ActionsWithPayload<typeof ActionTypes.SET_LOADING, boolean>;
-	getAll: ActionsWithPayload<typeof ActionTypes.GET_ALL, { entities: T[]; pageSize: number; }>;
-	get: ActionsWithPayload<typeof ActionTypes.GET, { entities: T[]; entityId: number }>;
-	add: ActionsWithPayload<typeof ActionTypes.ADD, T[]>;
-	display: ActionsWithPayload<typeof ActionTypes.DISPLAY, { entities: T[]; entityId: number }>;
-	edit: ActionsWithPayload<typeof ActionTypes.EDIT, { entities: T[]; entityId: number }>;
-	store: ActionsWithPayload<typeof ActionTypes.STORE, { saveStorage: (s: string) => void, entity: IEntity }>;
-	remove: ActionsWithPayload<typeof ActionTypes.REMOVE, { saveStorage: (s: string) => void, entityId: number }>;
-	goToPage: ActionsWithPayload<typeof ActionTypes.GO_TO_PAGE, number>;
- };
- */
 
-export const EntityActions = {
+export type IEntityActions<T extends IEntity> = {
+ 	close: () => ActionsWithoutPayload<ActionTypes.CLOSE>;
+	cancel: () => ActionsWithoutPayload<ActionTypes.CANCEL>;
+
+	setLoading: (b: boolean) => 
+				ActionsWithPayload<typeof ActionTypes.SET_LOADING, boolean>;
+
+	getAll: (payload: {entities: T[]; pageSize: number; }) => 
+				ActionsWithPayload<typeof ActionTypes.GET_ALL, {entities: T[]; pageSize: number; }>;
+
+	get: (payload:  { entities: T[]; entityId: number }) => 
+				ActionsWithPayload<typeof ActionTypes.GET, { entities: T[]; entityId: number }>;
+
+	add: (payload: { entities: T[] }) => 
+				ActionsWithPayload<typeof ActionTypes.ADD, { entities: T[] }>;
+
+	display: (payload: { entities: T[]; entityId: number }) => 
+				ActionsWithPayload<typeof ActionTypes.DISPLAY, { entities: T[]; entityId: number }>;
+
+	edit: (payload: { entities: T[]; entityId: number }) => 
+				ActionsWithPayload<typeof ActionTypes.EDIT, { entities: T[]; entityId: number }>;
+
+	store: (payload: { saveStorage: (s: string) => void, entity: T }) => 
+				ActionsWithPayload<typeof ActionTypes.STORE, { saveStorage: (s: string) => void, entity: IEntity }>;
+
+	remove: (payload: { saveStorage: (s: string) => void, entityId: number }) => 
+				ActionsWithPayload<typeof ActionTypes.REMOVE, { saveStorage: (s: string) => void, entityId: number }>;
+				
+	goToPage: (payload: number) => 
+				ActionsWithPayload<typeof ActionTypes.GO_TO_PAGE, number>;
+ };
+
+
+ /*
+ createActionPayload<ActionTypes.GET_ALL, {
+	entities: IEntity[];
+	pageSize: number;
+}>(actionType: ActionTypes.GET_ALL): (payload: {
+	entities: IEntity[];
+	pageSize: number;
+}) => ActionsWithPayload<ActionTypes.GET_ALL, {
+	...;
+}>
+*/
+
+export const EntityActions: IEntityActions<IEntity> = {
 	close: createAction<typeof ActionTypes.CLOSE>(ActionTypes.CLOSE),
 	cancel: createAction<typeof ActionTypes.CANCEL>(ActionTypes.CANCEL),
 	setLoading: createActionPayload<typeof ActionTypes.SET_LOADING, boolean>(ActionTypes.SET_LOADING),

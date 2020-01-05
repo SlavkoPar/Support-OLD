@@ -17,7 +17,9 @@ export enum ActionTypes {
 
 
 export type IEntityActions<T extends IEntity> = {
- 	close: () => ActionsWithoutPayload<ActionTypes.CLOSE>;
+
+	close: () => ActionsWithoutPayload<ActionTypes.CLOSE>;
+	 
 	cancel: () => ActionsWithoutPayload<ActionTypes.CANCEL>;
 
 	setLoading: (b: boolean) => 

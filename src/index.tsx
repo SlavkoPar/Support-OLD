@@ -20,11 +20,11 @@ import containers from './Questions/containers/Pages'
 
 // import { EntityPage } from './CRUD/Generics/EntityPage';
 import { StudentPage } from './CRUD/Student/StudentPage';
+import { StudentPageExtended } from './CRUD/StudentExtended/StudentPage';
 
 import './formik/formikStyles.css';
 import { css } from 'glamor';
 import { COLORS } from './formik/theme';
-// import { StudentPageExtended } from './CRUD/StudentExtended/StudentPage';
 const { base, black, ...cols } = COLORS;
 
 // Cool example colors.
@@ -114,7 +114,7 @@ const Root: React.SFC<IProps> = props => {
 							<StudentPage query="all" />
 						</Route>
 						<Route path="/studentextended">
-							{/* <StudentPageExtended query="all" /> */}
+							<StudentPageExtended query="all" />
 						</Route>						
 					</Switch>
 				</div>	

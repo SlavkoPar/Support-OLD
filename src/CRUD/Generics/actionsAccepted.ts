@@ -42,7 +42,7 @@ export interface ActionsWithoutPayload<TypeAction> {
 /**
  * A very general type that means to be "an object with a many field created with createActionPayload and createAction
  */
-interface ActionCreatorsMapObject {
+export interface ActionCreatorsMapObject {
   [key: string]: (
     ...args: any[]
   ) => ActionsWithPayload<any, any> | ActionsWithoutPayload<any>;

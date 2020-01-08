@@ -95,7 +95,7 @@ const Root: React.SFC<IProps> = props => {
 				<div>
 					<Switch>
 						<Route exact path="/">
-							{<App /> }
+							{<App />}
 						</Route>
 						<Route path="/questions">
 							<containers.questions canEdit={true} />

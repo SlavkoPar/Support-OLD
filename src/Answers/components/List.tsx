@@ -1,11 +1,9 @@
 import * as React from 'react';
 import { useParams } from 'react-router-dom' // useRouteMatch
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faWindowClose, faEdit } from '@fortawesome/free-solid-svg-icons'
-
 import { IAnswer } from '../types';
 import { AnswerForm } from './Form'
+import { ListRow } from './ListRow';
 
 interface IProps {
 	answers: IAnswer[],
@@ -23,7 +21,7 @@ interface IProps {
 const Answers: React.FC<IProps> = (props: IProps) => {
 	let { slug } = useParams();
 	slug = ''
-	const { answers, answer, formMode, add, edit, remove, cancel, saveForm } = props;
+	const { answers, answer, usedAnswers, formMode, add, edit, remove, cancel, saveForm } = props;
 	return (
 		<div className="name-container">
 			{slug}
@@ -47,31 +45,12 @@ const Answers: React.FC<IProps> = (props: IProps) => {
 						</thead>
 						<tbody>
 							{ answers.map(answer => 
-								<tr key={answer.answerId} >
-									<td className="name">
-										{answer.answerId}
-									</td>
-									<td className="name">
-										{answer.text}
-									</td>
-									<td>
-										<button
-											className="button-edit"
-											title="Add a new Answer"
-											onClick={() => edit(answer.answerId)}>
-												<FontAwesomeIcon icon={faEdit} color='lightblue' />
-										</button>
-									</td>
-									<td>
-										<button 
-											disabled={props.usedAnswers.includes(answer.answerId)}
-											className="button-remove"
-											title="Remove Answer"
-											onClick={() => remove(answer.answerId)}>
-												<FontAwesomeIcon icon={faWindowClose}  color='lightblue' />
-										</button>
-									</td>
-								</tr>
+								<ListRow
+									answer={answer}
+									usedAnswers={usedAnswers}
+									edit={edit}
+									remove={remove}
+								/>
 							)}
 						</tbody>
 					</table>

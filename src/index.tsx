@@ -15,7 +15,7 @@ import './index.css';
 import './App.css';
 
 import App from './components/App';
-import Answers from './Answers/containers/List'
+import AnswersPage from './Answers/containers/Page'
 import containers from './Questions/containers/Pages'
 
 // import { EntityPage } from './CRUD/Generics/EntityPage';
@@ -101,7 +101,7 @@ const Root: React.SFC<IProps> = props => {
 							<containers.questions canEdit={true} />
 						</Route>
 						<Route path="/answers/:slug">
-							<Answers />
+							<AnswersPage />
 						</Route>
 						{/* <Route
 							path="/blog2/:slug"

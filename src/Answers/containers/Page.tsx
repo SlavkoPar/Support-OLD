@@ -8,7 +8,7 @@ import { AnswerActions,  addAnswer, editAnswer, removeAnswer, storeAnswer, cance
 
 import { IAnswer } from '../types'
 
-import Answers from '../components/List'
+import Page from '../components/Page'
 import { IQuestionGroup } from '../../Questions/types';
 
 const getUsedAnswers = (questionGroups: IQuestionGroup[]) : number[]=> {
@@ -39,4 +39,4 @@ const mapDispatchToProps = (dispatch: Dispatch<AnswerActions>) => {
 	}
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Answers);
+export default connect(mapStateToProps, mapDispatchToProps)(Page);

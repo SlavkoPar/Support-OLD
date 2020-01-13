@@ -5,10 +5,11 @@ export interface IStudent extends IEntity {
 	email: string;
 	types: string[];
 	avatar: string;
+	grades: IGrade[]
 }
 
 export interface IStudentState extends IEntityState<IStudent> {
-	something: number[]
+	something: number[],
 }
 
 export interface  IGrade {

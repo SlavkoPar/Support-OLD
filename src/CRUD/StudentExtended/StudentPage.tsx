@@ -8,14 +8,36 @@ import { EntityList } from "../Generics/EntityList";
 import { StudentForm } from "./components/StudentForm";
 
 import { IStudent } from "./types";
+import { EntityActions } from "../Generics/actions";
 import { StudentActions } from "./actions";
-import { IEntity } from "../Generics/types";
 
 interface IPageProps {
 	query: string;
 }
 
 export const Page: React.FC<IPageProps> = (props: IProps) => {
+	/*
+	const { state, dispatch } = useStudent();
+	const { entities, currentPage, pageCount } = state;
+
+	const [currentData, setCurrentData] = useState<IStudent[]>([]);
+	const pageSize = 9;
+
+	useEffect(() => {
+		// dispatch(EntityActions.setLoading(true))
+		// //let allStudents: IStudent[] = [...jsonStudents]
+		// localStorageStudents = [...jsonStudents]
+		// const entities : IEntity[] = localStorageStudents
+		// dispatch(EntityActions.getAll({entities, pageSize}))
+		// dispatch(EntityActions.setLoading(false))
+	}, [dispatch, props.query]);
+	
+	useEffect(() => {
+		const offset = currentPage * pageSize
+		setCurrentData(entities.slice(offset, offset + pageSize));
+	}, [entities, currentPage]);
+	*/
+
 	const { state, dispatch } = useStudent();
 	const { entities, currentPage, pageCount } = state;
 
@@ -23,18 +45,19 @@ export const Page: React.FC<IPageProps> = (props: IProps) => {
 	const pageSize = 9;
 	
 	useEffect(() => {
-		dispatch(StudentActions.setLoading(true))
-		//let allStudents: IStudent[] = [...jsonStudents]
+		dispatch(EntityActions.setLoading(true))
+		// let allStudents: IStudent[] = [...jsonStudents]
 		localStorageStudents = [...jsonStudents]
-		const entities : IEntity[] = localStorageStudents
-		dispatch(StudentActions.getAll({entities, pageSize}))
-		dispatch(StudentActions.setLoading(false))
+		const entities: IStudent[] = localStorageStudents
+		dispatch(StudentActions.getAll({ entities, pageSize }))
+		dispatch(EntityActions.setLoading(false))
 	}, [dispatch, props.query]);
 	
 	useEffect(() => {
 		const offset = currentPage * pageSize
 		setCurrentData(entities.slice(offset, offset + pageSize));
 	 }, [entities, currentPage]);
+
 
 
   	return (
@@ -51,7 +74,8 @@ export const Page: React.FC<IPageProps> = (props: IProps) => {
 					pageRangeDisplayed={5}
 					renderColumns = {(entity: IStudent) => [
 						<li key="types" style={{minWidth: '60%'}}>{entity.types.join(', ')}</li>,
-						<li key="img"><img src={entity.avatar} style={{height: '30px'}} alt="Slika"></img></li>
+						<li key="img"><img src={entity.avatar} style={{height: '30px'}} alt="Slika"></img></li>,
+						<li key="grades">Grades:&nbsp;{entity.grades.map(g=> g.grade).join(', ')}</li>,
 					]}
 				 />
 			</div>

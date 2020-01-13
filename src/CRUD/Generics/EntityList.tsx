@@ -8,7 +8,7 @@ import { IEntity } from "./types";
 
 interface IProps<T extends IEntity> {
 	entities: T[],
-	dispatch: React.Dispatch<AcceptedActions>,
+	dispatch: React.Dispatch<any>,
 	renderColumns: (item: T) => JSX.Element[],
 	saveStorage: (s: string) => void,
 	currentPage: number,

@@ -15,7 +15,7 @@ export enum ActionTypes {
 	GO_TO_PAGE = 'GO_TO_PAGE'
 }
 
-
+/*
 export type IEntityActions<T extends IEntity> = {
 
 	close: () => ActionsWithoutPayload<ActionTypes.CLOSE>;
@@ -49,6 +49,7 @@ export type IEntityActions<T extends IEntity> = {
 	goToPage: (payload: number) => 
 				ActionsWithPayload<typeof ActionTypes.GO_TO_PAGE, number>;
  };
+ */
 
 
  /*
@@ -63,7 +64,7 @@ export type IEntityActions<T extends IEntity> = {
 }>
 */
 
-export const EntityActions: IEntityActions<IEntity> = {
+export const EntityActions = {  // : IEntityActions<IEntity>
 	close: createAction<typeof ActionTypes.CLOSE>(ActionTypes.CLOSE),
 	cancel: createAction<typeof ActionTypes.CANCEL>(ActionTypes.CANCEL),
 	setLoading: createActionPayload<typeof ActionTypes.SET_LOADING, boolean>(ActionTypes.SET_LOADING),

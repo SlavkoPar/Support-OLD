@@ -26,6 +26,7 @@ export const MyForm: React.FC<IFormProps> = (props: IFormProps) => {
 		name: props.entity.name,
 		email: props.entity.email,
 		types: props.entity.types,
+		grades: props.entity.grades
    },
    validationSchema: Yup.object({
       code: Yup.string()

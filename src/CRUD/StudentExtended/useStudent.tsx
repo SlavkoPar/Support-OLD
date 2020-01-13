@@ -4,6 +4,7 @@ import { IStudentState } from './types';
 // import { Reducer } from './studentReducerTry';
 import { StudentAcceptedActions } from './actions';
 import { Reducer } from './studentReducer';
+import { AcceptedActions } from '../Generics/actions';
 
 const initialState: IStudentState = { 
 	entities: [],
@@ -17,7 +18,7 @@ const initialState: IStudentState = {
 
 export interface IStudentContext {
 	state: IStudentState;
-	dispatch: Dispatch<StudentAcceptedActions>;
+	dispatch: Dispatch<any>; // AcceptedActions & StudentAcceptedActions>;
 }
 
 let StudentContext: React.Context<IStudentContext>;

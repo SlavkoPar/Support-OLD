@@ -7,7 +7,7 @@ import { EntityList } from "../Generics/EntityList";
 import { StudentForm } from "./components/StudentForm";
 
 import { IStudent } from "./types";
-import { IEntity } from "../Generics/types.js";
+import { IEntity } from "../Generics/types";
 import { EntityActions } from "../Generics/actions";
 
 interface IPageProps {

@@ -1,10 +1,7 @@
 
 import React, { createContext, useContext, useReducer, Dispatch } from 'react';
 import { IStudentState } from './types';
-// import { Reducer } from './studentReducerTry';
-import { StudentAcceptedActions } from './actions';
 import { Reducer } from './studentReducer';
-import { AcceptedActions } from '../Generics/actions';
 
 const initialState: IStudentState = { 
 	entities: [],

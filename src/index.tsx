@@ -18,10 +18,6 @@ import App from './components/App';
 import AnswersPage from './Answers/containers/Page'
 import containers from './Questions/containers/Pages'
 
-// import { EntityPage } from './CRUD/Generics/EntityPage';
-import { StudentPage } from './CRUD/Student/StudentPage';
-import { StudentPageExtended } from './CRUD/StudentExtended/StudentPage';
-
 import './formik/formikStyles.css';
 import { css } from 'glamor';
 import { COLORS } from './formik/theme';
@@ -81,13 +77,7 @@ const Root: React.SFC<IProps> = props => {
 						<li>
 							<Link to="/answers/pera">Answers</Link>
 						</li>
-						<li className="push-right">
-							<Link to="/student">Student</Link>
-						</li>
-						<li>
-							<Link to="/studentextended">Student Extended</Link>
-						</li>
-						<li>
+						<li  className="push-right">
 							<Link to="/answers/pera">Sign In</Link>
 						</li>
 					</ul>					
@@ -110,12 +100,6 @@ const Root: React.SFC<IProps> = props => {
 								return <div>{match}</div>;
 							}}
 						/> */}
-						<Route path="/student">
-							<StudentPage query="all" />
-						</Route>
-						<Route path="/studentextended">
-							<StudentPageExtended query="all" />
-						</Route>						
 					</Switch>
 				</div>	
 			</Router>
